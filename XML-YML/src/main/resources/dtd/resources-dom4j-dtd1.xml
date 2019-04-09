@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+
+<!DOCTYPE chunyangzi SYSTEM
+        "resources-dom4j-DTD1.dtd">
+
+<chunyangzi>
+
+    <mappers>this is mappers label</mappers>
+    <settings>this is settings label</settings>
+    <beans>this is beans label</beans>
+
+</chunyangzi>

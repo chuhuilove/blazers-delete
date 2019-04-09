@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+
+<configuration namespace="com.chuhui.blazers.xmlyml.Dom4JBasicParser" id="resources-dom4j.xml">
+
+    <settings>
+        <setting name="address" value="南京市江宁区"/>
+        <setting name="isTrue" value="false"/>
+        <setting name="name" value="纯阳子"/>
+        <setting name="age" value="23"/>
+    </settings>
+
+    <mappers>
+
+        <mapper resource="xxxxxsssssssss.xml"/>
+
+        <!--反射生成com.mysql.jdbc.jmx.LoadBalanceConnectionGroupManager类实例-->
+        <mapper name="com.mysql.jdbc.jmx.LoadBalanceConnectionGroupManager"/>
+    </mappers>
+
+
+</configuration>

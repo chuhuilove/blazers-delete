@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+
+<!DOCTYPE chunyangzi SYSTEM
+        "resources-dom4j-DTD2.dtd">
+
+<chunyangzi namespace="this is root attribute namespace." resources=" this is root attribute resources.">
+
+    <mappers>this is mappers label</mappers>
+    <settings>
+        <setting name="aaa" value="1231"/>
+    </settings>
+    <beans>this is beans label</beans>
+
+    <properties>
+        <property name="this is property name" value="this is property value."/>
+    </properties>
+</chunyangzi>

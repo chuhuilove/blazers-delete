@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+        <!ELEMENT chunyangzi (mappers,settings,beans)>
+
+        <!ELEMENT settings (#PCDATA)>
+        <!ELEMENT mappers (#PCDATA)>
+        <!ELEMENT beans (#PCDATA)>
+
+
+        <!-- 绝对的 标记-->
+        <!-- 任何一个标签包括根标签,都不能有任何属性 -->
+        <!-- 且每一个子标签的顺序不能乱,根据(mappers,settings,beans)的顺序来定义
+             具体实现:resources-dom4j-dtd1.xml
+        -->

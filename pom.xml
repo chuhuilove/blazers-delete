@@ -6,7 +6,51 @@
 
     <groupId>com.chuhui.blazers</groupId>
     <artifactId>Blazers</artifactId>
+    <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
 
+
+    <modules>
+        <module>antlr4</module>
+        <module>XML-YML</module>
+    </modules>
+
+    <properties>
+
+        <mysql.driver.version>5.1.35</mysql.driver.version>
+        <junit.version>4.12</junit.version>
+    </properties>
+
+
+    <dependencies>
+
+        <!-- test-->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <!--mysql-->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>${mysql.driver.version}</version>
+        </dependency>
+    </dependencies>
+
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>8</source>
+                    <target>8</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>

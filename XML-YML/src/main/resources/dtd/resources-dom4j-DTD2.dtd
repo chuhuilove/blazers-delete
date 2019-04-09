@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+
+<!--DTD标签详解:https://www.kancloud.cn/digest/switch-xml/120029-->
+
+<!ELEMENT chunyangzi (mappers,settings,beans,properties?)>
+<!ATTLIST chunyangzi
+namespace CDATA #REQUIRED
+resources CDATA #REQUIRED
+>
+<!-- ,代表出现的顺序,?代表该对象可以出现，但只能出现一次 (0到1次)
+        这里properties? 代表 properties要么不出现,要出现只能出现一次
+ -->
+        <!--settings标签下只能有setting标签,+符号代表必须出现一个以上的setting标签-->
+<!ELEMENT settings (setting+)>
+
+<!--EMPTY代表该元素不能包含子元素和文本，但可以有属性（空元素）
+    比如: 不能出现 <settings></settings> 这种标签
+-->
+<!ELEMENT setting EMPTY>
+<!--#REQUIRED代表该属性是必须的-->
+<!ATTLIST setting
+name CDATA #REQUIRED
+value CDATA #REQUIRED
+>
+<!-- properties 标签下的字标签为property类型,*代表该类型对象允许出现零次到任意多次（0到多次） -->
+<!ELEMENT properties (property*)>
+<!-- CDATA－可以包含任何字符数据，但是不能在其中包含任何子元素,#IMPLIED代表该属性不是必须的-->
+<!ATTLIST properties
+resource CDATA #IMPLIED
+url CDATA #IMPLIED
+>
+
+
+<!ELEMENT property EMPTY>
+<!ATTLIST property
+name CDATA #REQUIRED
+value CDATA #REQUIRED
+>
+<!--#PCDATA－可以包含任何字符数据，但是不能在其中包含任何子元素-->
+<!ELEMENT mappers (#PCDATA)>
+
+
+
+<!ELEMENT beans (#PCDATA)>
+
