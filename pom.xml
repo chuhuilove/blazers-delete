@@ -13,6 +13,8 @@
     <modules>
         <module>antlr4</module>
         <module>XML-YML</module>
+        <module>concurrent</module>
+        <module>algorithm</module>
     </modules>
 
     <properties>
