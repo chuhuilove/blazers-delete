@@ -15,12 +15,15 @@
         <module>XML-YML</module>
         <module>concurrent</module>
         <module>algorithm</module>
+        <module>collection</module>
+        <module>asm</module>
     </modules>
 
     <properties>
 
         <mysql.driver.version>5.1.35</mysql.driver.version>
         <junit.version>4.12</junit.version>
+        <asm.version>5.0.3</asm.version>
     </properties>
 
 
