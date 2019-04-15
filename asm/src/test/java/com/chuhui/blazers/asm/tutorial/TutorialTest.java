@@ -1,6 +1,5 @@
 package com.chuhui.blazers.asm.tutorial;
 
-import org.junit.Test;
 import org.objectweb.asm.ClassReader;
 
 import java.io.IOException;
@@ -15,15 +14,27 @@ import java.io.IOException;
  */
 public class TutorialTest {
 
-    @Test
     public void classPrinterTest() throws IOException {
 
         ClassPrinter cp = new ClassPrinter();
 
-        ClassReader reader=new ClassReader("java.util.HashMap");
+        ClassReader reader = new ClassReader("java.util.HashMap");
+
+        reader.accept(cp, 0);
+
+    }
+
+    public static void main(String[] args) throws IOException {
+        ClassPrinter cp = new ClassPrinter();
+
+        ClassReader reader = new ClassReader("java.util.HashMap");
 
         reader.accept(cp,0);
 
+//        cp.visitMethod()
+
+
     }
+
 
 }
