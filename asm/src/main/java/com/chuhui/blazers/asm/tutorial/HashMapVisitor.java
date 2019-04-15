@@ -17,8 +17,14 @@ public class HashMapVisitor  extends ClassVisitor{
 
     @Override
     public MethodVisitor visitMethod(int access, String name, String desc, String signature, String[] exceptions) {
+
+        if("hash".equals(name)){
+            System.err.println("进入hash方法了");
+            return null;
+        }else{
         MethodVisitor mv = super.visitMethod(access, name, desc, signature, exceptions);
         return new ModifyHashMapMethod(ASM4,mv);
+        }
     }
 
 
@@ -31,8 +37,8 @@ public class HashMapVisitor  extends ClassVisitor{
 
         reader.accept(hmv,0);
 
-        hmv.visitMethod(Opcodes.ACC_FINAL+Opcodes.ACC_STATIC,"hash", Type.INT,"Object",null);
 
+        
 
 
     }

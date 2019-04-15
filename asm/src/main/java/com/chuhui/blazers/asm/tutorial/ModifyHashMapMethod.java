@@ -13,13 +13,18 @@ import static org.objectweb.asm.Opcodes.ASM4;
  */
 public class ModifyHashMapMethod extends MethodVisitor {
     public ModifyHashMapMethod(int api,MethodVisitor mv) {
-        super(ASM4,mv);
+        super(api,mv);
 
     }
 
     @Override
     public void visitMaxs(int i, int i1) {
         super.visitMaxs(i, i1);
+    }
+
+    @Override
+    public void visitCode() {
+        super.visitCode();
     }
 
     @Override
