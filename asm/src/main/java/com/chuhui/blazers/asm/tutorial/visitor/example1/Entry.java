@@ -9,7 +9,7 @@ public abstract class Entry {
 
     public abstract int getSize();
 
-    public void add(Entry entry) {
+    public Entry add(Entry entry) {
         throw new FileTreatMentException();
     }
 
