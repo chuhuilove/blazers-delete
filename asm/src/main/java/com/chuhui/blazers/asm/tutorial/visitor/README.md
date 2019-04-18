@@ -1,0 +1,21 @@
+ASM的核心api,主要使用访问者模式来完成.
+
+1. 什么是访问者模式:
+    
+    表示一个作用于某对象结构中的个元素的操作.
+    
+    它使你可以在不改变各元素的类的前提下定义作用于这些元素的新操作
+    
+![访问者模式](http://www.plantuml.com/plantuml/svg/lLJFQnD15BxFNp7qbD8ca1pt84sAr_GWU1JYEa8atGsx4oyYn6wZ5ZGhfAKXIb1AG1Ht4rJS9AJ-CpEpc__2jvrXCPDGUiefR-PzxyTytvSzS6dDeQtZ1aA7ZJgnQ3v_xs7ThLFRGSYoAS7KRcBxAJvw_8oOz05rMYPjESH8l8KO3bXqpGCl7fpoZXV_-bpWViZc8-5_ODSVMTHcqRVbzpwVd012T4VSlu8ixxnAWYW9_YulWwJTaS5A5_JVCjfSf9q1SRz1ZW4BHMQZvhfOhVy2xTr4XxPbEeGI1IlZNDt21jQlTpV3AvlXbLtqSfKVDTLWqIm9HpoS9fClyRmdXgSi-g5Lfso4lkGddipvrLZqk_9uqqRqthF5fu9wK3PRZIXkuMKR1vUsHUaEx_nXYrvcaNqU3EFkEEKC23kVf5rjoHfGgTYIMNcG-3Yu53yl007KBhsl_Eth_QJz3jHHYRCt8lZDffxeXw0NdvspMJUJJ2e8nI3G3gwvk5f2EX-5GdfRBM48T94GKj6ZV7ujUKkkj6ehHOx1Wm6RdacFb4sJc4tb4k36Wp-Lp6ICWGkvVo8knfc9L2EGC2rlKj30UAuy2wFX1_XNM5t8MulsZfh4gK5OpgrR9nFtRYqgkJKJo4-2Se1i8HykHIaYVLdG0cwhHGo1lWL2AWBYzRhDALM63eZr1BwI_m00)    
+    
+
+访问者模式适用于数据结构相对稳定的系统.
+
+它把数据结构和作用于结构上的操作之间的耦合解脱开,使得操作集合可以相对自由地演化.
+
+访问者模式的目的就是要把处理从数据结构中分离出来.
+
+访问者模式的优点就是增加先的操作很容易
+
+
+
