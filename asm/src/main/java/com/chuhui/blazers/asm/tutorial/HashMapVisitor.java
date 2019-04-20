@@ -3,6 +3,10 @@ package com.chuhui.blazers.asm.tutorial;
 import org.objectweb.asm.*;
 
 import java.io.IOException;
+import java.lang.reflect.Method;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 import static org.objectweb.asm.Opcodes.ASM4;
 
@@ -30,15 +34,32 @@ public class HashMapVisitor  extends ClassVisitor{
 
     public static void main(String[] args) throws IOException {
 
+//
+//        HashMapVisitor hmv = new HashMapVisitor();
+//
+//        ClassReader reader=new ClassReader("java.util.HashMap");
+//
+//        reader.accept(hmv,0);
 
-        HashMapVisitor hmv = new HashMapVisitor();
 
-        ClassReader reader=new ClassReader("java.util.HashMap");
+        HashMap<String,Integer> map=new HashMap<>();
 
-        reader.accept(hmv,0);
+        Method[] methods = map.getClass().getMethods();
+        Arrays.stream(methods).forEach(e->{
+
+//            System.out.println(e.getName());
+
+        });
 
 
+        Method[] declaredMethods = map.getClass().getDeclaredMethods();
 
+        Arrays.stream(declaredMethods).forEach(e->{
+
+            System.out.println(e.getName());
+
+
+        });
 
 
 

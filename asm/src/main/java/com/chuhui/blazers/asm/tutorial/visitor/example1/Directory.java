@@ -31,7 +31,6 @@ public class Directory extends Entry {
                     .map(Entry::getSize)
                     .reduce((a, b) -> a + b)
                     .get();
-
         }
         return 0;
     }
@@ -54,4 +53,12 @@ public class Directory extends Entry {
 
     }
 
+    public List<Entry> getDirectorys(){
+        return directory;
+    }
+
+    @Override
+    public void accept(Visitor v) {
+        v.visit(this);
+    }
 }

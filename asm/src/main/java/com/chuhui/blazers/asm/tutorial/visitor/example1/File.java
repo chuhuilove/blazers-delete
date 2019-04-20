@@ -14,7 +14,6 @@ public class File extends Entry {
         this.size = size;
     }
 
-
     @Override
     public String getName() {
         return name;
@@ -30,5 +29,10 @@ public class File extends Entry {
 
         System.out.println(prefix+"/"+this);
 
+    }
+
+    @Override
+    public void accept(Visitor v) {
+        v.visit(this);
     }
 }
