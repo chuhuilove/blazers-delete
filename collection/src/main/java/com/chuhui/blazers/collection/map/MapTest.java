@@ -1,8 +1,19 @@
 package com.chuhui.blazers.collection.map;
 
-import java.sql.Wrapper;
-import java.util.*;
-import java.util.stream.IntStream;
+import com.chuhui.blazers.asm.tutorial.CustomerClassLoader;
+import com.chuhui.blazers.asm.tutorial.HashMapVisitorAdapter;
+import org.objectweb.asm.ClassReader;
+import org.objectweb.asm.ClassWriter;
+import org.objectweb.asm.Opcodes;
+
+import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
+
 
 /**
  * Map
@@ -41,10 +52,51 @@ public class MapTest {
     }
 
 
+    public static void customerMapTest() throws IOException, IllegalAccessException, InstantiationException, NoSuchMethodException, InvocationTargetException {
+
+        /**
+         * 无法修改父类的函数
+         */
+
+
+        CustomerHashMap orginMap=new CustomerHashMap();
+
+        Method hashOrgin = orginMap.getClass().getSuperclass().getDeclaredMethod("hash", Object.class);
+        hashOrgin.setAccessible(true);
+        System.err.println("老的hash值:"+hashOrgin.invoke(orginMap,"xcc"));
+
+
+
+        ClassReader cr = new ClassReader("com.chuhui.blazers.collection.map.CustomerHashMap");
+
+        ClassWriter cw = new ClassWriter(cr, ClassWriter.COMPUTE_FRAMES);
+
+        HashMapVisitorAdapter hv = new HashMapVisitorAdapter(cw);
+        cr.accept(hv, Opcodes.ASM5);
+
+        byte[] bytes = cw.toByteArray();
+
+        Class aClass = new CustomerClassLoader().defineClass("com.chuhui.blazers.collection.map.CustomerHashMap", bytes);
+
+        // CustomerHashMap chm=(CustomerHashMap)aClass.newInstance();
+        // 无法进行转换,因为类加载器不一样
+        Object obj= aClass.newInstance();
+
+        Method hash = obj.getClass().getSuperclass().getDeclaredMethod("hash", Object.class);
+        hash.setAccessible(true);
+        System.err.println("新的hash值:"+hash.invoke(obj,"xcc"));
+
+
+
+
+
+
+    }
+
+
+
     public static void main(String[] args) {
-
         testOrder();
-
     }
 
 }

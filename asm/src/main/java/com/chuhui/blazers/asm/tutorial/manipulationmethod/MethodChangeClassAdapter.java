@@ -18,6 +18,7 @@ public class MethodChangeClassAdapter extends ClassVisitor implements Opcodes {
         if (cv != null) {
             cv.visit(version, access, name, signature, superName, interfaces);
         }
+
     }
 
     @Override
