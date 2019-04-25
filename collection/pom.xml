@@ -23,6 +23,16 @@
             <artifactId>asm-all</artifactId>
             <version>${asm.version}</version>
         </dependency>
+
+        <!-- https://mvnrepository.com/artifact/cglib/cglib -->
+        <dependency>
+            <groupId>cglib</groupId>
+            <artifactId>cglib</artifactId>
+            <version>${cglib.version}</version>
+        </dependency>
+
+
+
     </dependencies>
 
 </project>

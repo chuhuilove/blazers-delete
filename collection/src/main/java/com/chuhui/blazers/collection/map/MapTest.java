@@ -78,8 +78,9 @@ public class MapTest {
 
         Class aClass = new CustomerClassLoader().defineClass("com.chuhui.blazers.collection.map.CustomerHashMap", bytes);
 
-        // CustomerHashMap chm=(CustomerHashMap)aClass.newInstance();
         // 无法进行转换,因为类加载器不一样
+        // CustomerHashMap chm=(CustomerHashMap)aClass.newInstance();
+
         Object obj= aClass.newInstance();
 
         Method hash = obj.getClass().getSuperclass().getDeclaredMethod("hash", Object.class);
