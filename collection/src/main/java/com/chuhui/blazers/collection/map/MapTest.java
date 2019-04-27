@@ -2,9 +2,13 @@ package com.chuhui.blazers.collection.map;
 
 import com.chuhui.blazers.asm.tutorial.CustomerClassLoader;
 import com.chuhui.blazers.asm.tutorial.HashMapVisitorAdapter;
+import com.mysql.jdbc.authentication.MysqlClearPasswordPlugin;
+import com.sun.glass.ui.Clipboard;
+import org.apache.commons.collections4.CollectionUtils;
 import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.ClassWriter;
 import org.objectweb.asm.Opcodes;
+import sun.security.ec.CurveDB;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
@@ -78,10 +82,22 @@ public class MapTest {
 
         Class aClass = new CustomerClassLoader().defineClass("com.chuhui.blazers.collection.map.CustomerHashMap", bytes);
 
+        ClassLoader classLoader = CustomerHashMap.class.getClassLoader();
+        Object obj= aClass.newInstance();
+        ClassLoader classLoader1 = obj.getClass().getClassLoader();
+
         // 无法进行转换,因为类加载器不一样
         // CustomerHashMap chm=(CustomerHashMap)aClass.newInstance();
 
-        Object obj= aClass.newInstance();
+
+
+        ClassLoader classLoader3 = ClassWriter.class.getClassLoader();
+        ClassLoader classLoader2 = MysqlClearPasswordPlugin.class.getClassLoader();
+        ClassLoader classLoader4 = CollectionUtils.class.getClassLoader();
+
+        ClassLoader classLoader5 = CurveDB.class.getClassLoader();
+
+        ClassLoader classLoader6 = Clipboard.class.getClassLoader();
 
         Method hash = obj.getClass().getSuperclass().getDeclaredMethod("hash", Object.class);
         hash.setAccessible(true);
@@ -97,7 +113,19 @@ public class MapTest {
 
 
     public static void main(String[] args) {
-        testOrder();
+        try {
+            customerMapTest();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        }
     }
 
 }
