@@ -47,14 +47,14 @@ public class CglibHashMap {
         //唯一暴力的方法.重写字节码
         //怎么解决类加载器的问题呢???
 
-        CustomerHashMap<String,Integer> map=new CustomerHashMap<>();
-
-        map=getHashInstance(map);
-
-        for(int i=0;i<40;i++){
-            map.put("xcc"+i,i);
-        }
-        System.err.println("");
+//        CustomerHashMap<String,Integer> map=new CustomerHashMap<>();
+//
+//        map=getHashInstance(map);
+//
+//        for(int i=0;i<40;i++){
+//            map.put("xcc"+i,i);
+//        }
+//        System.err.println("");
     }
 
 
