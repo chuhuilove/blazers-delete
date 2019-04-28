@@ -1,5 +1,6 @@
 package com.chuhui.blazers.collection.map;
 
+import com.chuhui.blazers.asm.tutorial.ClassPrinter;
 import com.chuhui.blazers.asm.tutorial.CustomerClassLoader;
 import com.chuhui.blazers.asm.tutorial.HashMapVisitorAdapter;
 import com.mysql.jdbc.authentication.MysqlClearPasswordPlugin;
@@ -13,10 +14,7 @@ import sun.security.ec.CurveDB;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 
 /**
@@ -29,30 +27,41 @@ import java.util.Objects;
 public class MapTest {
 
 
-    public static void testOrder(){
+    public void testOrder() {
 
         /**
          * HashMap是无序的(插入顺序和自然顺序); 特别是,其顺序会随着时间的推移会自行改变(重新hash).
          */
 
-        Map<String,Integer> map=new HashMap<>();
+        HashMap<String, Integer> map = new CustomerMap();
 
-        System.err.println("start test Map.put");
-        System.err.println("start test Map.put");
-        System.err.println("start test Map.put");
+        LinkedHashMap map1 = new LinkedHashMap(18);
+        List<Integer> lists = new ArrayList<>();
+        String list = new String("12321332132213213");
 
 
-        for(int i=1;i<=40;i++){
-            map.put(i+"chuhui",1);
+//        System.err.println(UUID.randomUUID().toString());
+
+//        System.err.println(list.toString());
+
+        for (int i = 1; i <= 40; i++) {
+            map.put(i + "chuhui", 1);
+            map1.put(i + "chuhui", 1);
+            lists.add(i);
         }
 
-        System.err.println("start test Map.put");
-        System.err.println("start test Map.put");
-        System.err.println("start test Map.put");
 
-        map.keySet().stream().forEach(e-> System.err.println(e+"---->"+map.get(e)));
+        CglibHashMap hashMap = new CglibHashMap();
+
+        ClassPrinter printer = new ClassPrinter();
+
+        CollectionUtils.isNotEmpty(lists);
+
+        Boolean b = new Boolean(true);
 
 
+//        System.err.println(map);
+//        System.err.println(map1);
     }
 
 
@@ -63,12 +72,11 @@ public class MapTest {
          */
 
 
-        CustomerHashMap orginMap=new CustomerHashMap();
+        CustomerHashMap orginMap = new CustomerHashMap();
 
         Method hashOrgin = orginMap.getClass().getSuperclass().getDeclaredMethod("hash", Object.class);
         hashOrgin.setAccessible(true);
-        System.err.println("老的hash值:"+hashOrgin.invoke(orginMap,"xcc"));
-
+        System.err.println("老的hash值:" + hashOrgin.invoke(orginMap, "xcc"));
 
 
         ClassReader cr = new ClassReader("com.chuhui.blazers.collection.map.CustomerHashMap");
@@ -83,12 +91,11 @@ public class MapTest {
         Class aClass = new CustomerClassLoader().defineClass("com.chuhui.blazers.collection.map.CustomerHashMap", bytes);
 
         ClassLoader classLoader = CustomerHashMap.class.getClassLoader();
-        Object obj= aClass.newInstance();
+        Object obj = aClass.newInstance();
         ClassLoader classLoader1 = obj.getClass().getClassLoader();
 
         // 无法进行转换,因为类加载器不一样
         // CustomerHashMap chm=(CustomerHashMap)aClass.newInstance();
-
 
 
         ClassLoader classLoader3 = ClassWriter.class.getClassLoader();
@@ -101,30 +108,25 @@ public class MapTest {
 
         Method hash = obj.getClass().getSuperclass().getDeclaredMethod("hash", Object.class);
         hash.setAccessible(true);
-        System.err.println("新的hash值:"+hash.invoke(obj,"xcc"));
-
-
-
-
+        System.err.println("新的hash值:" + hash.invoke(obj, "xcc"));
 
 
     }
 
 
-
     public static void main(String[] args) {
-        try {
-            customerMapTest();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
+
+        for (; ; ) {
+
+
+            new MapTest().testOrder();
+
+            try {
+                Thread.sleep(10000L);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
         }
     }
 
