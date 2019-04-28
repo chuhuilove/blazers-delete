@@ -1,6 +1,7 @@
 package com.chuhui.blazers.algorithm.interviewguide.demo.threadpool;
 
-import com.chuhui.codedemo.interviewguide.demo.threadpool.model.ThreadExampleModel;
+
+import com.chuhui.blazers.algorithm.interviewguide.demo.threadpool.model.ThreadExampleModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,7 +9,7 @@ import java.util.Random;
 import java.util.concurrent.*;
 import java.util.stream.IntStream;
 
-/*
+/**
  * Copyright (C) 2017-2018 Qy All rights reserved
  * Author: 纯阳子
  * Date: 2019/1/28 18:51

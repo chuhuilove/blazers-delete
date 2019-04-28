@@ -19,6 +19,7 @@
         <module>asm</module>
         <module>protoc-buffer</module>
         <module>JDBC</module>
+        <module>smallexample</module>
     </modules>
 
     <properties>
