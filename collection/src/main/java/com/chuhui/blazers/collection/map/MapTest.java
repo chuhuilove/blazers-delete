@@ -12,6 +12,7 @@ import org.objectweb.asm.Opcodes;
 import sun.security.ec.CurveDB;
 
 import java.io.IOException;
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.*;
@@ -33,11 +34,23 @@ public class MapTest {
          * HashMap是无序的(插入顺序和自然顺序); 特别是,其顺序会随着时间的推移会自行改变(重新hash).
          */
 
-        HashMap<String, Integer> map = new CustomerMap();
+        HashMap<String, Integer> map = new HashMap();
+
+        map.put(UUID.randomUUID().toString(), 1);
+        map.put(UUID.randomUUID().toString(), 2);
+        map.put(UUID.randomUUID().toString(), 3);
+        map.put(UUID.randomUUID().toString(), 4);
+        map.put(UUID.randomUUID().toString(), 5);
+        map.put(UUID.randomUUID().toString(), 6);
+        map.put(UUID.randomUUID().toString(), 7);
+        map.put(UUID.randomUUID().toString(), 8);
+        map.put(UUID.randomUUID().toString(), 9);
+
 
         LinkedHashMap map1 = new LinkedHashMap(18);
         List<Integer> lists = new ArrayList<>();
         String list = new String("12321332132213213");
+        HashMap map2 = new HashMap();
 
 
 //        System.err.println(UUID.randomUUID().toString());
@@ -60,6 +73,14 @@ public class MapTest {
         Boolean b = new Boolean(true);
 
 
+        Field[] fileds = hashMap.getClass().getDeclaredFields();
+        System.err.println("fileds:" + fileds.getClass().getClassLoader());
+
+        UUID.randomUUID().toString();
+        System.err.println("UUID:" + UUID.class.getClassLoader());
+
+        Method[] methods = hashMap.getClass().getDeclaredMethods();
+        System.err.println("methods:" + methods.getClass().getClassLoader());
 //        System.err.println(map);
 //        System.err.println(map1);
     }
@@ -116,18 +137,19 @@ public class MapTest {
 
     public static void main(String[] args) {
 
-        for (; ; ) {
 
+        //重写 final方法
+//        for(;;){
 
             new MapTest().testOrder();
+//            try {
+//                Thread.sleep(100000L);
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
+//        }
 
-            try {
-                Thread.sleep(10000L);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
 
-        }
     }
 
 }
