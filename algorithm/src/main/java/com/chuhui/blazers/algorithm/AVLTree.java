@@ -25,7 +25,7 @@ public class AVLTree<E extends Comparable<? super E>> {
 
     private AVLNode<E> root;
 
-    private static final int ALLOWED_IMBALANCE=1;
+    private static final int ALLOWED_IMBALANCE = 1;
 
     /**
      * 插入节点
@@ -37,61 +37,104 @@ public class AVLTree<E extends Comparable<? super E>> {
     }
 
     private AVLNode<E> insert(E key, AVLNode<E> node) {
-        if(node==null){
+        if (node == null) {
             return new AVLNode<>(key);
         }
 
-        int compareResult=key.compareTo(node.getKey());
+        int compareResult = key.compareTo(node.getKey());
 
-        if(compareResult<0){
-            node.setLeft(insert(key,node.getLeft()));
-        }else if(compareResult>0){
-            node.setRight(insert(key,node.getRight()));
-        }else{
+        if (compareResult < 0) {
+            node.setLeft(insert(key, node.getLeft()));
+        } else if (compareResult > 0) {
+            node.setRight(insert(key, node.getRight()));
+        } else {
 
         }
 
         return balance(node);
     }
 
-    private AVLNode<E> balance(AVLNode<E> node){
-        if(node==null){
-            return node;
+
+    private AVLNode<E> balance(AVLNode<E> t) {
+        if (t == null) {
+            return t;
+        }
+
+        if (height(t.left) - height(t.right) > ALLOWED_IMBALANCE) {
+            if (height(t.left.left) >= height(t.left.right)) {
+
+                t = rotateWithLeftChild(t);
+            } else {
+
+                t = doubleWithLeftChild(t);
+            }
+        } else if (height(t.right) - height(t.left) > ALLOWED_IMBALANCE) {
+            if (height(t.right.right) >= height(t.right.left)) {
+
+                t = rotateWithRightChild(t);
+            } else {
+
+                t = doubleWithRightChild(t);
+            }
         }
 
 
-        if(height(node.getLeft())-height(node.getRight())>ALLOWED_IMBALANCE){
-
-            if(height(node.getLeft().getLeft())>=height(node.getLeft().getRight())){
-                node=rotateWithLeftChild(node);
-            }else{
-                node=doubleWithLeftChild(node);
-            }
-
-        }else{
-            if(height(node.getRight())-height(node.getLeft())>ALLOWED_IMBALANCE){
-                if(height(node.getRight().getRight())>=height(node.getRight().getLeft())){
-                    node=rotateWithLeftChild(node);
-                }else{
-                    node=doubleWithLeftChild(node);
-                }
-            }
-        }
-        node.setHeight(Math.max(height(node.getLeft()),height(node.getRight()))+1);
-        return node;
+        t.height = Math.max(height(t.left), height(t.right)) + 1;
+        return t;
     }
 
-
-    private AVLNode<E> rotateWithLeftChild(AVLNode<E> node){
-        AVLNode<E> node1=node.getLeft();
-        node.setLeft(node1.getRight());
-        node.setHeight(Math.max(height(node.getLeft()),height(node.getRight()))+1);
-        node1.setHeight(Math.max(height(node1.getLeft()),node.height)+1);
-        return node1;
+    /**
+     * Rotate binary tree node with left child.
+     * For AVL trees, this is a single rotation for case 1.
+     * Update heights, then return new root.
+     * 左单旋
+     */
+    private AVLNode<E> rotateWithLeftChild(AVLNode<E> k2) {
+        AVLNode<E> k1 = k2.left;
+        k2.left = k1.right;
+        k1.right = k2;
+        k2.height = Math.max(height(k2.left), height(k2.right)) + 1;
+        k1.height = Math.max(height(k1.left), k2.height) + 1;
+        return k1;
     }
-    private AVLNode<E> doubleWithLeftChild(AVLNode<E> node){
-        node.setLeft(rotateWithLeftChild(node.getLeft()));
-        return rotateWithLeftChild(node);
+
+    /**
+     * Rotate binary tree node with right child.
+     * For AVL trees, this is a single rotation for case 4.
+     * Update heights, then return new root.
+     * 右单旋
+     */
+    private AVLNode<E> rotateWithRightChild(AVLNode<E> k1) {
+        AVLNode<E> k2 = k1.right;
+        k1.right = k2.left;
+        k2.left = k1;
+        k1.height = Math.max(height(k1.left), height(k1.right)) + 1;
+        k2.height = Math.max(height(k2.right), k1.height) + 1;
+        return k2;
+    }
+
+    /**
+     * 双旋转二叉树节点: first left child
+     * with its right child; then node k3 with new left child.
+     * For AVL trees, this is a double rotation for case 2.
+     * Update heights, then return new root.
+     * 右左双旋
+     */
+    private AVLNode<E> doubleWithLeftChild(AVLNode<E> k3) {
+        k3.left = rotateWithRightChild(k3.left);
+        return rotateWithLeftChild(k3);
+    }
+
+    /**
+     * Double rotate binary tree node: first right child
+     * with its left child; then node k1 with new right child.
+     * For AVL trees, this is a double rotation for case 3.
+     * Update heights, then return new root.
+     * 左右双旋
+     */
+    private AVLNode<E> doubleWithRightChild(AVLNode<E> k1) {
+        k1.right = rotateWithLeftChild(k1.right);
+        return rotateWithRightChild(k1);
     }
 
 
@@ -109,16 +152,17 @@ public class AVLTree<E extends Comparable<? super E>> {
     public static void main(String[] args) {
 
 
-       final  AVLTree<Integer> avlTree=new AVLTree<>();
+        final AVLTree<Integer> avlTree = new AVLTree<>();
 
-        Arrays.stream(new Integer[]{2,3,4,25,65,1,45,78,32,15,23,14})
-                .forEach(e->avlTree.insert(e));
+        Arrays.stream(new Integer[]{2, 3, 4, 25, 65, 1, 45, 78, 32, 15, 23, 14})
+                .forEach(e -> avlTree.insert(e));
 
+
+        //跟踪代码...查看二叉平衡树的构建步骤
 
         System.err.println(avlTree);
 
     }
-
 
 
     public static class AVLNode<E> {
