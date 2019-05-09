@@ -1,8 +1,8 @@
 package com.chuhui.blazers.algorithm;
 
-import org.omg.CORBA.NO_IMPLEMENT;
-
 import java.util.Arrays;
+import java.util.Set;
+import java.util.TreeSet;
 
 /**
  * 二叉平衡树
@@ -21,6 +21,12 @@ public class AVLTree<E extends Comparable<? super E>> {
      * 二叉平衡树的最少节点数S(h)和其高度h拥有斐波那契数列密切相关
      * S(h)=S(h-1)+S(h-2)+1
      * S(1)=1 S(2)=2
+     *
+     * 不平衡出现的情况:
+     * 1. 节点node的左儿子的左子树进行一次插入
+     * 2. 节点node的左儿子的右子树进行一次插入
+     * 3. 节点node的右儿子的左子树进行一次插入
+     * 4. 节点node的右儿子的右子树进行一次插入
      */
 
     private AVLNode<E> root;
@@ -161,6 +167,9 @@ public class AVLTree<E extends Comparable<? super E>> {
         //跟踪代码...查看二叉平衡树的构建步骤
 
         System.err.println(avlTree);
+
+
+        Set<Integer> set=new TreeSet<>();
 
     }
 
