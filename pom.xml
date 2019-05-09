@@ -20,6 +20,7 @@
         <module>protoc-buffer</module>
         <module>JDBC</module>
         <module>smallexample</module>
+        <module>javaagent</module>
     </modules>
 
     <properties>
