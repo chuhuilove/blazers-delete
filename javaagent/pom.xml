@@ -12,6 +12,13 @@
     <artifactId>javaagent</artifactId>
 
     <dependencies>
+
+        <dependency>
+            <groupId>org.ow2.asm</groupId>
+            <artifactId>asm-all</artifactId>
+            <version>${asm.version}</version>
+        </dependency>
+
         <dependency>
             <groupId>com.sun</groupId>
             <artifactId>tools</artifactId>
@@ -19,7 +26,6 @@
             <scope>system</scope>
             <systemPath>${java.home}/../lib/tools.jar</systemPath>
         </dependency>
-
     </dependencies>
     <build>
 
@@ -32,7 +38,8 @@
                 <configuration>
                     <archive>
                         <manifestEntries>
-                            <Agent-Class>com.chuhui.javaagent.SimpleAgent</Agent-Class>
+                            <Premain-Class>com.chuhui.blazers.javaagent.SimpleAgent</Premain-Class>
+                            <Agent-Class>com.chuhui.blazers.javaagent.SimpleAgent</Agent-Class>
                         </manifestEntries>
                     </archive>
                 </configuration>

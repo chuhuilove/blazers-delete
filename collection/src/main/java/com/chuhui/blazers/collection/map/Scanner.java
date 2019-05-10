@@ -17,16 +17,15 @@ public class Scanner {
     public static void main(String[] args) throws IOException, AttachNotSupportedException, AgentLoadException, AgentInitializationException {
 
 
-
-
-            List<VirtualMachineDescriptor> list = VirtualMachine.list();
-            for (VirtualMachineDescriptor vmd : list) {
-                if (vmd.displayName().endsWith("MapTest")) {
-                    VirtualMachine virtualMachine = VirtualMachine.attach(vmd.id());
-                    virtualMachine.loadAgent("D:\\MyLife\\Code\\person\\java\\javaagent\\target\\javaagent-1.0.jar","12314144");
-                    System.out.println("ok");
-                    virtualMachine.detach();
-                }
+        List<VirtualMachineDescriptor> list = VirtualMachine.list();
+        for (VirtualMachineDescriptor vmd : list) {
+            if (vmd.displayName().endsWith("JavaAgentPremain")) {
+                VirtualMachine virtualMachine = VirtualMachine.attach(vmd.id());
+                virtualMachine.loadAgent("D:\\MyLife\\Code\\person\\java\\github\\blazers-parent\\javaagent\\target\\javaagent-1.0-SNAPSHOT.jar", "12314144");
+//                    virtualMachine.loadAgent("D:\\MyLife\\Code\\person\\java\\javaagent\\target\\javaagent-1.0.jar","12314144");
+                System.out.println("ok");
+                virtualMachine.detach();
+            }
 
 
         }
