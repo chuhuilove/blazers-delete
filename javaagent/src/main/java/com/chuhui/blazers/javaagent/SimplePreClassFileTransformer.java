@@ -16,26 +16,42 @@ import java.security.ProtectionDomain;
 public class SimplePreClassFileTransformer implements ClassFileTransformer, Opcodes {
 
 
-//    private Predicate<String> pre
+    private String type;
+    public SimplePreClassFileTransformer(String type){
+        this.type=type;
+    }
 
-    private static final String FILTER_CLASS_NAME = "com/chuhui/blazers/collection/map/CustomerMap";
+
+    private byte[] classfileBuffer;
+    private  Class<?> classBeingRedefined;
+
+
+    public byte[] getClassfileBuffer() {
+        return classfileBuffer;
+    }
+
+
+    public Class<?> getClassBeingRedefined() {
+        return classBeingRedefined;
+    }
+
+
+    private static final String FILTER_CLASS_NAME = "com/chuhui/localtest/service/resinterface/insert/CustomerClass";
 
 
     @Override
     public byte[] transform(ClassLoader loader, String className, Class<?> classBeingRedefined, ProtectionDomain protectionDomain, byte[] classfileBuffer) throws IllegalClassFormatException {
 
-        System.err.println("进到 transform里面了...:"+className);
+
+
 
 
 
         if (FILTER_CLASS_NAME.equals(className)) {
+            classBeingRedefined=classBeingRedefined;
 
-
-            System.err.println(classBeingRedefined);
 
             ClassReader reader = new ClassReader(classfileBuffer);
-
-
             ClassWriter writer = new ClassWriter(reader, ClassWriter.COMPUTE_FRAMES);
 
             HashMapVisitorAdapter hv = new HashMapVisitorAdapter(writer);
@@ -55,7 +71,7 @@ public class SimplePreClassFileTransformer implements ClassFileTransformer, Opco
                 e.printStackTrace();
             }
 
-
+            classfileBuffer=bytes;
             return bytes;
         }
 
@@ -71,7 +87,7 @@ public class SimplePreClassFileTransformer implements ClassFileTransformer, Opco
         public MethodVisitor visitMethod(int access, String name, String desc, String signature, String[] exceptions) {
 
             //此处的hash即为需要修改的方法  ，修改方法內容
-            if ("methodName".equals(name)) {
+            if ("waitModifyMethodName".equals(name)) {
 
                 //先得到原始的方法
                 MethodVisitor mv = cv.visitMethod(access, name, desc, signature, exceptions);

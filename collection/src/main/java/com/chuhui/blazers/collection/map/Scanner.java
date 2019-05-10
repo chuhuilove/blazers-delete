@@ -1,9 +1,12 @@
 package com.chuhui.blazers.collection.map;
 
 import com.sun.tools.attach.*;
+import org.omg.CORBA.PUBLIC_MEMBER;
 
 import java.io.IOException;
-import java.util.List;
+import java.util.*;
+import java.util.function.BiConsumer;
+import java.util.function.Predicate;
 
 /**
  * Scanner java agent 的 agentmain
@@ -19,16 +22,18 @@ public class Scanner {
 
         List<VirtualMachineDescriptor> list = VirtualMachine.list();
         for (VirtualMachineDescriptor vmd : list) {
-            if (vmd.displayName().endsWith("JavaAgentPremain")) {
+            if (vmd.displayName().endsWith("Application")) {
                 VirtualMachine virtualMachine = VirtualMachine.attach(vmd.id());
-                virtualMachine.loadAgent("D:\\MyLife\\Code\\person\\java\\github\\blazers-parent\\javaagent\\target\\javaagent-1.0-SNAPSHOT.jar", "12314144");
-//                    virtualMachine.loadAgent("D:\\MyLife\\Code\\person\\java\\javaagent\\target\\javaagent-1.0.jar","12314144");
+                virtualMachine.loadAgent("F:\\chunyangzi-git\\blazers\\javaagent\\target\\javaagent-1.0-SNAPSHOT.jar", "12314144");
                 System.out.println("ok");
                 virtualMachine.detach();
             }
-
-
         }
+
+
     }
+
+
+
 
 }
