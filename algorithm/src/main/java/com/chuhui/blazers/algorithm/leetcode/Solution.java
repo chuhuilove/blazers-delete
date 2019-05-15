@@ -7,178 +7,194 @@ import java.util.*;
  */
 public class Solution {
 
-    public static void main(String[] args) {
-
-//        customerStr("zyxwvutsrqponmlkjihgfedcba", null);
-
-//        System.err.println(findDuplicate(new int[]{1,3,2,3,4,5,3,6,7,8,9}));
-
-
-        int a=10;
-        int b=10;
-        int c=-11;
-        System.err.println(a^b^c);
-
-    }
-
-
-    public static String customerStr_example(String S, String T) {
-
-
-        StringBuilder sb = new StringBuilder();
-        StringBuilder result = new StringBuilder(T);
-
-
-        return null;
-    }
-
-
-//    给定一个包含 n + 1 个整数的数组 nums，其数字都在 1 到 n 之间（包括 1 和 n），可知至少存在一个重复的整数。假设只有一个重复的整数，找出这个重复的数。
-
     /**
-     * 不能更改原数组（假设数组是只读的）。
-     * 只能使用额外的 O(1) 的空间。
-     * 时间复杂度小于 O(n2) 。
-     * 数组中只有一个重复的数字，但它可能不止重复出现一次。
+     * 1.两数之和
+     * <a href="https://note.youdao.com/ynoteshare1/index.html?id=c7aa27eb65cc3f6fac2b3bec2626a536&type=notebook#/C5ACB011A0454822B8E94F4502696367"/>
      *
      * @param nums
+     * @param target
      * @return
      */
-    public static int findDuplicate(final int[] nums) {
+    public int[] twoSum1(int[] nums, int target) {
 
+        //存储数组的值和下标
+        Map<Integer, Integer> map = new HashMap<>(nums.length);
 
         for (int i = 0; i < nums.length; i++) {
 
+            int other = target - nums[i];
 
-        }
-//判断环状态链表
-
-        return 0;
-    }
-
-
-    public static int singleNumber(int[] nums) {
-
-        for(int i=0;i<nums.length;i++){
-
-
+            if (map.containsKey(other)) {
+                return new int[]{map.get(other), i};
+            }
+            map.put(nums[i], i);
         }
 
-
-        return 0;
+        return null;
     }
 
     /**
-     * @param S abcdefg
-     * @param T
+     * 2.两数之和
+     * <a href="https://note.youdao.com/ynoteshare1/index.html?id=c7aa27eb65cc3f6fac2b3bec2626a536&type=notebook#/F89217057BDA4681811110B5C02D2FDE"/>
+     *
+     * @param l1
+     * @param l2
      * @return
      */
-    public static String customerStr(String S, String T) {
+    public static SolutionClass.ListNode addTwoNumbers(SolutionClass.ListNode l1, SolutionClass.ListNode l2) {
 
-        //保证S的序列
-        Map<Character, Integer> map = new LinkedHashMap<>();
-        for (int i = 0; i < S.length(); i++) {
-            map.put(S.charAt(i), i);
+
+        StringBuilder builder1 = new StringBuilder();
+
+        while (l1.getNext() != null) {
+            builder1.append(l1.getVal());
+            l1 = l1.getNext();
+        }
+        builder1.append(l1.getVal());
+
+        StringBuilder builder2 = new StringBuilder();
+
+        while (l2.getNext() != null) {
+            builder2.append(l2.getVal());
+            l2 = l2.getNext();
+        }
+        builder2.append(l2.getVal());
+
+        //将所有数字全部提取出来
+        //短一些的,直接补0
+
+        int diffCount = builder1.length() - builder2.length();
+
+        if (diffCount > 0) {
+            //builder2 补0
+            for (int i = 0; i < diffCount; i++) {
+                builder2.append(0);
+            }
+        } else if (diffCount < 0) {
+            //builder1 补0
+            for (int i = 0; i < -diffCount; i++) {
+                builder1.append(0);
+            }
         }
 
-
-        //分配一个和T长度相同的数组
-
-        List<Character> charList = new LinkedList<>();
-
-
-        List<Character> noExist = new ArrayList<>();
+        //目前为止,字符串都是反序的
+        //将字符串正序过来,准备进行相加
+        final String lastr1 = builder1.reverse().toString();
+        final String lastr2 = builder2.reverse().toString();
 
 
-        Character[] tempStr = new Character[T.length()];
+        StringBuilder builder = new StringBuilder();
 
-        int arrayFlag = 0;
+        int tempRes = 0;
+        int carry = 0;
+        for (int i = lastr1.length() - 1; i >= 0; i--) {
 
-        for (int i = 0; i < T.length(); i++) {
-
-            char currentChar = T.charAt(i);
-
-            //如果S串中不包含该字符
-            if (!map.containsKey(currentChar)) {
-                noExist.add(currentChar);
-                continue;
-            }
-
-            Integer integer = map.get(currentChar);
-
-
-            if (tempStr[integer] != null) {
-                //自 interger 全部向后移动一个
-
-                //判断一下,向前移动,还是向后移动
-
-                for (int j = 0; j < tempStr.length; j++) {
-
-                    if (tempStr[j] == currentChar) {
-                        //向前搜索位置
-                        //向后搜索位置
-
-                        boolean isSuccess = false;
-
-                        for (int h = j - 1; h >= 0; h--) {
-                            if (tempStr[h] == null && tempStr[h + 1] == currentChar) {
-                                tempStr[h] = currentChar;
-                                isSuccess = true;
-                                break;
-                            }
-                        }
-
-                        if (!isSuccess) {
-                            for (int h = j + 1; h < tempStr.length; h++) {
-                                if (tempStr[h] == null && tempStr[h - 1] == currentChar) {
-                                    tempStr[h] = currentChar;
-                                    isSuccess = true;
-                                    break;
-                                }
-                            }
-                        }
-
-                        if (!isSuccess) {
-
-                        }
-
-                    }
-
-                }
-
+            tempRes = Integer.valueOf(String.valueOf(lastr1.charAt(i))) + Integer.valueOf(String.valueOf(lastr2.charAt(i))) + carry;
+            if (tempRes >= 10) {
+                builder.append(tempRes % 10);
+                carry = 1;
             } else {
-                tempStr[integer] = currentChar;
+                builder.append(tempRes);
+                carry = 0;
             }
-
-
-//            for(int j=0;j<tempStr.length;j++){
-//
-//                if()
-//
-//
-//            }
-
-
-//            if(charList.size()<=0){
-//                charList.add(currentChar);
-//                continue;
-//            }
-            //当前字符的顺序
-
-
-//            Character character = charList.get(integer);
-//            if(character==null){
-//                charList.add(integer,currentChar);
-//            }else{
-//                //向后移动一个位置
-//                for(int j=integer;j<charList.size())
-//            }
-
-
+        }
+        if (carry == 1) {
+            builder.append(carry);
         }
 
+        SolutionClass.ListNode rootNode = new SolutionClass.ListNode(Integer.valueOf(String.valueOf(builder.charAt(0))));
 
-        return null;
+        SolutionClass.ListNode preNode = rootNode;
+
+        for (int i = 1; i < builder.length(); i++) {
+            preNode.setNext(new SolutionClass.ListNode(Integer.valueOf(String.valueOf(builder.charAt(i)))));
+            preNode = preNode.getNext();
+        }
+        return rootNode;
+
+    }
+
+
+    /**
+     * 3. 无重复字符的最长子串
+     * <a href="https://note.youdao.com/ynoteshare1/index.html?id=c7aa27eb65cc3f6fac2b3bec2626a536&type=notebook#/9E62A9E284E94C279B6C5D73745A120E"/>
+     *
+     * @param s
+     * @return
+     */
+    public static int lengthOfLongestSubstring(String s) {
+
+        int n = s.length();
+        Set<Character> set = new HashSet<>();
+        int ans = 0, i = 0, j = 0;
+        while (i < n && j < n) {
+            // try to extend the range [i, j]
+            if (!set.contains(s.charAt(j))) {
+                set.add(s.charAt(j++));
+                ans = Math.max(ans, j - i);
+            } else {
+                set.remove(s.charAt(i++));
+            }
+        }
+        return ans;
+    }
+
+    public static class ListNode {
+        int val;
+        ListNode next;
+
+        ListNode(int x) {
+            val = x;
+        }
+    }
+
+
+    public static void main(String[] args) {
+        ListNode head = linkeNodeGen(new int[]{1, 2, 3, 4, 5});
+        removeNthFromEnd(head, 2);
+    }
+
+    private static ListNode linkeNodeGen(int[] nums) {
+        ListNode rootNode = new ListNode(nums[0]);
+
+        ListNode parentNode = rootNode;
+
+        for (int i = 1; i < nums.length; i++) {
+            parentNode.next = new ListNode(nums[i]);
+            parentNode = parentNode.next;
+        }
+
+        return rootNode;
+    }
+
+
+    public static ListNode removeNthFromEnd(ListNode head, int n) {
+
+        ListNode rootNode = head;
+        Map<Integer, ListNode> map = new HashMap();
+        int count = 1;
+        map.put(count, rootNode);
+        while (rootNode.next != null) {
+            rootNode = rootNode.next;
+            map.put(++count, rootNode);
+        }
+
+        if(n==count && count==1){
+            return null;
+        }
+        if (n == 1 ) {
+            map.get(count - 1).next = null;
+            return head;
+        }
+        if (n == count) {
+            map.get(1).next = null;
+            return map.get(2);
+        }
+
+        ListNode preNode = map.get(count - n);
+        ListNode nextNode = map.get(count - n + 2);
+        preNode.next = nextNode;
+        return head;
 
     }
 
