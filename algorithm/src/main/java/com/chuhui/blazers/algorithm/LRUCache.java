@@ -1,9 +1,6 @@
 package com.chuhui.blazers.algorithm;
 
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 /**
  * LRUAlgorithm Lru算法
@@ -98,15 +95,18 @@ public class LRUCache {
 //        cache.put(4, 1);
 //        System.err.println("-1 找到:"+cache.get(2));
 
-        int[] arrays = new int[5];
-        Arrays.fill(arrays, 10);
+//        int[] arrays = new int[5];
+//        Arrays.fill(arrays, 10);
+//
+//        Arrays.stream(arrays).forEach(System.err::println);
+//
+//        arrayMove(arrays);
+//        System.err.println("改动后======");
+//
+//        Arrays.stream(arrays).forEach(System.err::println);
 
-        Arrays.stream(arrays).forEach(System.err::println);
 
-        arrayMove(arrays);
-        System.err.println("改动后======");
-
-        Arrays.stream(arrays).forEach(System.err::println);
+        
 
     }
 
@@ -169,21 +169,22 @@ public class LRUCache {
 
     /**
      * 给定两个以字符串形式表示的非负整数 num1 和 num2，返回 num1 和 num2 的乘积，它们的乘积也表示为字符串形式。
-     *
+     * <p>
      * 示例 1:
-     *
+     * <p>
      * 输入: num1 = "2", num2 = "3"
      * 输出: "6"
      * 示例 2:
-     *
+     * <p>
      * 输入: num1 = "123", num2 = "456"
      * 输出: "56088"
      * 说明：
-     *
+     * <p>
      * num1 和 num2 的长度小于110。
      * num1 和 num2 只包含数字 0-9。
      * num1 和 num2 均不以零开头，除非是数字 0 本身。
      * 不能使用任何标准库的大数类型（比如 BigInteger）或直接将输入转换为整数来处理。
+     *
      * @param num1
      * @param num2
      * @return
@@ -220,9 +221,23 @@ public class LRUCache {
  */
 
 
-/**
- * ["LRUCache","put","put","get","put","put","get"]
- * [[2],[2,1],[2,2],[2],[1,1],[4,1],[2]]
- */
+    /**
+     * ["LRUCache","put","put","get","put","put","get"]
+     * [[2],[2,1],[2,2],[2],[1,1],[4,1],[2]]
+     */
+
+
+    public int[] intersection(int[] nums1, int[] nums2) {
+
+        Set<Integer> set = new HashSet();
+
+        for (int i = 0, j = 0; i < nums1.length || j < nums2.length; i++, j++) {
+            set.add(nums1[i]);
+            set.add(nums2[j]);
+        }
+
+
+        return  null;
+    }
 
 }
