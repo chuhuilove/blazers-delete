@@ -1,9 +1,11 @@
 package com.chuhui.blazers.algorithm;
 
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Objects;
+import java.math.BigInteger;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
+import java.util.stream.IntStream;
+import java.util.stream.LongStream;
 
 /**
  * LRUAlgorithm Lru算法
@@ -98,15 +100,41 @@ public class LRUCache {
 //        cache.put(4, 1);
 //        System.err.println("-1 找到:"+cache.get(2));
 
-        int[] arrays = new int[5];
-        Arrays.fill(arrays, 10);
+//        int[] arrays = new int[5];
+//        Arrays.fill(arrays, 10);
+//
+//        Arrays.stream(arrays).forEach(System.err::println);
+//
+//        arrayMove(arrays);
+//        System.err.println("改动后======");
+//
+//        Arrays.stream(arrays).forEach(System.err::println);
 
-        Arrays.stream(arrays).forEach(System.err::println);
 
-        arrayMove(arrays);
-        System.err.println("改动后======");
 
-        Arrays.stream(arrays).forEach(System.err::println);
+        final StringBuilder builder=new StringBuilder(9);
+
+        LongStream.rangeClosed(1,20000L).forEach(e->builder.append(9));
+
+
+        String str=builder.toString();
+
+        BigInteger a=new BigInteger(str);
+
+        System.err.println("BigInteger开始:"+LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss:SSS")));
+
+        BigInteger multiply1 = a.multiply(new BigInteger(str));
+
+        System.err.println(multiply1.toString());
+        System.err.println("BigInteger结束:"+LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss:SSS")));
+
+        System.err.println("==========================================================================");
+
+        System.err.println("自定义开始:"+LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss:SSS")));
+
+        System.err.println(multiply(str, str));
+        System.err.println("自定义结束:"+LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss:SSS")));
+
 
     }
 
@@ -149,48 +177,129 @@ public class LRUCache {
 
 
     /**
-     * 给定两个字符串形式的非负整数 num1 和num2 ，计算它们的和。
-     * <p>
-     * 注意：
-     * <p>
-     * num1 和num2 的长度都小于 5100.
-     * num1 和num2 都只包含数字 0-9.
-     * num1 和num2 都不包含任何前导零。
-     * 你不能使用任何內建 BigInteger 库， 也不能直接将输入的字符串转换为整数形式。
-     *
-     * @param num1
-     * @param num2
-     * @return
-     */
-    public String addStrings(String num1, String num2) {
-
-        return null;
-    }
-
-    /**
      * 给定两个以字符串形式表示的非负整数 num1 和 num2，返回 num1 和 num2 的乘积，它们的乘积也表示为字符串形式。
-     *
+     * <p>
      * 示例 1:
-     *
+     * <p>
      * 输入: num1 = "2", num2 = "3"
      * 输出: "6"
      * 示例 2:
-     *
+     * <p>
      * 输入: num1 = "123", num2 = "456"
      * 输出: "56088"
      * 说明：
-     *
+     * <p>
      * num1 和 num2 的长度小于110。
      * num1 和 num2 只包含数字 0-9。
      * num1 和 num2 均不以零开头，除非是数字 0 本身。
      * 不能使用任何标准库的大数类型（比如 BigInteger）或直接将输入转换为整数来处理。
+     *
      * @param num1
      * @param num2
      * @return
      */
-    public String multiply(String num1, String num2) {
+    public static String multiply(String num1, String num2) {
 
-        return null;
+
+        //一定要区分出谁长,谁短,短的一定要在后面
+
+        int length = num1.length() - num2.length();
+        if (length >= 0) {
+            return computerMultiply(num1, num2);
+        } else {
+            return computerMultiply(num2, num1);
+        }
+
+
+    }
+
+    public static String computerMultiply(String num1, String num2) {
+
+        List<StringBuilder> builders = new ArrayList<>();
+
+        if ("0".equals(num1) || "0".equals(num2)) {
+            return "0";
+        }
+
+        for (int i = num2.length() - 1, k = 0; i >= 0; k++, i--) {
+
+            StringBuilder builder = new StringBuilder();
+            int differ = 0;
+
+            for (int j = num1.length() - 1; j >= 0; j--) {
+                int i1 = Integer.valueOf(String.valueOf(num1.charAt(j))) * Integer.valueOf(String.valueOf(num2.charAt(i))) + differ;
+                if (i1 >= 10) {
+                    builder.append(i1 % 10);
+                    differ = i1 / 10;
+                } else {
+                    builder.append(i1);
+                    differ = 0;
+                }
+            }
+            if (differ != 0) {
+                builder.append(differ);
+            }
+            builder.reverse();
+            if (k != 0) {
+                for (int j = 0; j < k; j++) {
+                    builder.append(0);
+                }
+            }
+            builders.add(builder);
+        }
+
+        //将builders里面的数据相加
+        if (builders.size() == 1){
+            return builders.get(0).toString();
+        }
+
+        return  builders.stream().reduce((a,b)->new StringBuilder(addStrings(a.toString(),b.toString()))).get().toString();
+    }
+
+    public static String addStrings(String num1, String num2) {
+        int length = num1.length() - num2.length();
+
+        StringBuilder builder = new StringBuilder();
+
+        if (length > 0) {
+            //用0 补齐num2
+            builder.append(num2).reverse();
+            for (int i = 0; i < length; i++) {
+                builder.append(0);
+            }
+            return computer2(num1, builder.reverse().toString());
+        } else if (length < 0) {
+            builder.append(num1).reverse();
+            for (int i = 0; i < -length; i++) {
+                builder.append(0);
+            }
+            return computer2(num2, builder.reverse().toString());
+        }
+
+        return computer2(num1, num2);
+    }
+
+    private static String computer2(String num1Bigger, String num2Smaller) {
+
+        StringBuilder builder = new StringBuilder();
+
+        int differ = 0;
+        for (int i = num1Bigger.length() - 1; i >= 0; i--) {
+
+            int i1 = Integer.valueOf(String.valueOf(num1Bigger.charAt(i))) + Integer.valueOf(String.valueOf(num2Smaller.charAt(i))) + differ;
+
+            if (i1 >= 10) {
+                builder.append(i1 % 10);
+                differ = 1;
+            } else {
+                builder.append(i1);
+                differ = 0;
+            }
+        }
+        if (differ == 1) {
+            builder.append(differ);
+        }
+        return builder.reverse().toString();
     }
 
 
