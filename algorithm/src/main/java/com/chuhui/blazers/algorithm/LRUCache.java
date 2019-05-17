@@ -1,11 +1,6 @@
 package com.chuhui.blazers.algorithm;
 
-import java.math.BigInteger;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.*;
-import java.util.stream.IntStream;
-import java.util.stream.LongStream;
 
 /**
  * LRUAlgorithm Lru算法
@@ -111,29 +106,29 @@ public class LRUCache {
 //        Arrays.stream(arrays).forEach(System.err::println);
 
 
-
-        final StringBuilder builder=new StringBuilder(9);
-
-        LongStream.rangeClosed(1,20000L).forEach(e->builder.append(9));
-
-
-        String str=builder.toString();
-
-        BigInteger a=new BigInteger(str);
-
-        System.err.println("BigInteger开始:"+LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss:SSS")));
-
-        BigInteger multiply1 = a.multiply(new BigInteger(str));
-
-        System.err.println(multiply1.toString());
-        System.err.println("BigInteger结束:"+LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss:SSS")));
-
-        System.err.println("==========================================================================");
-
-        System.err.println("自定义开始:"+LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss:SSS")));
-
-        System.err.println(multiply(str, str));
-        System.err.println("自定义结束:"+LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss:SSS")));
+//        final StringBuilder builder=new StringBuilder(9);
+//
+//        LongStream.rangeClosed(1,20000L).forEach(e->builder.append(9));
+//
+//
+//        String str=builder.toString();
+//
+//        BigInteger a=new BigInteger(str);
+//
+//        System.err.println("BigInteger开始:"+LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss:SSS")));
+//
+//        BigInteger multiply1 = a.multiply(new BigInteger(str));
+//
+//        System.err.println(multiply1.toString());
+//        System.err.println("BigInteger结束:"+LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss:SSS")));
+//
+//        System.err.println("==========================================================================");
+//
+//        System.err.println("自定义开始:"+LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss:SSS")));
+//
+//        System.err.println(multiply(str, str));
+//        System.err.println("自定义结束:"+LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss:SSS")));
+//
 
 
     }
@@ -173,6 +168,23 @@ public class LRUCache {
      */
     public static void merge(int[] nums1, int m, int[] nums2, int n) {
 
+        // i为nums1指针  指向尚未处理的第一个数字（从后向前）  j为nums2指针  cur是将要放入位置
+        int i=m-1,j=n-1,cur=m+n-1;
+
+        // 若j先变为-1 说明nums2已经全部插入 完成
+        while(j>-1){
+
+            // i为-1说明 nums1中原有数字以全部用完  直接在nums2中选择插入
+            if(i==-1||nums2[j]>=nums1[i]){
+                nums1[cur]=nums2[j];
+                j--;
+            }else{
+                nums1[cur]=nums1[i];
+                i--;
+            }
+            cur--;
+        }
+
     }
 
 
@@ -206,9 +218,8 @@ public class LRUCache {
         int length = num1.length() - num2.length();
         if (length >= 0) {
             return computerMultiply(num1, num2);
-        } else {
-            return computerMultiply(num2, num1);
         }
+        return computerMultiply(num2, num1);
 
 
     }
@@ -249,11 +260,11 @@ public class LRUCache {
         }
 
         //将builders里面的数据相加
-        if (builders.size() == 1){
+        if (builders.size() == 1) {
             return builders.get(0).toString();
         }
 
-        return  builders.stream().reduce((a,b)->new StringBuilder(addStrings(a.toString(),b.toString()))).get().toString();
+        return builders.stream().reduce((a, b) -> new StringBuilder(addStrings(a.toString(), b.toString()))).get().toString();
     }
 
     public static String addStrings(String num1, String num2) {
@@ -333,5 +344,6 @@ public class LRUCache {
  * ["LRUCache","put","put","get","put","put","get"]
  * [[2],[2,1],[2,2],[2],[1,1],[4,1],[2]]
  */
+
 
 }
