@@ -196,6 +196,72 @@ public class Solution {
         return head;
 
     }
+
+    /**
+     * 给定两个字符串形式的非负整数 num1 和num2 ，计算它们的和。
+     * <p>
+     * 注意：
+     * <p>
+     * num1 和num2 的长度都小于 5100.
+     * num1 和num2 都只包含数字 0-9.
+     * num1 和num2 都不包含任何前导零。
+     * 你不能使用任何內建 BigInteger 库， 也不能直接将输入的字符串转换为整数形式。
+     * <a href="https://note.youdao.com/ynoteshare1/index.html?id=c7aa27eb65cc3f6fac2b3bec2626a536&type=notebook#/48CE63B3BF3F482BB93B00B796BF6CAC"/>
+     * @param num1
+     * @param num2
+     * @return
+     */
+    public static String addStrings(String num1, String num2) {
+
+        int length = num1.length() - num2.length();
+
+        StringBuilder builder=new StringBuilder();
+
+        if(length>0){
+            //用0 补齐num2
+            builder.append(num2).reverse();
+            for(int i=0;i<length;i++){
+                builder.append(0);
+            }
+            return computer(num1,builder.reverse().toString());
+        }else if(length<0){
+            builder.append(num1).reverse();
+            for(int i=0;i<-length;i++){
+                builder.append(0);
+            }
+            return computer(num2,builder.reverse().toString());
+        }
+
+        return computer(num1, num2);
+    }
+
+    private static String computer(String num1Bigger, String num2Smaller) {
+
+        StringBuilder builder = new StringBuilder();
+
+        int differ = 0;
+        for (int i = num1Bigger.length()-1; i >=0; i--) {
+
+            int i1 = Integer.valueOf(String.valueOf(num1Bigger.charAt(i))) + Integer.valueOf(String.valueOf(num2Smaller.charAt(i))) + differ;
+
+            if (i1 >= 10) {
+                builder.append(i1 % 10);
+                differ = 1;
+            } else {
+                builder.append(i1);
+                differ = 0;
+            }
+        }
+        if (differ == 1) {
+            builder.append(differ);
+        }
+        return builder.reverse() .toString();
+    }
+
+
+
+
+
     /**
      * 给定不同面额的硬币 coins 和一个总金额 amount。编写一个函数来计算可以凑成总金额所需的最少的硬币个数。如果没有任何一种硬币组合能组成总金额，返回 -1。
      * <p>
