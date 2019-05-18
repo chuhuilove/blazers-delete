@@ -21,6 +21,7 @@
         <module>JDBC</module>
         <module>smallexample</module>
         <module>javaagent</module>
+        <module>socket</module>
     </modules>
 
     <properties>
