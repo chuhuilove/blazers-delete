@@ -18,5 +18,11 @@ public class CreateBuffer
     System.out.println( (char)buffer.get() );
     System.out.println( (char)buffer.get() );
     System.out.println( (char)buffer.get() );
+
+    ByteBuffer driectBuffer = ByteBuffer.allocateDirect(2048);
+
+//    MappedByteBuffer  mapp= MappedByteBuffer.allocate(4096);
+
+
   }
 }
