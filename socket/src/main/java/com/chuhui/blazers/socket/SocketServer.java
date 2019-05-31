@@ -1,13 +1,11 @@
 package com.chuhui.blazers.socket;
 
-import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.nio.ByteBuffer;
-import java.nio.channels.SocketChannel;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -21,7 +19,9 @@ public class SocketServer {
 
 
         ServerSocket server = new ServerSocket();
-        server.bind(new InetSocketAddress("127.0.0.1", 8081));
+        server.bind(new InetSocketAddress("172.16.23.115", 8089));
+
+        System.err.println("the server has started.....");
 
         while (true) {
 
@@ -29,11 +29,15 @@ public class SocketServer {
                     = server.accept();
 
             InputStream is = socket.getInputStream();
-            byte[] body = new byte[102400];
+            byte[] body = new byte[1024];
             is.read(body);
 
-            System.err.println(formatDateTime(FORMATTER_STR) + "--->" + (counter++)
-                    + "--->" + new String(body, "UTF-8"));
+            OutputStream outputStream = socket.getOutputStream();
+
+            String requestBody = new String(body);
+
+            byte[] respBody = (formatDateTime(FORMATTER_STR) + "--->" + (counter++) + "--->" + requestBody).getBytes();
+            outputStream.write(respBody);
 
         }
     }
@@ -41,6 +45,4 @@ public class SocketServer {
     public static String formatDateTime(String formatter) {
         return LocalDateTime.now().format(DateTimeFormatter.ofPattern(formatter));
     }
-
-
 }

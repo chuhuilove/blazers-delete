@@ -1,6 +1,7 @@
 package com.chuhui.blazers.smallexam;
 
 
+import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,25 +11,13 @@ public class BitOperationDemo {
     public static void main(String[] args) {
 
 
-        ArrayList<String> lists = new ArrayList<>();
+    int hex=0x71;
 
-        System.err.println("设置ensureCapacity之前:"+lists.size());
+        ByteBuffer byteBuffer = ByteBuffer.allocate(10).putInt(hex);
 
-
-
-
-
-        for (int i = 0; i < 100; i++) {
-            lists.add("cyzi"+i);
-        }
-
-        System.err.println("插入100条之后:"+lists.size());
-        lists.ensureCapacity(10);
-        System.err.println("设置ensureCapacity之后:"+lists.size());
-
-
-
-        lists.forEach(System.err::println);
+        byteBuffer.flip();
+        System.err.println("biubiubiu");
+        System.err.println("biubiubiu");
 
     }
 
