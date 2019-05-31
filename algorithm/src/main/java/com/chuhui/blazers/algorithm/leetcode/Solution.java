@@ -149,8 +149,11 @@ public class Solution {
     }
 
     public static void main(String[] args) {
-        ListNode head = linkeNodeGen(new int[]{1, 2, 3, 4, 5});
-        removeNthFromEnd(head, 2);
+//        ListNode head = linkeNodeGen(new int[]{1, 2, 3, 4, 5});
+//        removeNthFromEnd(head, 2);
+
+
+        System.err.println(rob(new int[]{1, 2, 4, 1, 7, 8, 3}));
     }
 
     private static ListNode linkeNodeGen(int[] nums) {
@@ -178,10 +181,10 @@ public class Solution {
             map.put(++count, rootNode);
         }
 
-        if(n==count && count==1){
+        if (n == count && count == 1) {
             return null;
         }
-        if (n == 1 ) {
+        if (n == 1) {
             map.get(count - 1).next = null;
             return head;
         }
@@ -207,6 +210,7 @@ public class Solution {
      * num1 和num2 都不包含任何前导零。
      * 你不能使用任何內建 BigInteger 库， 也不能直接将输入的字符串转换为整数形式。
      * <a href="https://note.youdao.com/ynoteshare1/index.html?id=c7aa27eb65cc3f6fac2b3bec2626a536&type=notebook#/48CE63B3BF3F482BB93B00B796BF6CAC"/>
+     *
      * @param num1
      * @param num2
      * @return
@@ -215,21 +219,21 @@ public class Solution {
 
         int length = num1.length() - num2.length();
 
-        StringBuilder builder=new StringBuilder();
+        StringBuilder builder = new StringBuilder();
 
-        if(length>0){
+        if (length > 0) {
             //用0 补齐num2
             builder.append(num2).reverse();
-            for(int i=0;i<length;i++){
+            for (int i = 0; i < length; i++) {
                 builder.append(0);
             }
-            return computer(num1,builder.reverse().toString());
-        }else if(length<0){
+            return computer(num1, builder.reverse().toString());
+        } else if (length < 0) {
             builder.append(num1).reverse();
-            for(int i=0;i<-length;i++){
+            for (int i = 0; i < -length; i++) {
                 builder.append(0);
             }
-            return computer(num2,builder.reverse().toString());
+            return computer(num2, builder.reverse().toString());
         }
 
         return computer(num1, num2);
@@ -240,7 +244,7 @@ public class Solution {
         StringBuilder builder = new StringBuilder();
 
         int differ = 0;
-        for (int i = num1Bigger.length()-1; i >=0; i--) {
+        for (int i = num1Bigger.length() - 1; i >= 0; i--) {
 
             int i1 = Integer.valueOf(String.valueOf(num1Bigger.charAt(i))) + Integer.valueOf(String.valueOf(num2Smaller.charAt(i))) + differ;
 
@@ -255,11 +259,8 @@ public class Solution {
         if (differ == 1) {
             builder.append(differ);
         }
-        return builder.reverse() .toString();
+        return builder.reverse().toString();
     }
-
-
-
 
 
     /**
@@ -284,14 +285,15 @@ public class Solution {
 
     /**
      * 给定一个字符串 s，将 s 分割成一些子串，使每个子串都是回文串。
-     *
+     * <p>
      * 返回符合要求的最少分割次数。
-     *
+     * <p>
      * 示例:
-     *
+     * <p>
      * 输入: "aab"
      * 输出: 1
      * 解释: 进行一次分割就可将 s 分割成 ["aa","b"] 这样两个回文子串。
+     *
      * @param s
      * @return
      */
@@ -302,11 +304,11 @@ public class Solution {
 
     /**
      * 我们有一组包含1和0的网格；其中1表示砖块。 当且仅当一块砖直接连接到网格的顶部，或者它至少有一块相邻（4 个方向之一）砖块不会掉落时，它才不会落下。
-     *
+     * <p>
      * 我们会依次消除一些砖块。每当我们消除 (i, j) 位置时， 对应位置的砖块（若存在）会消失，然后其他的砖块可能因为这个消除而落下。
-     *
+     * <p>
      * 返回一个数组表示每次消除操作对应落下的砖块数目。
-     *
+     * <p>
      * 示例 1：
      * 输入：
      * grid = [[1,0,0,0],[1,1,1,0]]
@@ -322,11 +324,12 @@ public class Solution {
      * 解释：
      * 当我们消除(1, 0)的砖块时，(1, 1)的砖块已经由于上一步消除而消失了。所以每次消除操作不会造成砖块落下。注意(1, 0)砖块不会记作落下的砖块。
      * 注意:
-     *
+     * <p>
      * 网格的行数和列数的范围是[1, 200]。
      * 消除的数字不会超过网格的区域。
      * 可以保证每次的消除都不相同，并且位于网格的内部。
      * 一个消除的位置可能没有砖块，如果这样的话，就不会有砖块落下。
+     *
      * @param grid
      * @param hits
      * @return
@@ -338,38 +341,74 @@ public class Solution {
 
     /**
      * 在一个给定的数组nums中，总是存在一个最大元素 。
-     *
+     * <p>
      * 查找数组中的最大元素是否至少是数组中每个其他数字的两倍。
-     *
+     * <p>
      * 如果是，则返回最大元素的索引，否则返回-1。
-     *
+     * <p>
      * 示例 1:
-     *
+     * <p>
      * 输入: nums = [3, 6, 1, 0]
      * 输出: 1
      * 解释: 6是最大的整数, 对于数组中的其他整数,
      * 6大于数组中其他元素的两倍。6的索引是1, 所以我们返回1.
-     *
-     *
+     * <p>
+     * <p>
      * 示例 2:
-     *
+     * <p>
      * 输入: nums = [1, 2, 3, 4]
      * 输出: -1
      * 解释: 4没有超过3的两倍大, 所以我们返回 -1.
-     *
-     *
+     * <p>
+     * <p>
      * 提示:
-     *
+     * <p>
      * nums 的长度范围在[1, 50].
      * 每个 nums[i] 的整数范围在 [0, 99].
+     *
      * @param nums
      * @return
      */
 
-    public static  int dominantIndex(int[] nums) {
+    public static int dominantIndex(int[] nums) {
 
         return -1;
 
+    }
+
+
+
+    /**
+     * 你是一个专业的小偷，计划偷窃沿街的房屋。每间房内都藏有一定的现金，影响你偷窃的唯一制约因素就是相邻的房屋装有相互连通的防盗系统，如果两间相邻的房屋在同一晚上被小偷闯入，系统会自动报警。
+     *
+     * 给定一个代表每个房屋存放金额的非负整数数组，计算你在不触动警报装置的情况下，能够偷窃到的最高金额。
+     *
+     * 示例 1:
+     *
+     * 输入: [1,2,3,1]
+     * 输出: 4
+     * 解释: 偷窃 1 号房屋 (金额 = 1) ，然后偷窃 3 号房屋 (金额 = 3)。
+     *      偷窃到的最高金额 = 1 + 3 = 4 。
+     * 示例 2:
+     *
+     * 输入: [2,7,9,3,1]
+     * 输出: 12
+     * 解释: 偷窃 1 号房屋 (金额 = 2), 偷窃 3 号房屋 (金额 = 9)，接着偷窃 5 号房屋 (金额 = 1)。
+     *      偷窃到的最高金额 = 2 + 9 + 1 = 12 。
+     * @param nums
+     * @return
+     */
+    public static int rob(int[] nums) {
+
+        int[] back = new int[nums.length];
+
+        back[0] = nums[0];
+        back[1] = Math.max(nums[0], nums[1]);
+
+        for (int i = 2; i < nums.length; i++) {
+            back[i] = Math.max(back[i - 1],nums[i] + back[i - 2] );
+        }
+        return back[nums.length - 1];
     }
 
 

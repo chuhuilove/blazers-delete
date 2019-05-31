@@ -22,9 +22,11 @@ public class Scanner {
 
         List<VirtualMachineDescriptor> list = VirtualMachine.list();
         for (VirtualMachineDescriptor vmd : list) {
-            if (vmd.displayName().endsWith("Application")) {
+
+
+            if (vmd.displayName().endsWith("BatchTest")) {
                 VirtualMachine virtualMachine = VirtualMachine.attach(vmd.id());
-                virtualMachine.loadAgent("F:\\chunyangzi-git\\blazers\\javaagent\\target\\javaagent-1.0-SNAPSHOT.jar", "12314144");
+                virtualMachine.loadAgent("F:\\chunyangzi-program\\customercode\\javaagent\\target\\javaagent-1.0.jar", "12314144");
                 System.out.println("ok");
                 virtualMachine.detach();
             }
