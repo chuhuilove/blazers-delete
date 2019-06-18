@@ -16,6 +16,8 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.*;
+import java.util.concurrent.Executor;
+import java.util.concurrent.ThreadPoolExecutor;
 
 
 /**
@@ -35,6 +37,9 @@ public class MapTest {
          */
 
         HashMap<String, Integer> map = new HashMap();
+
+//       java.util.concurrent.ConcurrentHashMap
+
 
         map.put(UUID.randomUUID().toString(), 1);
         map.put(UUID.randomUUID().toString(), 2);
@@ -138,16 +143,22 @@ public class MapTest {
     public static void main(String[] args) {
 
 
-        //重写 final方法
-//        for(;;){
+        putTest();
 
-            new MapTest().testOrder();
-//            try {
-//                Thread.sleep(100000L);
-//            } catch (InterruptedException e) {
-//                e.printStackTrace();
-//            }
-//        }
+
+    }
+
+    static void putTest() {
+        Map<Integer, Integer> map = new HashMap();
+
+        String hhh = "";
+        hhh.hashCode();
+
+        Object obn = new Object();
+
+        System.err.println(5 & 19);
+
+        map.put(1, 1);
 
 
     }

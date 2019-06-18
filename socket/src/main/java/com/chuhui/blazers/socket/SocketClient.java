@@ -27,35 +27,29 @@ public class SocketClient {
 
     public static void main(String[] args) throws IOException {
 
-
+        for (int i = 0; i < 100; i++) {
         Socket socket = new Socket();
 
-        socket.connect(new InetSocketAddress("172.16.23.115", 8089));
-
-
-// 一问一答的情况下,不会出现TCP粘包与拆包
-
+        socket.connect(new InetSocketAddress("127.0.0.1", 9007));
+//       socket.connect(new InetSocketAddress("118.24.141.172", 9007));
 
         OutputStream os = socket.getOutputStream();
 
-        for (int i = 0; i < 100; i++) {
 
 
-            byte[] body = (MESSAGE + " "+i).getBytes();
+
+            byte[] body = (MESSAGE + " " + i).getBytes();
             os.write(body);
 
-            System.err.println("write "+MESSAGE + " "+i);
+            System.err.println("write " + MESSAGE + " " + i);
 
             InputStream inputStream = socket.getInputStream();
             byte[] respBody = new byte[1024];
             inputStream.read(respBody);
 
-
             System.err.println("client rev info:" + new String(respBody));
 
         }
-
-
     }
 
 

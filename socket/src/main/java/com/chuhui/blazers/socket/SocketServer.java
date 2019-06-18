@@ -16,33 +16,48 @@ public class SocketServer {
     private static int counter = 1;
 
     public static void main(String[] args) throws IOException {
-
-
-        ServerSocket server = new ServerSocket();
-        server.bind(new InetSocketAddress("172.16.23.115", 8089));
-
+        ServerSocket server = new ServerSocket(9007);
         System.err.println("the server has started.....");
 
         while (true) {
-
             Socket socket
                     = server.accept();
+            System.err.println(formatDateTime(FORMATTER_STR)+" 服务端接收数据");
+            new Thread(() -> new HandleAccept(socket)).start();
+        }
+    }
 
-            InputStream is = socket.getInputStream();
-            byte[] body = new byte[1024];
-            is.read(body);
+    static String formatDateTime(String formatter) {
+        return LocalDateTime.now().format(DateTimeFormatter.ofPattern(formatter));
+    }
 
-            OutputStream outputStream = socket.getOutputStream();
+    static protected class HandleAccept implements Runnable {
 
-            String requestBody = new String(body);
+        private Socket socket;
 
-            byte[] respBody = (formatDateTime(FORMATTER_STR) + "--->" + (counter++) + "--->" + requestBody).getBytes();
-            outputStream.write(respBody);
+        public HandleAccept(Socket socket) {
+            this.socket = socket;
+        }
+
+        @Override
+        public void run() {
+            try {
+                InputStream is = socket.getInputStream();
+                byte[] body = new byte[1024];
+                is.read(body);
+
+                OutputStream outputStream = socket.getOutputStream();
+
+                String requestBody = new String(body);
+
+                byte[] respBody = (formatDateTime(FORMATTER_STR) + "--->" + (counter++) + "--->" + requestBody).getBytes();
+                outputStream.write(respBody);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
 
         }
     }
 
-    public static String formatDateTime(String formatter) {
-        return LocalDateTime.now().format(DateTimeFormatter.ofPattern(formatter));
-    }
 }
