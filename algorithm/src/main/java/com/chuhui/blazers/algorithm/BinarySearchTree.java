@@ -188,8 +188,26 @@ public class BinarySearchTree {
         //二叉排序树会退化成只有左子树的链表
         //若后续节点的都大于root节点,且一个比一个大,二叉排序树会退化成只有右子树的链表
 
+        BinarySearchTree bst=new BinarySearchTree();
+
+        Arrays.stream(new int[]{6,8,2,1,5,3,4})
+                .forEach(e->bst.insert(e));
+
+        System.err.println("this is pause");
+        System.err.println("this is pause");
+        System.err.println("this is pause");
+
+        bst.remove(2);
+        System.err.println("this is pause");
+        System.err.println("this is pause");
 
 
+    }
+
+    /**
+     * 二叉搜索树退化成链表
+     */
+    static void searchTreeToList(){
         BinarySearchTree bst=new BinarySearchTree();
 
         Arrays.stream(new int[]{100,90,89,45,20,12,11,9,6,5})
@@ -206,6 +224,7 @@ public class BinarySearchTree {
         System.err.println("min node:"+bst.findMin().getKey());
         System.err.println("max node:"+bst.findMax().getKey());
     }
+
 
 
     public static class BinaryNode {
