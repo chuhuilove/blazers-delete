@@ -3,7 +3,6 @@ package com.chuhui.blazers.socket;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.time.LocalDateTime;
@@ -22,7 +21,7 @@ public class SocketServer {
         while (true) {
             Socket socket
                     = server.accept();
-            System.err.println(formatDateTime(FORMATTER_STR)+" 服务端接收数据");
+            System.err.println(formatDateTime(FORMATTER_STR) + " 服务端接收数据");
             new Thread(() -> new HandleAccept(socket)).start();
         }
     }
@@ -37,6 +36,11 @@ public class SocketServer {
 
         public HandleAccept(Socket socket) {
             this.socket = socket;
+
+
+
+
+
         }
 
         @Override
@@ -44,19 +48,19 @@ public class SocketServer {
             try {
                 InputStream is = socket.getInputStream();
                 byte[] body = new byte[1024];
-                is.read(body);
 
+                is.read(body);
                 OutputStream outputStream = socket.getOutputStream();
 
                 String requestBody = new String(body);
+
+                System.err.println(formatDateTime(FORMATTER_STR) + " 接收到的数据:" + requestBody);
 
                 byte[] respBody = (formatDateTime(FORMATTER_STR) + "--->" + (counter++) + "--->" + requestBody).getBytes();
                 outputStream.write(respBody);
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
-
         }
     }
 

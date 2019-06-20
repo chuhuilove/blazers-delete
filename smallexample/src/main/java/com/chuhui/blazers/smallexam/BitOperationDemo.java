@@ -4,20 +4,39 @@ package com.chuhui.blazers.smallexam;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class BitOperationDemo {
 
 
+
+    public   final AtomicInteger ctl = new AtomicInteger(ctlOf(RUNNING, 0));
+    private static final int COUNT_BITS = Integer.SIZE - 3;
+    private static final int CAPACITY   = (1 << COUNT_BITS) - 1;
+
+    // runState is stored in the high-order bits 运行状态存储在高位
+    private static final int RUNNING    = -1 << COUNT_BITS;
+    private static final int SHUTDOWN   =  0 << COUNT_BITS;
+    private static final int STOP       =  1 << COUNT_BITS;
+    private static final int TIDYING    =  2 << COUNT_BITS;
+    private static final int TERMINATED =  3 << COUNT_BITS;
+
+    // Packing and unpacking ctl
+    private static int runStateOf(int c)     { return c & ~CAPACITY; }
+    private static int workerCountOf(int c)  { return c & CAPACITY; }
+    private static int ctlOf(int rs, int wc) { return rs | wc; }
+
+
+
     public static void main(String[] args) {
 
+        BitOperationDemo demo = new BitOperationDemo();
 
-    int hex=0x71;
+        int c = demo.ctl.get();
+        int coreSize = workerCountOf(c);
 
-        ByteBuffer byteBuffer = ByteBuffer.allocate(10).putInt(hex);
+        System.err.println(coreSize);
 
-        byteBuffer.flip();
-        System.err.println("biubiubiu");
-        System.err.println("biubiubiu");
 
     }
 
