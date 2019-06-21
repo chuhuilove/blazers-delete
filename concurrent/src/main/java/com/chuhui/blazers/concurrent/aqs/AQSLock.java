@@ -1,5 +1,7 @@
 package com.chuhui.blazers.concurrent.aqs;
 
+import com.chuhui.blazers.concurrent.CustomerThreadFactory;
+
 import java.rmi.ServerError;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.ThreadFactory;
@@ -23,26 +25,13 @@ public class AQSLock {
 
     private volatile int count = 0;
 
+
+
     public static void main(String[] args) {
-
-        ThreadFactory factory = new ThreadFactory() {
-
-            AtomicInteger atomicInt = new AtomicInteger(0);
-
-            @Override
-            public Thread newThread(Runnable r) {
-
-                Thread thread = new Thread(r);
-                thread.setName(String.format("AQSLock threadName %d", atomicInt.incrementAndGet()));
-
-                return thread;
-            }
-        };
-
 
         ThreadPoolExecutor executor = new ThreadPoolExecutor(30, 30,
                 2000L, TimeUnit.MINUTES,
-                new ArrayBlockingQueue<>(100), factory);
+                new ArrayBlockingQueue<>(100), new CustomerThreadFactory());
         AQSLock aqsLock = new AQSLock();
         IntStream.rangeClosed(1, 20).forEach(e -> executor.execute(() -> aqsLock.lockAndInvoke()));
 

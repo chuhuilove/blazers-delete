@@ -1,5 +1,7 @@
 package com.chuhui.blazers.concurrent.threadpool;
 
+import com.chuhui.blazers.concurrent.CustomerThreadFactory;
+
 import java.util.*;
 import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -73,24 +75,6 @@ public class ThreadPoolExample {
          */
 
 
-    }
-
-    static public class CustomerThreadFactory implements ThreadFactory {
-
-        private final AtomicInteger atomicInt = new AtomicInteger(0);
-
-        private String customerName;
-
-        public CustomerThreadFactory(String customerName) {
-            this.customerName = customerName;
-        }
-
-        @Override
-        public Thread newThread(Runnable r) {
-            Thread thread = new Thread(r);
-            thread.setName(String.format(customerName + "%d", atomicInt.incrementAndGet()));
-            return thread;
-        }
     }
 
 
