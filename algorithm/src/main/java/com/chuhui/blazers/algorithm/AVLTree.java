@@ -11,6 +11,7 @@ import java.util.TreeSet;
  * @Date: 2019/5/6
  * @Description:TODO
  */
+
 public class AVLTree<E extends Comparable<? super E>> {
     /**
      * 二叉平衡树本质上是一个二叉搜索树
@@ -60,31 +61,39 @@ public class AVLTree<E extends Comparable<? super E>> {
         return balance(node);
     }
 
-
+    /**
+     * 自平衡机制
+     * 怎么就理解不了呢??
+     * @param t
+     * @return
+     */
     private AVLNode<E> balance(AVLNode<E> t) {
+
+        //FIXME 2019年6月24日15:52:55
+        // 待定..清清脑子
+
         if (t == null) {
             return t;
         }
 
+        // 左儿子比右儿子高1
         if (height(t.left) - height(t.right) > ALLOWED_IMBALANCE) {
             if (height(t.left.left) >= height(t.left.right)) {
-
                 t = rotateWithLeftChild(t);
             } else {
-
                 t = doubleWithLeftChild(t);
             }
-        } else if (height(t.right) - height(t.left) > ALLOWED_IMBALANCE) {
+        }
+        //右儿子比左儿子高1
+        else if (height(t.right) - height(t.left) > ALLOWED_IMBALANCE) {
+            //右儿子的右子树的高度 大于等于右儿子的左子树的高度
             if (height(t.right.right) >= height(t.right.left)) {
 
                 t = rotateWithRightChild(t);
             } else {
-
                 t = doubleWithRightChild(t);
             }
         }
-
-
         t.height = Math.max(height(t.left), height(t.right)) + 1;
         return t;
     }
@@ -109,6 +118,12 @@ public class AVLTree<E extends Comparable<? super E>> {
      * For AVL trees, this is a single rotation for case 4.
      * Update heights, then return new root.
      * 右单旋
+     *
+     * 2             3
+     *  \    ==>    / \
+     *   3         2   4
+     *    \
+     *     4
      */
     private AVLNode<E> rotateWithRightChild(AVLNode<E> k1) {
         AVLNode<E> k2 = k1.right;
@@ -153,6 +168,21 @@ public class AVLTree<E extends Comparable<? super E>> {
     private int height(AVLNode<E> node) {
         return node == null ? -1 : node.getHeight();
     }
+
+    /**
+     * 查找node节点下最小
+     * @param node
+     * @return
+     */
+    public AVLNode findMin(AVLNode node){
+
+        if(node==null){
+            return node;
+        }
+
+        return  findMin(node.getLeft());
+    }
+
 
 
     public static void main(String[] args) {
