@@ -1,8 +1,13 @@
 package com.chuhui.blazers.concurrent.threadcommunicate;
 
+import com.chuhui.blazers.concurrent.CustomerThreadFactory;
 import org.junit.Test;
 
 import java.rmi.ServerError;
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 /**
  * ThreadCommunicate
@@ -54,35 +59,75 @@ public class ThreadCommunicate {
         threadSecond.start();
     }
 
-
-
-
-    
-
-
-
-    private void printData(String data) {
+    private static void printData(String data) {
         int counter = 10;
         while (counter-- > 0) {
             System.err.println(Thread.currentThread().getName() + "--->" + data + counter);
         }
     }
 
+    /**
+     * 还需要恶补线程基础知识
+     */
+    public void runDAfterABC() {
+
+        final CountDownLatch downLatch = new CountDownLatch(2);
+
+
+        Thread aThread = new Thread(() -> {
+            printData("print A");
+//            downLatch.countDown();
+        });
+        Thread bThread = new Thread(() -> {
+            printData("print B");
+//            downLatch.countDown();
+        });
+        Thread cThread = new Thread(() -> {
+            printData("print C");
+//            downLatch.countDown();
+        });
+        Thread dThread = new Thread(() -> {
+            printData("print D");
+//            try {
+//                downLatch.await();
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
+            printData("print D 最终调用");
+        });
+
+        Thread eThread = new Thread(() -> {
+            printData("print E");
+//            try {
+//                downLatch.await();
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
+            printData("print E 最终调用");
+        });
+        aThread.start();
+        bThread.start();
+        cThread.start();
+        dThread.start();
+        eThread.start();
+    }
+
+
     public static void main(String[] args) {
 
 
         ThreadCommunicate threadCommunicate = new ThreadCommunicate();
 
-        threadCommunicate.executeInSequence2();
+        threadCommunicate.runDAfterABC();
 
-        try {
+   /*     try {
             // 主线程等待子线程执行完毕
             // 否则,程序会直接退出
             Thread.currentThread().join();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-
+*/
 
     }
 
