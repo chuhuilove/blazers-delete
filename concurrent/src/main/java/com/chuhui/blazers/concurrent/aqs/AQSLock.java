@@ -2,22 +2,21 @@ package com.chuhui.blazers.concurrent.aqs;
 
 import com.chuhui.blazers.concurrent.CustomerThreadFactory;
 
-import java.rmi.ServerError;
-import java.util.Arrays;
 import java.util.concurrent.ArrayBlockingQueue;
-import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
-import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 import java.util.stream.IntStream;
 
 /**
  * AQSLock
+ * <p>
+ * 吾辈既务斯业,便当专心用功;
+ * 以后名扬四海,根据即在年轻.
  *
  * @author: 纯阳子
- * @Date: 2019/6/18
+ * @Date: 2019/6/21
  * @Description:TODO
  */
 public class AQSLock {
@@ -27,16 +26,13 @@ public class AQSLock {
     private volatile int count = 0;
 
 
-
-
-
     ThreadPoolExecutor executor = null;
 
 
     public static void main(String[] args) {
 
 
-        AQSLock aqsLock = new AQSLock();
+        com.chuhui.blazers.concurrent.aqs.AQSLock aqsLock = new com.chuhui.blazers.concurrent.aqs.AQSLock();
 
 
         aqsLock.executor = new ThreadPoolExecutor(30, 100,
@@ -44,16 +40,13 @@ public class AQSLock {
 
                 new ArrayBlockingQueue<>(100), new CustomerThreadFactory("AQSLock threadName-"));
 
-        IntStream.rangeClosed(1, 20).forEach(e ->  aqsLock.executor.execute(() -> aqsLock.lockAndInvoke()));
-
-         
+        IntStream.rangeClosed(1, 20).forEach(e -> aqsLock.executor.execute(() -> aqsLock.lockAndInvoke()));
 
 
     }
 
 
     void lockAndInvoke() {
-
 
         /**
          * 每一个线程被封装成一个Node,这些Node会被组建成一个队列,
