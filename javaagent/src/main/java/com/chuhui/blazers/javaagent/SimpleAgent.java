@@ -17,6 +17,20 @@ public class SimpleAgent {
     public static void agentmain(String params, Instrumentation inst) {
         System.err.println("agentmain invoked SimpleAgent..." + params);
 
+
+        // 返回当前JVM配置是否支持重新定义类
+        if(inst.isRedefineClassesSupported()){
+
+
+
+        }
+
+
+
+
+
+
+
         SimplePreClassFileTransformer transformer = new SimplePreClassFileTransformer("agentmain");
 
         inst.addTransformer(transformer);
@@ -30,4 +44,9 @@ public class SimpleAgent {
         }
 
     }
+
+
+
+
+
 }
