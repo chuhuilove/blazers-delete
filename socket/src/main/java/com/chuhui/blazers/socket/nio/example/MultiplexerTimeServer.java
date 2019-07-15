@@ -37,8 +37,8 @@ public class MultiplexerTimeServer implements Runnable {
         this.port = port;
 
         try {
-            selector = Selector.open();
 
+            selector = Selector.open();
             serverChannel = ServerSocketChannel.open();
 
             serverChannel.configureBlocking(false);
