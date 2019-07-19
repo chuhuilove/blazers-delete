@@ -38,13 +38,39 @@ public class MultiplexerTimeServer implements Runnable {
 
         try {
 
+            /*
+            *  Selector.open();
+            * 可以理解为调用了epoll_create();
+            * 返回值是epoll的句柄
+            *
+            * */
             selector = Selector.open();
             serverChannel = ServerSocketChannel.open();
 
+            // 新创建的通道,设置为非阻塞模式
             serverChannel.configureBlocking(false);
 
-            serverChannel.socket().bind(new InetSocketAddress(port), 1024);
-
+            // 绑定地址端口
+            serverChannel.socket().bind(new InetSocketAddress(port));
+            // 将serverChannel 注册到selector中,并且设置其感兴趣的事件为接收请求
+            /*
+            *  serverChannel.register();
+            * 可以理解为调用了epoll_ctl;
+            *
+            * 较为完整的epoll_ctl 为
+            *
+            * struct epoll_event tep;
+            * tep.events=EPOLLIN; 监听读事件,
+            * tep.data.fd=listenfd;
+            *
+            * res=epoll_ctl(efd,EPOLL_CTL_ADD,listenfd,&tep);
+            * etd: 这里可以类比为selector指针
+            * EPOLL_CTL_ADD: 描述符的操作,这里是添加
+            * listenfd: 可以类比为serverChannel
+            *
+            *
+            *
+            */
             serverChannel.register(selector, SelectionKey.OP_ACCEPT);
 
 
@@ -64,6 +90,8 @@ public class MultiplexerTimeServer implements Runnable {
 
     @Override
     public void run() {
+
+
         while (!stop) {
             CommonUtil.commonMethod(selector, (key)->handleInput(key));
         }
@@ -81,6 +109,19 @@ public class MultiplexerTimeServer implements Runnable {
 
     }
 
+    private void doWrite(SocketChannel sc) throws IOException {
+
+        String response = LocalDateTime.now().format(DateTimeFormatter.ofPattern(SocketServer.FORMATTER_STR));
+
+        byte[] bytes = response.getBytes();
+
+        ByteBuffer writeBuffer = ByteBuffer.allocate(bytes.length);
+        writeBuffer.put(bytes);
+        writeBuffer.flip();
+        sc.write(writeBuffer);
+        System.err.println("已经写出去...." + response);
+    }
+
     private void handleInput(SelectionKey key) {
         try {
             if (key.isValid()) {
@@ -96,6 +137,7 @@ public class MultiplexerTimeServer implements Runnable {
                     System.err.println("接收到连接请求....");
 
                     sc.configureBlocking(false);
+
                     sc.register(selector, SelectionKey.OP_READ);
                 }
 
@@ -136,18 +178,5 @@ public class MultiplexerTimeServer implements Runnable {
             e.printStackTrace();
         }
 
-    }
-
-    private void doWrite(SocketChannel sc) throws IOException {
-
-        String response = LocalDateTime.now().format(DateTimeFormatter.ofPattern(SocketServer.FORMATTER_STR));
-
-        byte[] bytes = response.getBytes();
-
-        ByteBuffer writeBuffer = ByteBuffer.allocate(bytes.length);
-        writeBuffer.put(bytes);
-        writeBuffer.flip();
-        sc.write(writeBuffer);
-        System.err.println("已经写出去...." + response);
     }
 }
