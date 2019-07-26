@@ -1,6 +1,6 @@
 package com.chuhui.blazers.socket.ibmnio;// $Id$
 
-import java.nio.*;
+import java.nio.FloatBuffer;
 
 public class UseFloatBuffer
 {

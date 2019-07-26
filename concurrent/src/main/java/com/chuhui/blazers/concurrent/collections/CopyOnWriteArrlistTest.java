@@ -1,6 +1,6 @@
 package com.chuhui.blazers.concurrent.collections;
 
-import com.chuhui.blazers.concurrent.CustomerThreadFactory;
+import com.chuhui.blazers.commcustome.CustomerThreadFactory;
 
 import java.util.List;
 import java.util.UUID;

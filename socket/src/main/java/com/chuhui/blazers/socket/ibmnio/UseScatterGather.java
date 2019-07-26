@@ -1,9 +1,9 @@
 package com.chuhui.blazers.socket.ibmnio;// $Id$
 
-import java.io.*;
-import java.net.*;
-import java.nio.*;
-import java.nio.channels.*;
+import java.net.InetSocketAddress;
+import java.nio.ByteBuffer;
+import java.nio.channels.ServerSocketChannel;
+import java.nio.channels.SocketChannel;
 
 public class UseScatterGather
 {

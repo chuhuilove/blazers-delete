@@ -1,4 +1,4 @@
-package com.chuhui.blazers.socket.netty.stickypack;
+package com.chuhui.blazers.socket.stickypack;
 
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.ChannelFuture;
@@ -32,6 +32,8 @@ public class TimerClient {
     }
 
     public static void main(String[] args) {
+
+
         int port = 56789;
         try {
             new TimerClient().connect(port, "localhost");

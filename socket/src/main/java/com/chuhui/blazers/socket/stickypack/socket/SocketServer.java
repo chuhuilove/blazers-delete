@@ -1,46 +1,43 @@
-package com.chuhui.blazers.socket;
+package com.chuhui.blazers.socket.stickypack.socket;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
+import static com.chuhui.blazers.commcustome.constant.Constaints.commonlyUserDateTimeFormat;
+import static com.chuhui.blazers.commcustome.constant.Constaints.returnCurrentTimeFormated;
+
+/**
+ * 分析socket的粘包与拆包问题
+ */
 public class SocketServer {
 
-    public static final String FORMATTER_STR = "yyyy-MM-dd hh:mm:ss:SSS";
 
     private static int counter = 1;
 
     public static void main(String[] args) throws IOException {
         ServerSocket server = new ServerSocket(9007);
-        System.err.println("the server has started.....");
+        System.err.println(returnCurrentTimeFormated(commonlyUserDateTimeFormat)+"the server has started.....");
 
         while (true) {
             Socket socket
                     = server.accept();
-            System.err.println(formatDateTime(FORMATTER_STR) + " 服务端接收数据");
+            System.err.println(returnCurrentTimeFormated(commonlyUserDateTimeFormat) + " server received request");
+
             new Thread(() -> new HandleAccept(socket)).start();
         }
     }
 
-    static String formatDateTime(String formatter) {
-        return LocalDateTime.now().format(DateTimeFormatter.ofPattern(formatter));
-    }
 
     static protected class HandleAccept implements Runnable {
 
         private Socket socket;
 
+
         public HandleAccept(Socket socket) {
             this.socket = socket;
-
-
-
-
-
         }
 
         @Override
@@ -54,10 +51,11 @@ public class SocketServer {
 
                 String requestBody = new String(body);
 
-                System.err.println(formatDateTime(FORMATTER_STR) + " 接收到的数据:" + requestBody);
+                System.err.println(returnCurrentTimeFormated(commonlyUserDateTimeFormat) + "received data:" + requestBody);
 
-                byte[] respBody = (formatDateTime(FORMATTER_STR) + "--->" + (counter++) + "--->" + requestBody).getBytes();
+                byte[] respBody = (returnCurrentTimeFormated(commonlyUserDateTimeFormat) + "--->" + (counter++) + "--->" + requestBody).getBytes();
                 outputStream.write(respBody);
+
             } catch (IOException e) {
                 e.printStackTrace();
             }

@@ -1,9 +1,6 @@
 package com.chuhui.blazers.socket.nio.buffer;
 
-import org.omg.PortableServer.SERVANT_RETENTION_POLICY_ID;
-
 import java.nio.ByteBuffer;
-import java.nio.FloatBuffer;
 import java.nio.charset.Charset;
 
 public class BufferExample {
@@ -49,9 +46,6 @@ public class BufferExample {
         System.err.println("date-time:"+new String(tag,Charset.forName("UTF-8")));
 
         System.err.println("sequenceNo:"+buffer.getInt());
-//
-
-
 
 
 

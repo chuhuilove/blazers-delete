@@ -1,15 +1,9 @@
-package com.chuhui.blazers.socket;
+package com.chuhui.blazers.socket.stickypack.socket;
 
-import org.omg.PortableServer.SERVANT_RETENTION_POLICY_ID;
-
-import java.io.BufferedInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.InetSocketAddress;
 import java.net.Socket;
-import java.nio.ByteBuffer;
-import java.nio.channels.SocketChannel;
 
 /**
  * java  socket 示例
@@ -24,7 +18,7 @@ import java.nio.channels.SocketChannel;
 public class SocketClient {
 
 
-    static final String MESSAGE = "this is a message";
+    static final String MESSAGE = "this is a message" + System.lineSeparator();
 
     public static void main(String[] args) throws IOException {
 
@@ -35,11 +29,10 @@ public class SocketClient {
 
         OutputStream os = socket.getOutputStream();
 
-        byte[] body = (MESSAGE + " \n").getBytes();
+        byte[] body = (MESSAGE).getBytes();
         os.write(body);
 
-        System.err.println("write " + MESSAGE + " ");
-
+        System.err.println("@@@ write " + MESSAGE + " @@@ ");
 
 
 //        InputStream inputStream = socket.getInputStream();

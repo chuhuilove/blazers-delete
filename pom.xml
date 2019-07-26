@@ -22,6 +22,7 @@
         <module>smallexample</module>
         <module>javaagent</module>
         <module>socket</module>
+        <module>commcustome</module>
     </modules>
 
     <properties>

@@ -1,6 +1,6 @@
 package com.chuhui.blazers.concurrent.aqs;
 
-import com.chuhui.blazers.concurrent.CustomerThreadFactory;
+import com.chuhui.blazers.commcustome.CustomerThreadFactory;
 
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;

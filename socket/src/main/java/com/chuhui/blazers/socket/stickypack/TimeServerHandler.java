@@ -1,4 +1,4 @@
-package com.chuhui.blazers.socket.netty.stickypack;
+package com.chuhui.blazers.socket.stickypack;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;

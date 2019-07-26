@@ -1,6 +1,6 @@
 package com.chuhui.blazers.socket.nio.example;
 
-import com.chuhui.blazers.socket.SocketServer;
+import com.chuhui.blazers.socket.stickypack.socket.SocketServer;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
@@ -12,16 +12,18 @@ import java.nio.channels.SocketChannel;
 import java.nio.charset.Charset;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Iterator;
-import java.util.Set;
-import java.util.function.Consumer;
+
+import static com.chuhui.blazers.commcustome.constant.Constaints.commonlyUserDateTimeFormat;
+import static com.chuhui.blazers.commcustome.constant.Constaints.returnCurrentTimeFormated;
 
 /**
  * MultiplexerTimeServer
+ * nio编程和epoll对比
+ * 参考其中的注释
  *
  * @author: 纯阳子
  * @Date: 2019/5/26
- * @Description:TODO
+ * @Description: 原始nio编程
  */
 public class MultiplexerTimeServer implements Runnable {
 
@@ -111,7 +113,7 @@ public class MultiplexerTimeServer implements Runnable {
 
     private void doWrite(SocketChannel sc) throws IOException {
 
-        String response = LocalDateTime.now().format(DateTimeFormatter.ofPattern(SocketServer.FORMATTER_STR));
+        String response =  returnCurrentTimeFormated(commonlyUserDateTimeFormat);
 
         byte[] bytes = response.getBytes();
 

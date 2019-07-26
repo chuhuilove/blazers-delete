@@ -1,8 +1,8 @@
 package com.chuhui.blazers.socket.ibmnio;// $Id$
 
-import java.io.*;
-import java.nio.*;
-import java.nio.channels.*;
+import java.io.FileInputStream;
+import java.nio.ByteBuffer;
+import java.nio.channels.FileChannel;
 
 public class ReadAndShow
 {

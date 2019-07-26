@@ -1,8 +1,6 @@
 package com.chuhui.blazers.socket.ibmnio;// $Id$
 
-import java.io.*;
-import java.nio.*;
-import java.nio.channels.*;
+import java.nio.ByteBuffer;
 
 public class TypesInByteBuffer
 {

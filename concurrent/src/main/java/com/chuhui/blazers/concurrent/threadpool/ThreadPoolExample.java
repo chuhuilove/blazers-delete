@@ -1,11 +1,9 @@
 package com.chuhui.blazers.concurrent.threadpool;
 
-import com.chuhui.blazers.concurrent.CustomerThreadFactory;
+import com.chuhui.blazers.commcustome.CustomerThreadFactory;
 
 import java.util.*;
 import java.util.concurrent.*;
-import java.util.concurrent.atomic.AtomicInteger;
-import java.util.stream.IntStream;
 
 /**
  * Copyright (C) 2017-2018 Qy All rights reserved

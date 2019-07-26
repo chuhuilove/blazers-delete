@@ -1,8 +1,8 @@
 package com.chuhui.blazers.socket.ibmnio;// $Id$
 
-import java.io.*;
-import java.nio.*;
-import java.nio.channels.*;
+import java.io.FileOutputStream;
+import java.nio.ByteBuffer;
+import java.nio.channels.FileChannel;
 
 public class WriteSomeBytes
 {

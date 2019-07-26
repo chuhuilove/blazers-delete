@@ -1,13 +1,6 @@
 package com.chuhui.blazers.concurrent.threadcommunicate;
 
-import com.chuhui.blazers.concurrent.CustomerThreadFactory;
-import org.junit.Test;
-
-import java.rmi.ServerError;
-import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.ThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
 
 /**
  * ThreadCommunicate

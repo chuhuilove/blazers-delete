@@ -1,4 +1,4 @@
-package com.chuhui.blazers.socket.netty.stickypack;
+package com.chuhui.blazers.socket.stickypack;
 
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
