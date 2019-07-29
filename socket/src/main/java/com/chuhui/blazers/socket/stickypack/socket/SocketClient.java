@@ -1,6 +1,7 @@
 package com.chuhui.blazers.socket.stickypack.socket;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.InetSocketAddress;
 import java.net.Socket;
@@ -24,7 +25,7 @@ public class SocketClient {
 
 
         Socket socket = new Socket();
-        socket.connect(new InetSocketAddress("118.24.141.172", 9007));
+        socket.connect(new InetSocketAddress("118.24.141.172", 9009));
 
 
         OutputStream os = socket.getOutputStream();
@@ -35,11 +36,11 @@ public class SocketClient {
         System.err.println("@@@ write " + MESSAGE + " @@@ ");
 
 
-//        InputStream inputStream = socket.getInputStream();
-//        byte[] respBody = new byte[1024];
-//        inputStream.read(respBody);
-//
-//        System.err.println("client rev info:" + new String(respBody));
+        InputStream inputStream = socket.getInputStream();
+        byte[] respBody = new byte[1024];
+        inputStream.read(respBody);
+
+        System.err.println("client rev info:" + new String(respBody));
     }
 
 }

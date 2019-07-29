@@ -15,12 +15,12 @@ public class Constaints {
     /**
      * 常用的日期事件格式,精确到毫秒 yyyyMMdd hh:mm:ss:SSS
      */
-    public static final DateTimeFormatter commonlyUserDateTimeFormatNoHorizontalLine = DateTimeFormatter.ofPattern("yyyyMMdd hh:mm:ss:SSS");
+    public static final DateTimeFormatter commonlyUserDateTimeFormatNoHorizontalLine = DateTimeFormatter.ofPattern("yyyyMMdd HH:mm:ss:SSS");
 
     /**
      * 常用的日期事件格式,精确到毫秒 yyyy-MM-dd hh:mm:ss:SSS
      */
-    public static final DateTimeFormatter commonlyUserDateTimeFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss:SSS");
+    public static final DateTimeFormatter commonlyUserDateTimeFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss:SSS");
 
 
     /**
