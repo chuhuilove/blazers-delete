@@ -19,21 +19,25 @@ import java.net.Socket;
 public class SocketClient {
 
 
-    static final String MESSAGE = "this is a message" + System.lineSeparator();
+    static final String MESSAGE = "this is a message";
 
     public static void main(String[] args) throws IOException {
 
 
         Socket socket = new Socket();
-        socket.connect(new InetSocketAddress("118.24.141.172", 9009));
+        socket.connect(new InetSocketAddress("localhost", 9009));
+//        socket.connect(new InetSocketAddress("118.24.141.172", 9009));
 
 
-        OutputStream os = socket.getOutputStream();
+        for (int i = 1; i <= 1000; i++) {
 
-        byte[] body = (MESSAGE).getBytes();
-        os.write(body);
+            OutputStream os = socket.getOutputStream();
 
-        System.err.println("@@@ write " + MESSAGE + " @@@ ");
+            byte[] body = (MESSAGE+i).getBytes();
+            os.write(body);
+
+            System.err.println("@@@ write " + MESSAGE+i + " @@@ ");
+        }
 
 
         InputStream inputStream = socket.getInputStream();
