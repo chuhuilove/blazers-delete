@@ -93,9 +93,6 @@ public class SocketServerForLinux {
                     readBytes = is.read(body2);
 
                     System.err.println("the second read byte size=" + readBytes);
-
-
-
                 }
 
                 String requestBody = new String(body);
