@@ -148,27 +148,6 @@ public class Solution {
         }
     }
 
-    public static void main(String[] args) {
-//        ListNode head = linkeNodeGen(new int[]{1, 2, 3, 4, 5});
-//        removeNthFromEnd(head, 2);
-
-
-        System.err.println(rob(new int[]{1, 2, 4, 1, 7, 8, 3}));
-    }
-
-    private static ListNode linkeNodeGen(int[] nums) {
-        ListNode rootNode = new ListNode(nums[0]);
-
-        ListNode parentNode = rootNode;
-
-        for (int i = 1; i < nums.length; i++) {
-            parentNode.next = new ListNode(nums[i]);
-            parentNode = parentNode.next;
-        }
-
-        return rootNode;
-    }
-
 
     public static ListNode removeNthFromEnd(ListNode head, int n) {
 
@@ -377,24 +356,24 @@ public class Solution {
     }
 
 
-
     /**
      * 你是一个专业的小偷，计划偷窃沿街的房屋。每间房内都藏有一定的现金，影响你偷窃的唯一制约因素就是相邻的房屋装有相互连通的防盗系统，如果两间相邻的房屋在同一晚上被小偷闯入，系统会自动报警。
-     *
+     * <p>
      * 给定一个代表每个房屋存放金额的非负整数数组，计算你在不触动警报装置的情况下，能够偷窃到的最高金额。
-     *
+     * <p>
      * 示例 1:
-     *
+     * <p>
      * 输入: [1,2,3,1]
      * 输出: 4
      * 解释: 偷窃 1 号房屋 (金额 = 1) ，然后偷窃 3 号房屋 (金额 = 3)。
-     *      偷窃到的最高金额 = 1 + 3 = 4 。
+     * 偷窃到的最高金额 = 1 + 3 = 4 。
      * 示例 2:
-     *
+     * <p>
      * 输入: [2,7,9,3,1]
      * 输出: 12
      * 解释: 偷窃 1 号房屋 (金额 = 2), 偷窃 3 号房屋 (金额 = 9)，接着偷窃 5 号房屋 (金额 = 1)。
-     *      偷窃到的最高金额 = 2 + 9 + 1 = 12 。
+     * 偷窃到的最高金额 = 2 + 9 + 1 = 12 。
+     *
      * @param nums
      * @return
      */
@@ -406,10 +385,70 @@ public class Solution {
         back[1] = Math.max(nums[0], nums[1]);
 
         for (int i = 2; i < nums.length; i++) {
-            back[i] = Math.max(back[i - 1],nums[i] + back[i - 2] );
+            back[i] = Math.max(back[i - 1], nums[i] + back[i - 2]);
         }
         return back[nums.length - 1];
     }
 
+    private static ListNode linkeNodeGen(int[] nums) {
+        ListNode rootNode = new ListNode(nums[0]);
+
+        ListNode parentNode = rootNode;
+
+        for (int i = 1; i < nums.length; i++) {
+            parentNode.next = new ListNode(nums[i]);
+            parentNode = parentNode.next;
+        }
+
+        return rootNode;
+    }
+
+    public static void main(String[] args) {
+//        ListNode head = linkeNodeGen(new int[]{1, 2, 3, 4, 5});
+//        removeNthFromEnd(head, 2);
+
+        System.err.println(Integer.MIN_VALUE);
+
+        System.err.println(reverse(Integer.MAX_VALUE));
+    }
+
+
+    public static int reverse(int x) {
+        int temp;
+        int result = 0;
+        int lastNum;
+        while (x != 0) {
+            lastNum = x % 10;
+            temp = result;
+            result = result * 10 + lastNum;
+            if ((result - lastNum) / 10 != temp) {
+                //溢出了
+                return 0;
+            }
+            x = x / 10;
+        }
+        return result;
+    }
+
+    /**
+     * 给定一个没有重复数字的序列,返回其所有可能的全排列.
+     * 回溯
+     *
+     * @param nums
+     * @return
+     */
+    public static List<List<Integer>> permute(int[] nums) {
+        int length = nums.length;
+        //TODO 回溯算法解决
+
+        // 不会的东西实在是太多了
+        for (int i = 0; i < length; i++) {
+
+        }
+
+
+        return null;
+
+    }
 
 }

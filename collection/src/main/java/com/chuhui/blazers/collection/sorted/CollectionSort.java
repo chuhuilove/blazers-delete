@@ -27,7 +27,6 @@ public class CollectionSort {
         System.err.println(returnCurrentTimeFormated(commonlyUserDateTimeFormat) + " 开始排序:" + sortList.size());
         sortList.sort(Integer::compareTo);
 
-Collections.sort();
 
 
         System.err.println(returnCurrentTimeFormated(commonlyUserDateTimeFormat) + " 结束排序:" + sortList.size());
