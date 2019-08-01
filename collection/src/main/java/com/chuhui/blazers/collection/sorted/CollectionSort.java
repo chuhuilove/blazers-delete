@@ -31,5 +31,9 @@ Collections.sort();
 
 
         System.err.println(returnCurrentTimeFormated(commonlyUserDateTimeFormat) + " 结束排序:" + sortList.size());
+
+        /**
+         * 内部使用归并排序
+         */
     }
 }
