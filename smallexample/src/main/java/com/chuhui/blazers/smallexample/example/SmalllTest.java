@@ -1,5 +1,6 @@
 package com.chuhui.blazers.smallexample.example;
 
+import java.sql.DriverManager;
 import java.util.Arrays;
 
 public class SmalllTest {
@@ -28,8 +29,6 @@ public class SmalllTest {
 
         System.err.println("实际值:"+hash(a));
 
-
-//        32778
 
     }
 
