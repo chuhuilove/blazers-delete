@@ -1,4 +1,4 @@
-package com.chuhui.blazers.smallexam;
+package com.chuhui.blazers.smallexample.example;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;

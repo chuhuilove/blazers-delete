@@ -1,4 +1,4 @@
-package com.chuhui.blazers.smallexam;
+package com.chuhui.blazers.smallexample.example;
 
 /**
  * TestMulitClass

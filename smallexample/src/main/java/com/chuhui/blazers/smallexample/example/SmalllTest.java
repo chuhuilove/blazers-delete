@@ -1,10 +1,6 @@
-package com.chuhui.blazers.smallexam;
+package com.chuhui.blazers.smallexample.example;
 
-import java.nio.ByteBuffer;
 import java.util.Arrays;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.LinkedHashMap;
 
 public class SmalllTest {
 
