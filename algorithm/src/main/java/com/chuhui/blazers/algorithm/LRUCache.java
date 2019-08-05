@@ -39,7 +39,7 @@ public class LRUCache {
         int index = get(key);
 
         if (index >= 0) {
-            list.get(index - 1).value = value;
+            list.get(index-1).value=value;
             return;
         }
 
@@ -84,51 +84,26 @@ public class LRUCache {
 
 
     public static void main(String[] args) {
-//        LRUCache cache = new LRUCache(2);
-//
-//        cache.put(2, 1);
-//        cache.put(2, 2);
+
+        //
+        //https://leetcode-cn.com/problems/lru-cache/solution/lru-huan-cun-ji-zhi-by-leetcode/
+        // 把代码抄下来,就是我的了
+
+        LRUCache cache = new LRUCache(2);
+
+        cache.put(2, 1);
+        cache.put(2, 2);
+        System.err.println(cache.get(2));
+        cache.put(1, 1);
+        cache.put(4, 1);
+        System.err.println(cache.get(2));
+
 //        // 返回  1
-//        System.err.println("2 找到:"  + cache.get(2));
-//
-//        cache.put(1, 1);
-//        cache.put(4, 1);
-//        System.err.println("-1 找到:"+cache.get(2));
-
-//        int[] arrays = new int[5];
-//        Arrays.fill(arrays, 10);
-//
-//        Arrays.stream(arrays).forEach(System.err::println);
-//
-//        arrayMove(arrays);
-//        System.err.println("改动后======");
-//
-//        Arrays.stream(arrays).forEach(System.err::println);
 
 
-//        final StringBuilder builder=new StringBuilder(9);
-//
-//        LongStream.rangeClosed(1,20000L).forEach(e->builder.append(9));
-//
-//
-//        String str=builder.toString();
-//
-//        BigInteger a=new BigInteger(str);
-//
-//        System.err.println("BigInteger开始:"+LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss:SSS")));
-//
-//        BigInteger multiply1 = a.multiply(new BigInteger(str));
-//
-//        System.err.println(multiply1.toString());
-//        System.err.println("BigInteger结束:"+LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss:SSS")));
-//
-//        System.err.println("==========================================================================");
-//
-//        System.err.println("自定义开始:"+LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss:SSS")));
-//
-//        System.err.println(multiply(str, str));
-//        System.err.println("自定义结束:"+LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss:SSS")));
-//
+//         * ["LRUCache","put","put","get","put","put","get"]
+// * [[2],[2,1],[2,2],
+// //[2],[1,1],[4,1],[2]]
 
 
     }
@@ -169,17 +144,17 @@ public class LRUCache {
     public static void merge(int[] nums1, int m, int[] nums2, int n) {
 
         // i为nums1指针  指向尚未处理的第一个数字（从后向前）  j为nums2指针  cur是将要放入位置
-        int i=m-1,j=n-1,cur=m+n-1;
+        int i = m - 1, j = n - 1, cur = m + n - 1;
 
         // 若j先变为-1 说明nums2已经全部插入 完成
-        while(j>-1){
+        while (j > -1) {
 
             // i为-1说明 nums1中原有数字以全部用完  直接在nums2中选择插入
-            if(i==-1||nums2[j]>=nums1[i]){
-                nums1[cur]=nums2[j];
+            if (i == -1 || nums2[j] >= nums1[i]) {
+                nums1[cur] = nums2[j];
                 j--;
-            }else{
-                nums1[cur]=nums1[i];
+            } else {
+                nums1[cur] = nums1[i];
                 i--;
             }
             cur--;
