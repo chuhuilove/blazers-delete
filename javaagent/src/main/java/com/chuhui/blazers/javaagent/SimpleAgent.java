@@ -10,8 +10,23 @@ import java.lang.instrument.UnmodifiableClassException;
 public class SimpleAgent {
 
     public static void premain(String params, Instrumentation inst) {
-        System.err.println("premain invoked SimpleAgent..." + params);
+        System.err.println("premain invoked SimpleAgent...start..." + params);
         inst.addTransformer(new SimplePreClassFileTransformer("premain"));
+
+        Class[] loadedClasses = inst.getAllLoadedClasses();
+
+        for (Class clazz : loadedClasses) {
+
+
+            if (inst.isModifiableClass(clazz)) {
+                System.err.println("premain "+clazz.getName()+" can modified!");
+            }else{
+                System.err.println("premain "+clazz.getName()+" can't modified!");
+            }
+
+        }
+        System.err.println("premain invoked SimpleAgent..end....");
+
     }
 
     public static void agentmain(String params, Instrumentation inst) {
@@ -19,16 +34,10 @@ public class SimpleAgent {
 
 
         // 返回当前JVM配置是否支持重新定义类
-        if(inst.isRedefineClassesSupported()){
-
+        if (inst.isRedefineClassesSupported()) {
 
 
         }
-
-
-
-
-
 
 
         SimplePreClassFileTransformer transformer = new SimplePreClassFileTransformer("agentmain");
@@ -44,9 +53,6 @@ public class SimpleAgent {
         }
 
     }
-
-
-
 
 
 }

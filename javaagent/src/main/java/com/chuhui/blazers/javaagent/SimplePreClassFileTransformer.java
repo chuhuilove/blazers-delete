@@ -17,13 +17,14 @@ public class SimplePreClassFileTransformer implements ClassFileTransformer, Opco
 
 
     private String type;
-    public SimplePreClassFileTransformer(String type){
-        this.type=type;
+
+    public SimplePreClassFileTransformer(String type) {
+        this.type = type;
     }
 
 
     private byte[] classfileBuffer;
-    private  Class<?> classBeingRedefined;
+    private Class<?> classBeingRedefined;
 
 
     public byte[] getClassfileBuffer() {
@@ -42,38 +43,37 @@ public class SimplePreClassFileTransformer implements ClassFileTransformer, Opco
     @Override
     public byte[] transform(ClassLoader loader, String className, Class<?> classBeingRedefined, ProtectionDomain protectionDomain, byte[] classfileBuffer) throws IllegalClassFormatException {
 
+        System.err.println(type + "<--->" + className);
 
 
-
-
-
-        if (FILTER_CLASS_NAME.equals(className)) {
-            classBeingRedefined=classBeingRedefined;
-
-
-            ClassReader reader = new ClassReader(classfileBuffer);
-            ClassWriter writer = new ClassWriter(reader, ClassWriter.COMPUTE_FRAMES);
-
-            HashMapVisitorAdapter hv = new HashMapVisitorAdapter(writer);
-            reader.accept(hv, Opcodes.ASM5);
-
-            byte[] bytes = writer.toByteArray();
-
-            FileOutputStream fos = null;
-            try {
-                fos = new FileOutputStream("CustomerMap.class");
-                fos.write(bytes);
-                fos.close();
-
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            classfileBuffer=bytes;
-            return bytes;
-        }
+//
+//        if (FILTER_CLASS_NAME.equals(className)) {
+//            classBeingRedefined=classBeingRedefined;
+//
+//
+//            ClassReader reader = new ClassReader(classfileBuffer);
+//            ClassWriter writer = new ClassWriter(reader, ClassWriter.COMPUTE_FRAMES);
+//
+//            HashMapVisitorAdapter hv = new HashMapVisitorAdapter(writer);
+//            reader.accept(hv, Opcodes.ASM5);
+//
+//            byte[] bytes = writer.toByteArray();
+//
+//            FileOutputStream fos = null;
+//            try {
+//                fos = new FileOutputStream("CustomerMap.class");
+//                fos.write(bytes);
+//                fos.close();
+//
+//            } catch (FileNotFoundException e) {
+//                e.printStackTrace();
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//
+//            classfileBuffer=bytes;
+//            return bytes;
+//        }
 
         return null;
     }

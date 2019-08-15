@@ -7,7 +7,7 @@ import java.util.Objects;
  *
  * @author: cyzi
  * @Date: 2019/8/8 0008
- * @Description:TODO
+ * @Description:
  */
 public class PressureVO implements Comparable<PressureVO> {
 
