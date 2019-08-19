@@ -24,7 +24,7 @@ public class Scanner {
         for (VirtualMachineDescriptor vmd : list) {
 
 
-            if (vmd.displayName().endsWith("BatchTest")) {
+            if (vmd.displayName().contains("Bootstrap")) {
                 VirtualMachine virtualMachine = VirtualMachine.attach(vmd.id());
                 virtualMachine.loadAgent("F:\\chunyangzi-program\\customercode\\javaagent\\target\\javaagent-1.0.jar", "12314144");
                 System.out.println("ok");

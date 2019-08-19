@@ -40,6 +40,7 @@
                         <manifestEntries>
                             <Premain-Class>com.chuhui.blazers.javaagent.SimpleAgent</Premain-Class>
                             <Agent-Class>com.chuhui.blazers.javaagent.SimpleAgent</Agent-Class>
+
                         </manifestEntries>
                     </archive>
                 </configuration>
