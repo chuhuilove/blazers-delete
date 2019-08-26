@@ -15,12 +15,6 @@ public class BloomFilter {
 
 
     public static void main(String[] args) {
-        BitSet bitSet = new BitSet();
-
-//        bitSet.
-
-
-        EWAHCompressedBitmap  bitMap=new EWAHCompressedBitmap();
 
     }
 

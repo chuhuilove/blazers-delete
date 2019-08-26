@@ -1,6 +1,8 @@
 package com.chuhui.blazers.algorithm.leetcode;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * BigNumCompute
@@ -24,18 +26,6 @@ public class BigNumCompute {
 
 
         BigDecimal bigDecimal1 = new BigDecimal("345663234566321212134566321212112121345663212121.345663234566321212134566321212112121345663212121");
-
-
-//        BigDecimal multiply = bigDecimal1.multiply(bigDecimal);
-
-
-//
-//        System.err.println("pause");
-//        System.err.println("pause");
-//        System.err.println("pause");
-//
-//
-//        System.err.println(multiply.toString());
 
 
         int t_123 = 123;
@@ -94,12 +84,45 @@ public class BigNumCompute {
         return builder.reverse().toString();
     }
 
+    /**
+     * 字符串相乘
+     * @param num1
+     * @param num2
+     * @return
+     */
+    public static String multiply(String num1, String num2) {
+
+
+
+
+
+        for(int i=0;i<num1.length();i++){
+
+
+
+
+
+
+
+
+        }
+
+
+
+
+
+        return null;
+    }
+
 
     public static String subtract(String num1, String num2) {
 
 
         return null;
     }
+
+
+
 
 
 }

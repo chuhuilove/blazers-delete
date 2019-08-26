@@ -17,7 +17,8 @@ public class ThreadPoolExample {
 
     ExecutorService executor;
 
-    final int MAX_TASK_COUNT = Runtime.getRuntime().availableProcessors() << 4;
+    final int MAX_TASK_COUNT = 100;
+//    final int MAX_TASK_COUNT = Runtime.getRuntime().availableProcessors() << 4;
 
     final List<String> uuids = new CopyOnWriteArrayList<>();
 
@@ -26,12 +27,13 @@ public class ThreadPoolExample {
      */
     void signThreadPool() {
 
-        executor = new ThreadPoolExecutor(4, 10,
+        executor = new ThreadPoolExecutor(10, 20,
                 0L, TimeUnit.SECONDS,
-                new LinkedBlockingQueue<>(), new CustomerThreadFactory("SingleThreadExecutor-"));
+                new LinkedBlockingDeque<>(), new CustomerThreadFactory("SingleThreadExecutor-"), new ThreadPoolExecutor.AbortPolicy());
 
         for (int i = 1; i <= MAX_TASK_COUNT; i++) {
-            executor.execute(() -> qryData());
+            final int a = i;
+            executor.execute(() -> qryData("task-" + a));
         }
 
     }
@@ -43,14 +45,14 @@ public class ThreadPoolExample {
     }
 
 
-    void qryData() {
+    void qryData(String taskName) {
 
         int counter = 1;
         while (counter++ < 10000) {
             String uuid = UUID.randomUUID().toString();
             uuids.add(Thread.currentThread().getName() + "---->" + uuid);
-            if(counter>9999){
-                System.err.println(Thread.currentThread().getName()+" 已经循环"+counter+"次,结束.");
+            if (counter > 9999) {
+                System.err.println(Thread.currentThread().getName() + " 已经循环" + counter + "次,结束."+taskName);
             }
         }
 

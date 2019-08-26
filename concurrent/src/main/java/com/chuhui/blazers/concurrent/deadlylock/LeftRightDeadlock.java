@@ -75,6 +75,7 @@ public class LeftRightDeadlock {
 
     public static void main(String[] args) {
 
+
         LeftRightDeadlock deadlock = new LeftRightDeadlock();
 
         List<Thread> threads = IntStream.rangeClosed(1, Runtime.getRuntime().availableProcessors()).mapToObj(e ->

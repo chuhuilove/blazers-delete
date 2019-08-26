@@ -1,6 +1,7 @@
 package com.chuhui.blazers.concurrent.deadlylock;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -26,8 +27,9 @@ public class DynamicOrderDeadlock {
         synchronized (fromAccount) {
             synchronized (toAccount) {
 
-                if (fromAccount.getBalance().compareTo(amount) < 0)
+                if (fromAccount.getBalance().compareTo(amount) < 0){
                     throw new RuntimeException("无法完成转账:fromAccount:" + fromAccount.balance.amount + " toAccount:" + toAccount.balance.amount);
+                }
                 else {
                     fromAccount.debit(amount);
                     toAccount.credit(amount);
@@ -187,6 +189,9 @@ public class DynamicOrderDeadlock {
         }
 
         System.err.println("线程安全已经完成,当前fromCount余额:" + fromAccount.balance.amount + " 当前toAccount余额:" + toAccount.balance.amount);
+
+
+
     }
 
 }
