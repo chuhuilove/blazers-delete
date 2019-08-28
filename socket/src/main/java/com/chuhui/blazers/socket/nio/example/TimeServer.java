@@ -3,8 +3,6 @@ package com.chuhui.blazers.socket.nio.example;
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
 
 import java.util.concurrent.*;
-import java.util.function.Consumer;
-import java.util.function.Function;
 
 /**
  * example
