@@ -1,4 +1,4 @@
-package com.chuhui.blazers.socket.zlnetty;
+package com.chuhui.blazers.socket.zlnetty.firstexample;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;

@@ -1,4 +1,4 @@
-package com.chuhui.blazers.socket.zlnetty;
+package com.chuhui.blazers.socket.zlnetty.firstexample;
 
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPipeline;
