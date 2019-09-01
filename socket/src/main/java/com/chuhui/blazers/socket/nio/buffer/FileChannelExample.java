@@ -28,6 +28,7 @@ public class FileChannelExample {
 
         while (true) {
 //            buffer.clear();
+            // 如果不调用clear,则position和limit相等,无法进行读数据,则会返回0,除非channel关闭后才能返回-1,
             int read = inputChannel.read(buffer);
             System.err.println("read:" + read);
             if (read <= -1) {
