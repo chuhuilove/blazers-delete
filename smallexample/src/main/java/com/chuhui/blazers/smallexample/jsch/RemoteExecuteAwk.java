@@ -63,17 +63,23 @@ public class RemoteExecuteAwk {
     static String getRemoteString() throws JSchException, IOException {
         JSch jsch = new JSch();
 
-        Session cyziSession = jsch.getSession("cyzi", "10.45.66.209", 22);
+        Session cyziSession = jsch.getSession("cyzi", "172.16.23.115", 22);
         cyziSession.setPassword("cyzi");
         Properties config = new Properties();
         config.put("StrictHostKeyChecking", "no");
+        config.put("PreferredAuthentications","password");
         cyziSession.setConfig(config);
+        System.err.println(LocalDateTime.now()+" session invoke connect start");
         cyziSession.connect();
+        System.err.println(LocalDateTime.now()+" session invoke connect end");
         Channel channel = cyziSession.openChannel("exec");
 
+        String fileName = " $QuickMDB_HOME/qmdbcluster/atd/statistic/workload.txt";
 
-        String command = " source .bash_profile; awk '{if($1>" + computed + ") print  $1,$2,$3,$4,$5,$6,$7,$8 \n}' $QuickMDB_HOME/qmdbcluster/atd/statistic/workload.txt | tail -n +2";
+        String awkFile = " awk 'BEGIN{diffTime=strftime(\"%Y%m%d%H%M%S\",systime()-6*3600); print diffTime}{if($1>diffTime) print  $1,$2,$3,$4,$5,$6,$7,$8 \n}' " + fileName;
 
+
+        String command = " source .bash_profile;" + awkFile;
 
         ((ChannelExec) channel).setCommand(command);
 
