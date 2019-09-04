@@ -24,12 +24,15 @@ public class WebSocketServerInitializer extends ChannelInitializer<io.netty.chan
 
         ChannelPipeline pipeline = ch.pipeline();
 
-        pipeline.addLast(new HttpServerCodec());
-        pipeline.addLast(new HttpObjectAggregator(65536));
-        pipeline.addLast(new WebSocketServerCompressionHandler());
-        pipeline.addLast(new WebSocketServerProtocolHandler(WEBSOCKET_PATH,null,true));
-        pipeline.addLast(new WebSocketIndexPageHandler(WEBSOCKET_PATH));
-        pipeline.addLast(new WebSocketFrameHandler());
+        pipeline.addLast("1",new HttpServerCodec());
+        pipeline.addLast("2",new HttpObjectAggregator(65536));
+        pipeline.addLast("3",new WebSocketServerCompressionHandler());
+        pipeline.addLast("4",new WebSocketServerProtocolHandler(WEBSOCKET_PATH,null,true));
+        pipeline.addLast("5",new WebSocketIndexPageHandler(WEBSOCKET_PATH));
+        pipeline.addLast("6",new WebSocketFrameHandler());
+        pipeline.addLast("7",new WebSocketCustomeOutHandlerEn());
+        pipeline.addLast("8",new WebSocketCustomeOutHandler());
+
 
 
     }

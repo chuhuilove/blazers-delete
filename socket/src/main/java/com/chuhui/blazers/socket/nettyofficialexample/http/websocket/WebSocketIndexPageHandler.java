@@ -9,6 +9,8 @@ import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.handler.codec.http.*;
 import io.netty.util.CharsetUtil;
 
+import static com.chuhui.blazers.commcustome.constant.Constaints.commonlyUserDateTimeFormat;
+import static com.chuhui.blazers.commcustome.constant.Constaints.returnCurrentTimeFormated;
 import static io.netty.handler.codec.http.HttpHeaderNames.CONNECTION;
 import static io.netty.handler.codec.http.HttpHeaderNames.CONTENT_TYPE;
 import static io.netty.handler.codec.http.HttpHeaderValues.CLOSE;
@@ -24,10 +26,13 @@ import static io.netty.handler.codec.http.HttpMethod.GET;
  */
 public class WebSocketIndexPageHandler extends SimpleChannelInboundHandler<FullHttpRequest> {
 
+
     private final String websocketPath;
 
     public WebSocketIndexPageHandler(String websocketPath) {
         this.websocketPath = websocketPath;
+        System.out.println(returnCurrentTimeFormated(commonlyUserDateTimeFormat) + " WebSocketIndexPageHandler initialized");
+
     }
 
     @Override
@@ -61,8 +66,8 @@ public class WebSocketIndexPageHandler extends SimpleChannelInboundHandler<FullH
 
             sendHttpResponse(ctx, msg, res);
         } else {
-            System.err.println("req uri:" + msg.uri());
-            sendHttpResponse(ctx, msg, new DefaultFullHttpResponse(HttpVersion.HTTP_1_1, HttpResponseStatus.NOT_FOUND, Unpooled.EMPTY_BUFFER));
+            System.out.println("req uri:" + msg.uri());
+            sendHttpResponse(ctx, msg, new DefaultFullHttpResponse(HttpVersion.HTTP_1_1, HttpResponseStatus.NOT_FOUND, Unpooled.buffer(10, 200)));
         }
     }
 
@@ -78,16 +83,16 @@ public class WebSocketIndexPageHandler extends SimpleChannelInboundHandler<FullH
         return protocol + "://" + msg.headers().get(HttpHeaderNames.HOST) + path;
     }
 
+    @Override
+    public void handlerAdded(ChannelHandlerContext ctx) throws Exception {
+        super.handlerAdded(ctx);
+    }
+
     private void sendHttpResponse(ChannelHandlerContext ctx, FullHttpRequest req, FullHttpResponse res) {
 
         if (res.status().code() != 200) {
             ByteBuf buf = Unpooled.copiedBuffer(res.status().toString(), CharsetUtil.UTF_8);
-
-            ByteBuf content = res.content();
-            content.writeBytes(buf);
-
-
-
+            res.content().writeBytes(buf);
             buf.release();
             HttpUtil.setContentLength(res, res.content().readableBytes());
         }

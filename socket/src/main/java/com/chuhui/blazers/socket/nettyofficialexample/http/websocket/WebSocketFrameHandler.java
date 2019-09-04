@@ -7,6 +7,9 @@ import io.netty.handler.codec.http.websocketx.WebSocketFrame;
 
 import java.util.Locale;
 
+import static com.chuhui.blazers.commcustome.constant.Constaints.commonlyUserDateTimeFormat;
+import static com.chuhui.blazers.commcustome.constant.Constaints.returnCurrentTimeFormated;
+
 /**
  * WebSocketFrameHandler
  *
@@ -15,6 +18,12 @@ import java.util.Locale;
  * @Description:TODO
  */
 public class WebSocketFrameHandler extends SimpleChannelInboundHandler<WebSocketFrame> {
+
+    public WebSocketFrameHandler(){
+
+        System.out.println(returnCurrentTimeFormated(commonlyUserDateTimeFormat)+" WebSocketFrameHandler initialized");
+
+    }
 
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, WebSocketFrame frame) throws Exception {
