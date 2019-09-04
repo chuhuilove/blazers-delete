@@ -23,8 +23,6 @@ public class WebSocketServer {
         EventLoopGroup workGroup = new NioEventLoopGroup();
 
         try {
-
-
             ServerBootstrap b = new ServerBootstrap();
 
             b.group(bossGroup, workGroup)
