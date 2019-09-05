@@ -1,9 +1,13 @@
 package com.chuhui.blazers.socket.nettyofficialexample.http.websocket;
 
+import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
+import io.netty.channel.group.ChannelGroup;
+import io.netty.channel.group.DefaultChannelGroup;
 import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
 import io.netty.handler.codec.http.websocketx.WebSocketFrame;
+import io.netty.util.concurrent.GlobalEventExecutor;
 
 import java.util.Locale;
 
@@ -19,10 +23,10 @@ import static com.chuhui.blazers.commcustome.constant.Constaints.returnCurrentTi
  */
 public class WebSocketFrameHandler extends SimpleChannelInboundHandler<WebSocketFrame> {
 
+
+
     public WebSocketFrameHandler(){
-
-        System.out.println(returnCurrentTimeFormated(commonlyUserDateTimeFormat)+" WebSocketFrameHandler initialized");
-
+        System.err.println(returnCurrentTimeFormated(commonlyUserDateTimeFormat)+" WebSocketFrameHandler initialized");
     }
 
     @Override
@@ -36,6 +40,6 @@ public class WebSocketFrameHandler extends SimpleChannelInboundHandler<WebSocket
             String message = "unsupported frame type:" + frame.getClass().getTypeName();
             throw new UnsupportedOperationException(message);
         }
-
     }
+
 }

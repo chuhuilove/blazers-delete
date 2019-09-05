@@ -67,6 +67,7 @@ public class RemoteExecuteAwk {
         cyziSession.setPassword("cyzi");
         Properties config = new Properties();
         config.put("StrictHostKeyChecking", "no");
+        //
         config.put("PreferredAuthentications","password");
         cyziSession.setConfig(config);
         System.err.println(LocalDateTime.now()+" session invoke connect start");

@@ -11,9 +11,12 @@ import io.netty.handler.logging.LoggingHandler;
 /**
  * WebSocketServer
  *
+ * 基于Netty的websocket示例.改编自Netty example
+ *
+ *
  * @author: cyzi
  * @Date: 2019/9/3 0003
- * @Description: Netty 官方示例 websocket 服务
+ * @Description:
  */
 public class WebSocketServer {
 

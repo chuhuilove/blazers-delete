@@ -23,6 +23,11 @@ import static com.chuhui.blazers.commcustome.constant.Constaints.returnCurrentTi
  */
 public class WebSocketCustomeOutHandlerEn extends MessageToMessageEncoder<WebSocketFrame> {
 
+
+    public WebSocketCustomeOutHandlerEn(){
+        System.err.println(returnCurrentTimeFormated(commonlyUserDateTimeFormat) + " WebSocketCustomeOutHandlerEn initialized");
+    }
+
     @Override
     protected void encode(ChannelHandlerContext ctx, WebSocketFrame msg, List<Object> out) throws Exception {
         System.out.println(returnCurrentTimeFormated(commonlyUserDateTimeFormat) + " WebSocketCustomeOutHandlerEn invoke encode");

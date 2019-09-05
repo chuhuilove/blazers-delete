@@ -4,7 +4,6 @@ import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelFutureListener;
 import io.netty.channel.ChannelHandlerContext;
-import io.netty.channel.ChannelPipeline;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.handler.codec.http.*;
 import io.netty.util.CharsetUtil;
@@ -14,7 +13,6 @@ import static com.chuhui.blazers.commcustome.constant.Constaints.returnCurrentTi
 import static io.netty.handler.codec.http.HttpHeaderNames.CONNECTION;
 import static io.netty.handler.codec.http.HttpHeaderNames.CONTENT_TYPE;
 import static io.netty.handler.codec.http.HttpHeaderValues.CLOSE;
-import static io.netty.handler.codec.http.HttpMethod.CONNECT;
 import static io.netty.handler.codec.http.HttpMethod.GET;
 
 /**
@@ -31,8 +29,7 @@ public class WebSocketIndexPageHandler extends SimpleChannelInboundHandler<FullH
 
     public WebSocketIndexPageHandler(String websocketPath) {
         this.websocketPath = websocketPath;
-        System.out.println(returnCurrentTimeFormated(commonlyUserDateTimeFormat) + " WebSocketIndexPageHandler initialized");
-
+        System.err.println(returnCurrentTimeFormated(commonlyUserDateTimeFormat) + " WebSocketIndexPageHandler initialized");
     }
 
     @Override

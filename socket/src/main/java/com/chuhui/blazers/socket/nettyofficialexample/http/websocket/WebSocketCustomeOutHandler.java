@@ -21,6 +21,10 @@ import static com.chuhui.blazers.commcustome.constant.Constaints.returnCurrentTi
  */
 public class WebSocketCustomeOutHandler extends ChannelOutboundHandlerAdapter {
 
+    public WebSocketCustomeOutHandler(){
+        System.err.println(returnCurrentTimeFormated(commonlyUserDateTimeFormat) + " WebSocketCustomeOutHandler initialized");
+    }
+
     @Override
     public void write(ChannelHandlerContext ctx, Object msg, ChannelPromise promise) throws Exception {
 
