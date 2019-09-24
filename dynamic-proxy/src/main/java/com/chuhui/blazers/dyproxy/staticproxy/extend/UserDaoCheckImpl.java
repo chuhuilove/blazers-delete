@@ -16,7 +16,7 @@ public class UserDaoCheckImpl extends  UserDaoImpl{
 
     @Override
     public void saveOrUpdate(String id) {
-        String format = MessageFormat.format( " Checks whether the function is executed, id:{1}", id);
+        String format = MessageFormat.format( "Checks whether the function is executed, id:{0}", id);
         System.err.println(format);
         super.saveOrUpdate(id);
     }
