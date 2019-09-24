@@ -13,7 +13,6 @@ public class DynamicProxyServiceImpl implements DynamicProxyService{
 
     @Override
     public void printParams(String param1, Integer count) {
-
         if(count>0){
             for (int i = 0; i < count; i++) {
                 System.err.println(param1+"--->"+i);

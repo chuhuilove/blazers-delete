@@ -10,6 +10,11 @@ package com.chuhui.blazers.dyproxy.dynamicproxy;
  */
 public interface DynamicProxyService {
 
+    /**
+     * 打印 param1
+     * @param param1 需要打印的字符串
+     * @param count 打印次数
+     */
     void printParams(String param1,Integer count);
 
 }

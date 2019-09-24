@@ -1,5 +1,6 @@
 package com.chuhui.blazers.dyproxy.dynamicproxy;
 
+import com.chuhui.blazers.dyproxy.dynamicproxy.util.CustomeDynamicProxy;
 import org.junit.Test;
 
 import java.lang.reflect.InvocationHandler;
@@ -27,6 +28,15 @@ public class DynamicProxyServiceTest {
     }
 
 
+    @Test
+    public void proxyGeneratorCase() {
+
+        DynamicProxyService service = (DynamicProxyService) CustomeDynamicProxy.proxyGenerator(new DynamicProxyServiceImpl());
+
+        service.printParams("cyzi", 10);
+    }
+
+
     static DynamicProxyService generator(final DynamicProxyServiceImpl impl) {
 
         Object o = Proxy.newProxyInstance(impl.getClass().getClassLoader(), impl.getClass().getInterfaces(), new InvocationHandler() {
@@ -42,7 +52,6 @@ public class DynamicProxyServiceTest {
         });
 
         return (DynamicProxyService) o;
-
     }
 
 
