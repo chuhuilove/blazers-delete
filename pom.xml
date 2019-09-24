@@ -23,12 +23,14 @@
         <module>javaagent</module>
         <module>socket</module>
         <module>commcustome</module>
+        <module>dynamic-proxy</module>
     </modules>
 
     <properties>
 
         <mysql.driver.version>5.1.35</mysql.driver.version>
         <junit.version>4.12</junit.version>
+        <hamcrest-core.version>1.3</hamcrest-core.version>
         <asm.version>5.0.3</asm.version>
         <cglib.version>3.2.10</cglib.version>
         <druid.version>1.1.16</druid.version>
@@ -44,8 +46,17 @@
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>${junit.version}</version>
-
+            <scope>test</scope>
         </dependency>
+
+        <dependency>
+            <groupId>org.hamcrest</groupId>
+            <artifactId>hamcrest-core</artifactId>
+            <version>${hamcrest-core.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+
         <!--mysql-->
         <dependency>
             <groupId>mysql</groupId>
