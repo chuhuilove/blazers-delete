@@ -21,7 +21,7 @@ import java.net.URLClassLoader;
  * @author: 纯阳子
  * @date: 2019/9/24
  */
-public class CustomDynamicProxyVersion1 {
+public class CustomDynamicProxyVersion2 {
 
     /**
      * 换行符
