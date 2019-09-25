@@ -24,6 +24,7 @@
         <module>socket</module>
         <module>commcustome</module>
         <module>dynamic-proxy</module>
+        <module>custom-spring</module>
     </modules>
 
     <properties>
