@@ -1,5 +1,9 @@
 package com.chuhui.blazers.dyproxy.dynamicproxy;
 
+import com.chuhui.blazers.dyproxy.dynamicproxy.util.CustomeInvokeHandler;
+
+import java.lang.reflect.Method;
+
 /**
  * CustomDynamicProxyServiceImpl
  * <p>
@@ -12,17 +16,22 @@ package com.chuhui.blazers.dyproxy.dynamicproxy;
 
 public class CustomDynamicProxyServiceImpl implements DynamicProxyService {
     private DynamicProxyService service;
+    private CustomeInvokeHandler handler;
 
-    public CustomDynamicProxyServiceImpl(DynamicProxyService service) {
+    public CustomDynamicProxyServiceImpl(DynamicProxyService service, CustomeInvokeHandler handler) {
         this.service = service;
+        this.handler = handler;
     }
 
     @Override
-    public void printParams(String param1, Integer count) {
-        if (count <= 0) {
-            count = 5;
+    public void printParams(String arg0, Integer arg1) {
+        try {
+
+            Method method = service.getClass().getDeclaredMethod("printParams", String.class, String.class);
+            handler.invoke(method, new Object[]{arg0, arg1});
+        } catch (Throwable throwable) {
+            throwable.printStackTrace();
         }
-        service.printParams(param1, count);
     }
 }
 

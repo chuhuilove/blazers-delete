@@ -1,11 +1,17 @@
 package com.chuhui.blazers.dyproxy.dynamicproxy;
 
+import com.chuhui.blazers.dyproxy.dynamicproxy.jdkdynamicproxy.JdkDynamicProxy.SubtractTen;
+import com.chuhui.blazers.dyproxy.dynamicproxy.jdkdynamicproxy.JdkDynamicProxy.SetFiveForCount;
+
 import com.chuhui.blazers.dyproxy.dynamicproxy.util.CustomDynamicProxyVersion1;
+import com.chuhui.blazers.dyproxy.dynamicproxy.util.CustomDynamicProxyVersion2;
+import com.chuhui.blazers.dyproxy.dynamicproxy.util.CustomeInvokeHandler;
 import org.junit.Test;
 
-import java.lang.reflect.InvocationHandler;
+
 import java.lang.reflect.Method;
-import java.lang.reflect.Proxy;
+
+import static com.chuhui.blazers.dyproxy.dynamicproxy.jdkdynamicproxy.JdkDynamicProxy.generator;
 
 /**
  * DynamicProxyServiceTest
@@ -19,37 +25,52 @@ public class DynamicProxyServiceTest {
 
     /**
      * 使用jdk提供的动态代理
-     * 拦截printParams方法,判断第二个参数,如果第二个参数小于或等于0,则将其重新赋值为5
+     * 拦截printParams方法
      */
     @Test
     public void userJdkDynamicProxy() {
-        DynamicProxyService service = generator(new DynamicProxyServiceImpl());
-        service.printParams("cyzi", -1);
+
+        DynamicProxyService dynamicProxyService = new DynamicProxyServiceImpl();
+
+        DynamicProxyService setFiveForCountService = generator(dynamicProxyService, new SetFiveForCount(dynamicProxyService));
+        setFiveForCountService.printParams("cyzi", -1);
+//        DynamicProxyService subtractTenService = generator(dynamicProxyService, new SubtractTen(dynamicProxyService));
+//        subtractTenService.printParams("cyzi", 100);
+
     }
 
 
     @Test
-    public void proxyGeneratorCase() {
+    public void proxyGenerator1Case() {
         DynamicProxyService service = (DynamicProxyService) CustomDynamicProxyVersion1.proxyGenerator(new DynamicProxyServiceImpl());
         service.printParams("cyzi", 10);
     }
 
+    @Test
+    public void proxyGenerator2Case() {
 
-    static DynamicProxyService generator(final DynamicProxyServiceImpl impl) {
+        DynamicProxyService dynamicProxyService = new DynamicProxyServiceImpl();
 
-        Object o = Proxy.newProxyInstance(impl.getClass().getClassLoader(), impl.getClass().getInterfaces(), new InvocationHandler() {
-            @Override
-            public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+        DynamicProxyService service = (DynamicProxyService) CustomDynamicProxyVersion2
+                .proxyGenerator(dynamicProxyService, new CutomeInvokeHandlerImpl(dynamicProxyService));
 
-                Integer secondArg = (Integer) args[1];
-                if (secondArg <= 0) {
-                    args[1] = 5;
-                }
-                return method.invoke(impl, args);
-            }
-        });
+        service.printParams("cyzi", 10);
+    }
 
-        return (DynamicProxyService) o;
+    static class CutomeInvokeHandlerImpl implements CustomeInvokeHandler {
+
+        private Object target;
+
+        public CutomeInvokeHandlerImpl(Object target) {
+            this.target = target;
+        }
+
+
+        @Override
+        public Object invoke(Method method, Object[] args) throws Throwable {
+            System.err.println("自己的逻辑");
+            return method.invoke(target, args);
+        }
     }
 
 

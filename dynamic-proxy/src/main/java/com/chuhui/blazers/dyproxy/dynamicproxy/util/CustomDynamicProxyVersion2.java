@@ -43,7 +43,7 @@ public class CustomDynamicProxyVersion2 {
     static final String JAVA_FILENAME = "D:\\com\\chuhui\\" + PROXY_CLASS_NAME + ".java";
 
 
-    static public Object proxyGenerator(Object target) {
+    static public Object proxyGenerator(Object target, CustomeInvokeHandler handler) {
 
         /**
          * 0. 因为我们的的目标对象只实现了一个接口,所以这里只取第一个接口
@@ -58,14 +58,20 @@ public class CustomDynamicProxyVersion2 {
          */
         String packageName = "package com.chuhui;" + LINE_SEP;
         String importPackage = "import " + clazz.getName() + ";" + LINE_SEP;
+        String importPackage2 = "import " + CustomeInvokeHandler.class.getName() + ";" + LINE_SEP;
+        String importPackage3 = "import java.lang.reflect.Method;" + LINE_SEP+LINE_SEP;
+
         String declareClass = "public class " + PROXY_CLASS_NAME + " implements " + clazz.getSimpleName() + " {" + LINE_SEP;
-        String declareFiled = TABLE_SEP + "private " + clazz.getSimpleName() + " service;" + LINE_SEP + LINE_SEP;
+        String declareFiled = TABLE_SEP + "private " + clazz.getSimpleName() + " service;" + LINE_SEP;
+        String declaredFiled1 = TABLE_SEP + "private " + CustomeInvokeHandler.class.getSimpleName() + " handler;" + LINE_SEP + LINE_SEP;
 
         /**
          * 2. 生成构造函数
          */
-        String constructorMethod = TABLE_SEP + "public " + PROXY_CLASS_NAME + "(" + clazz.getSimpleName() + " service) {" + LINE_SEP
+        String constructorMethod = TABLE_SEP + "public " + PROXY_CLASS_NAME + "(" + clazz.getSimpleName() + " service,CustomeInvokeHandler handler) {" + LINE_SEP
                 + TABLE_SEP + TABLE_SEP + "this.service = service;" + LINE_SEP
+                + TABLE_SEP + TABLE_SEP + "this.handler = handler;" + LINE_SEP
+
                 + TABLE_SEP + "}" + LINE_SEP + LINE_SEP;
 
 
@@ -92,6 +98,8 @@ public class CustomDynamicProxyVersion2 {
 
             String noTypeParam = "";
 
+            String paramTypes = "";
+
             if (parameterTypes.length > 0) {
 
                 for (int i = 0; i < parameterTypes.length; i++) {
@@ -99,12 +107,14 @@ public class CustomDynamicProxyVersion2 {
                     Class<?> parameterType = parameterTypes[i];
                     methodDeclaredName.append(parameterType.getSimpleName() + " arg" + i + ",");
 
-                    noTypeParam += "arg" + i + ",";
+                    paramTypes += parameterType.getSimpleName() + ".class,";
 
+                    noTypeParam += "arg" + i + ",";
                 }
 
                 methodDeclaredName.deleteCharAt(methodDeclaredName.length() - 1);
                 noTypeParam = noTypeParam.substring(0, noTypeParam.length() - 1);
+                paramTypes = paramTypes.substring(0, paramTypes.length() - 1);
             }
             methodDeclaredName.append("){" + LINE_SEP + LINE_SEP);
 
@@ -113,22 +123,21 @@ public class CustomDynamicProxyVersion2 {
              *
              * 注意:这里属于我们自己要完成的逻辑,和目标对象无关
              *
-             * 这里属于内嵌的逻辑,从另一个角度而言,亦属于硬编码,在第二版内,着重修改这一点
-             *
              */
-            if ("printParams".equals(methodName)) {
-                // 拦截具体的方法名称
 
-                String condi = TABLE_SEP + TABLE_SEP + "if(arg1<=0){" + LINE_SEP
-                        + TABLE_SEP + TABLE_SEP + TABLE_SEP + "arg1=5;" + LINE_SEP
-                        + TABLE_SEP + TABLE_SEP + "}" + LINE_SEP;
-                methodDeclaredName.append(condi);
-            }
 
-            /**
-             * 3.3 调用目标对象的方法
-             */
-            methodDeclaredName.append(TABLE_SEP + TABLE_SEP + "this.service." + methodName + "(" + noTypeParam + ");" + LINE_SEP);
+
+            String exceptionStart = TABLE_SEP + TABLE_SEP + "try{" + LINE_SEP;
+
+            String buildMethod = TABLE_SEP + TABLE_SEP + TABLE_SEP + "Method method=service.getClass().getDeclaredMethod(\"" + methodName + "\"," + paramTypes + ");" + LINE_SEP;
+
+            String handlerMethod = TABLE_SEP + TABLE_SEP + TABLE_SEP + "handler.invoke(method,new Object[]{" + noTypeParam + "});" + LINE_SEP;
+
+            String exceptionEnd = TABLE_SEP + TABLE_SEP + "}catch(Throwable e){" + LINE_SEP
+                    + TABLE_SEP + TABLE_SEP + TABLE_SEP + "e.printStackTrace();" + LINE_SEP
+                    + TABLE_SEP + TABLE_SEP + "}" + LINE_SEP;
+
+            methodDeclaredName.append(exceptionStart).append(buildMethod).append(handlerMethod).append(exceptionEnd);
 
             methodDeclaredName.append(TABLE_SEP + "}" + LINE_SEP);
             methodBuilder.append(methodDeclaredName);
@@ -137,7 +146,7 @@ public class CustomDynamicProxyVersion2 {
 
         String lastChar = "}" + LINE_SEP;
 
-        String finalStr = packageName + importPackage + declareClass + declareFiled + constructorMethod + methodBuilder.toString() + lastChar;
+        String finalStr = packageName + importPackage + importPackage2 + importPackage3+ declareClass + declareFiled + declaredFiled1 + constructorMethod + methodBuilder.toString() + lastChar;
 
         /**
          * 4. 将生成的描述代理类的字符串写到文件中
@@ -177,7 +186,7 @@ public class CustomDynamicProxyVersion2 {
              * 2. 通过类的类对象的newInstance方法
              * 3. 通过类的类对象的getConstructor().newInstance方法
              */
-            Object constructor = aClass.getConstructor(clazz).newInstance(target);
+            Object constructor = aClass.getConstructor(clazz,CustomeInvokeHandler.class).newInstance(target,handler);
             return constructor;
 
         } catch (Exception e) {
