@@ -16,7 +16,7 @@ import java.net.URLClassLoader;
 /**
  * CustomDynamicProxyVersion1
  * <p>
- * 手写动态代理
+ * 手写动态代理 第一版
  *
  * @author: 纯阳子
  * @date: 2019/9/24
@@ -188,7 +188,7 @@ public class CustomDynamicProxyVersion1 {
     }
 
 
-    private static void writeToFile(String context) {
+     static void writeToFile(String context) {
 
         try {
             FileWriter fos = new FileWriter(JAVA_FILENAME);

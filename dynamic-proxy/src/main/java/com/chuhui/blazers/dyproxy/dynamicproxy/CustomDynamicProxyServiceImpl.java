@@ -15,11 +15,9 @@ import java.lang.reflect.Method;
 
 
 public class CustomDynamicProxyServiceImpl implements DynamicProxyService {
-    private DynamicProxyService service;
     private CustomeInvokeHandler handler;
 
-    public CustomDynamicProxyServiceImpl(DynamicProxyService service, CustomeInvokeHandler handler) {
-        this.service = service;
+    public CustomDynamicProxyServiceImpl(CustomeInvokeHandler handler) {
         this.handler = handler;
     }
 
@@ -27,7 +25,7 @@ public class CustomDynamicProxyServiceImpl implements DynamicProxyService {
     public void printParams(String arg0, Integer arg1) {
         try {
 
-            Method method = service.getClass().getDeclaredMethod("printParams", String.class, String.class);
+            Method method = DynamicProxyService.class.getClass().getDeclaredMethod("printParams", String.class, String.class);
             handler.invoke(method, new Object[]{arg0, arg1});
         } catch (Throwable throwable) {
             throwable.printStackTrace();

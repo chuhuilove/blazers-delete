@@ -1,25 +1,22 @@
 package com.chuhui.blazers.dyproxy.dynamicproxy.util;
 
-import org.apache.commons.io.IOUtils;
-
 import javax.tools.JavaCompiler;
 import javax.tools.JavaFileObject;
 import javax.tools.StandardJavaFileManager;
 import javax.tools.ToolProvider;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.lang.reflect.Method;
 import java.net.URL;
 import java.net.URLClassLoader;
 
+import static com.chuhui.blazers.dyproxy.dynamicproxy.util.CustomDynamicProxyVersion1.writeToFile;
+
 /**
- * CustomDynamicProxyVersion1
+ * CustomDynamicProxyVersion2
  * <p>
- * 手写动态代理
+ * 手写动态代理 第二版
  *
  * @author: 纯阳子
- * @date: 2019/9/24
+ * @date: 2019/9/22
  */
 public class CustomDynamicProxyVersion2 {
 
@@ -43,12 +40,7 @@ public class CustomDynamicProxyVersion2 {
     static final String JAVA_FILENAME = "D:\\com\\chuhui\\" + PROXY_CLASS_NAME + ".java";
 
 
-    static public Object proxyGenerator(Object target, CustomeInvokeHandler handler) {
-
-        /**
-         * 0. 因为我们的的目标对象只实现了一个接口,所以这里只取第一个接口
-         */
-        Class clazz = target.getClass().getInterfaces()[0];
+    static public Object proxyGenerator(Class clazz, CustomeInvokeHandler handler) {
 
         /**
          * 1. 生成一些基本信息
@@ -59,17 +51,15 @@ public class CustomDynamicProxyVersion2 {
         String packageName = "package com.chuhui;" + LINE_SEP;
         String importPackage = "import " + clazz.getName() + ";" + LINE_SEP;
         String importPackage2 = "import " + CustomeInvokeHandler.class.getName() + ";" + LINE_SEP;
-        String importPackage3 = "import java.lang.reflect.Method;" + LINE_SEP+LINE_SEP;
+        String importPackage3 = "import java.lang.reflect.Method;" + LINE_SEP + LINE_SEP;
 
         String declareClass = "public class " + PROXY_CLASS_NAME + " implements " + clazz.getSimpleName() + " {" + LINE_SEP;
-        String declareFiled = TABLE_SEP + "private " + clazz.getSimpleName() + " service;" + LINE_SEP;
         String declaredFiled1 = TABLE_SEP + "private " + CustomeInvokeHandler.class.getSimpleName() + " handler;" + LINE_SEP + LINE_SEP;
 
         /**
          * 2. 生成构造函数
          */
-        String constructorMethod = TABLE_SEP + "public " + PROXY_CLASS_NAME + "(" + clazz.getSimpleName() + " service,CustomeInvokeHandler handler) {" + LINE_SEP
-                + TABLE_SEP + TABLE_SEP + "this.service = service;" + LINE_SEP
+        String constructorMethod = TABLE_SEP + "public " + PROXY_CLASS_NAME + "(CustomeInvokeHandler handler) {" + LINE_SEP
                 + TABLE_SEP + TABLE_SEP + "this.handler = handler;" + LINE_SEP
 
                 + TABLE_SEP + "}" + LINE_SEP + LINE_SEP;
@@ -86,10 +76,9 @@ public class CustomDynamicProxyVersion2 {
 
             String overrideStr = TABLE_SEP + "@Override" + LINE_SEP;
 
-            String methodName = declaredMethod.getName();
             String returnTypeName = declaredMethod.getReturnType().getSimpleName();
+            String methodName = declaredMethod.getName();
             StringBuilder methodDeclaredName = new StringBuilder(overrideStr + TABLE_SEP + "public " + returnTypeName + " " + methodName + "(");
-
 
             /**
              * 3.1 接口的方法,可能会有参数,获取参数的类型,以及给每个参数类型后面添加一个形参
@@ -119,19 +108,26 @@ public class CustomDynamicProxyVersion2 {
             methodDeclaredName.append("){" + LINE_SEP + LINE_SEP);
 
             /**
-             * 3.2 创建方法体,这里只是拦截一个名为printParams的方法,并判断其第二个参数是否小于零.
+             * 3.2 创建方法体
              *
              * 注意:这里属于我们自己要完成的逻辑,和目标对象无关
              *
+             *  组织调用目标对象的方法.
              */
-
-
 
             String exceptionStart = TABLE_SEP + TABLE_SEP + "try{" + LINE_SEP;
 
-            String buildMethod = TABLE_SEP + TABLE_SEP + TABLE_SEP + "Method method=service.getClass().getDeclaredMethod(\"" + methodName + "\"," + paramTypes + ");" + LINE_SEP;
+            String buildMethod = TABLE_SEP + TABLE_SEP + TABLE_SEP + "Method method=" + clazz.getSimpleName() + ".class.getDeclaredMethod(\"" + methodName + "\"," + paramTypes + ");" + LINE_SEP;
 
-            String handlerMethod = TABLE_SEP + TABLE_SEP + TABLE_SEP + "handler.invoke(method,new Object[]{" + noTypeParam + "});" + LINE_SEP;
+            /**
+             * 3.3 设置返回类型
+             */
+            String returnStr="";
+            if(!void.class.getSimpleName().equals(returnTypeName)){
+                returnStr=returnTypeName+" ";
+            }
+
+            String handlerMethod = TABLE_SEP + TABLE_SEP + TABLE_SEP + returnStr+"handler.invoke(method,new Object[]{" + noTypeParam + "});" + LINE_SEP;
 
             String exceptionEnd = TABLE_SEP + TABLE_SEP + "}catch(Throwable e){" + LINE_SEP
                     + TABLE_SEP + TABLE_SEP + TABLE_SEP + "e.printStackTrace();" + LINE_SEP
@@ -143,10 +139,9 @@ public class CustomDynamicProxyVersion2 {
             methodBuilder.append(methodDeclaredName);
         }
 
-
         String lastChar = "}" + LINE_SEP;
 
-        String finalStr = packageName + importPackage + importPackage2 + importPackage3+ declareClass + declareFiled + declaredFiled1 + constructorMethod + methodBuilder.toString() + lastChar;
+        String finalStr = packageName + importPackage + importPackage2 + importPackage3 + declareClass + declaredFiled1 + constructorMethod + methodBuilder.toString() + lastChar;
 
         /**
          * 4. 将生成的描述代理类的字符串写到文件中
@@ -167,15 +162,14 @@ public class CustomDynamicProxyVersion2 {
             StandardJavaFileManager fileManager = compiler.getStandardFileManager(null, null, null);
             Iterable<? extends JavaFileObject> javaFileObjects = fileManager.getJavaFileObjects(JAVA_FILENAME);
             JavaCompiler.CompilationTask task = compiler.getTask(null, fileManager, null, null, null, javaFileObjects);
-            task.call();
             fileManager.close();
+            task.call();
 
 
             /**
              * 6. 将产生的.class文件加载到内存中
              */
-            URL[] urls = new URL[]{new URL("file:D:\\ \\\\\\")};
-            URLClassLoader classLoader = new URLClassLoader(urls);
+            URLClassLoader classLoader = new URLClassLoader(new URL[]{new URL("file:D:\\ \\\\\\")});
             Class<?> aClass = classLoader.loadClass("com.chuhui." + PROXY_CLASS_NAME);
 
             /**
@@ -186,7 +180,7 @@ public class CustomDynamicProxyVersion2 {
              * 2. 通过类的类对象的newInstance方法
              * 3. 通过类的类对象的getConstructor().newInstance方法
              */
-            Object constructor = aClass.getConstructor(clazz,CustomeInvokeHandler.class).newInstance(target,handler);
+            Object constructor = aClass.getConstructor(CustomeInvokeHandler.class).newInstance(handler);
             return constructor;
 
         } catch (Exception e) {
@@ -196,22 +190,5 @@ public class CustomDynamicProxyVersion2 {
         return null;
     }
 
-
-    private static void writeToFile(String context) {
-
-        try {
-            FileWriter fos = new FileWriter(JAVA_FILENAME);
-
-            IOUtils.write(context, fos);
-
-            fos.flush();
-            fos.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-    }
 
 }

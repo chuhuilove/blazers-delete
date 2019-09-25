@@ -48,15 +48,16 @@ public class DynamicProxyServiceTest {
 
     @Test
     public void proxyGenerator2Case() {
-
         DynamicProxyService dynamicProxyService = new DynamicProxyServiceImpl();
-
         DynamicProxyService service = (DynamicProxyService) CustomDynamicProxyVersion2
-                .proxyGenerator(dynamicProxyService, new CutomeInvokeHandlerImpl(dynamicProxyService));
+                .proxyGenerator(DynamicProxyService.class, new CutomeInvokeHandlerImpl(dynamicProxyService));
 
         service.printParams("cyzi", 10);
     }
 
+    /**
+     * CustomeInvokeHandler的实现类,这里我们可以定义自己的处理逻辑
+     */
     static class CutomeInvokeHandlerImpl implements CustomeInvokeHandler {
 
         private Object target;
@@ -64,10 +65,9 @@ public class DynamicProxyServiceTest {
         public CutomeInvokeHandlerImpl(Object target) {
             this.target = target;
         }
-
-
         @Override
         public Object invoke(Method method, Object[] args) throws Throwable {
+            System.err.println("自己的逻辑");
             System.err.println("自己的逻辑");
             return method.invoke(target, args);
         }
