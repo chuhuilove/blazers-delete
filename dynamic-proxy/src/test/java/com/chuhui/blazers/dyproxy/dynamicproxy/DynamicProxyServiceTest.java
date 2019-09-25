@@ -1,6 +1,6 @@
 package com.chuhui.blazers.dyproxy.dynamicproxy;
 
-import com.chuhui.blazers.dyproxy.dynamicproxy.util.CustomeDynamicProxy;
+import com.chuhui.blazers.dyproxy.dynamicproxy.util.CustomDynamicProxyVersion1;
 import org.junit.Test;
 
 import java.lang.reflect.InvocationHandler;
@@ -30,9 +30,7 @@ public class DynamicProxyServiceTest {
 
     @Test
     public void proxyGeneratorCase() {
-
-        DynamicProxyService service = (DynamicProxyService) CustomeDynamicProxy.proxyGenerator(new DynamicProxyServiceImpl());
-
+        DynamicProxyService service = (DynamicProxyService) CustomDynamicProxyVersion1.proxyGenerator(new DynamicProxyServiceImpl());
         service.printParams("cyzi", 10);
     }
 
