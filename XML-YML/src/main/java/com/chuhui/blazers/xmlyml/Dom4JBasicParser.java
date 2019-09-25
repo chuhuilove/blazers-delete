@@ -102,7 +102,9 @@ public class Dom4JBasicParser {
                 List attributes = mapper.attributes();
                 attributes.forEach(attr -> {
                     Attribute mappAttr = (Attribute) attr;
-                    System.err.println(mappAttr.getName() + "->" + mappAttr.getValue());  //打印每一个属性值
+
+                    //打印每一个属性值
+                    System.err.println(mappAttr.getName() + "->" + mappAttr.getValue());
 
                     if (mappAttr.getName().equals("name")) {
 

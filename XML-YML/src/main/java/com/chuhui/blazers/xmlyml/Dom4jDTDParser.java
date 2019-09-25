@@ -32,7 +32,8 @@ public class Dom4jDTDParser {
 
             try {
 
-                if (XMLValidation.testXMLFile(xmlPath, dtdPath, XMLValidation.Monde_DTD)) {//校验DTD文件和xml文件是否一致
+                //校验DTD文件和xml文件是否一致
+                if (XMLValidation.testXMLFile(xmlPath, dtdPath, XMLValidation.Monde_DTD)) {
                     document = reader.read(new File(xmlPath));
                 } else {
                     throw new RuntimeException(XML_FILE_NAME + "和" + DTD_FILE_NAME + "不匹配");
@@ -64,7 +65,8 @@ public class Dom4jDTDParser {
 
             try {
 
-                if (XMLValidation.testXMLFile(xmlPath, dtdPath, XMLValidation.Monde_DTD)) {  //校验DTD文件和xml文件是否一致
+                //校验DTD文件和xml文件是否一致
+                if (XMLValidation.testXMLFile(xmlPath, dtdPath, XMLValidation.Monde_DTD)) {
                     document = reader.read(new File(xmlPath));
                 } else {
                     throw new RuntimeException(XML_FILE_NAME + "和" + DTD_FILE_NAME + "不匹配");
