@@ -4,6 +4,12 @@
            xmlns="http://www.w3school.com.cn"
            elementFormDefault="qualified">
 
+
+
+<!--    elementFormDefault="qualified"
+        代表任何xml实例文档所使用的且在此 schema 中声明过的元素必须被命名空间限定
+-->
+
     <xs:element name="note">
         <xs:complexType>
             <xs:sequence>
@@ -14,6 +20,29 @@
             </xs:sequence>
         </xs:complexType>
     </xs:element>
+
+    <!--
+        complexType: 表示该数据类型,是一个复合类型
+        sequence: 表示该标签内的元素出现的顺序,任何一个xml文件实例都必须按照sequence中规定的顺序定义
+
+         <xs:element name="to" type="xs:string"/> 代表定义一个简易元素,该元素的类型是xs:string
+    -->
+
+    <!--
+    常用的类型:
+
+    xs:string
+    xs:decimal
+    xs:integer
+    xs:boolean
+    xs:date
+    xs:time
+
+    -->
+
+
+
+
 
 </xs:schema>
 

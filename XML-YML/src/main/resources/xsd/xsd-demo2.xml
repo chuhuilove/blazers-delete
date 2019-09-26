@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsd="http://www.w3.org/2001/XMLSchema-instance"
+        xsd:schemaLocation="http://www.springframework.org/schema/beans xsd-demo2.xsd">
+
+
+<!--    <beans xmlns="http://www.springframework.org/schema/beans"-->
+<!--           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"-->
+<!--           xsi:schemaLocation="http://www.springframework.org/schema/beans-->
+<!--        http://www.springframework.org/schema/beans/spring-beans-4.1.xsd">-->
+<!--        ————————————————-->
+<!--        版权声明：本文为CSDN博主「simon-zhao」的原创文章，遵循 CC 4.0 BY-SA 版权协议，转载请附上原文出处链接及本声明。-->
+<!--        原文链接：https://blog.csdn.net/u010902721/article/details/51649715-->
+
+</beans>
