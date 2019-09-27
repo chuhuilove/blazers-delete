@@ -25,6 +25,7 @@
         <module>commcustome</module>
         <module>dynamic-proxy</module>
         <module>custom-spring</module>
+        <module>copyfile</module>
     </modules>
 
     <properties>
