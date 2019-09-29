@@ -4,6 +4,8 @@ import com.chuhui.blazers.algorithm.loadbbalancing.DataUtils;
 
 import java.util.List;
 
+import static com.chuhui.blazers.algorithm.loadbbalancing.DataUtils.INVOKE_NUM;
+
 /**
  * random
  *
@@ -13,24 +15,15 @@ import java.util.List;
  */
 public class Random {
 
-
     public static void main(String[] args) {
 
-        List<String> ipList = DataUtils.IP_LIST;
-
-
-
-
-
-
+        for (int i = 0; i < INVOKE_NUM; i++) {
+            System.err.println(getIp(DataUtils.IP_LIST));
+        }
     }
 
-
-    static String getIp(List<String>lists){
+    static String getIp(List<String> lists) {
         return lists.get(new java.util.Random().nextInt(lists.size()));
     }
-
-
-
 
 }
