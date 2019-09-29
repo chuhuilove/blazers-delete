@@ -17,7 +17,6 @@ public class DataUtils {
     final public static List<String> IP_LIST = new ArrayList<>();
     final  public static List<WeightIp> WEIGHT_IPS=new ArrayList<>();
 
-    final  public static List<WeightIp> SAME_WEIGHT_IPS=new ArrayList<>();
 
     final public static int INVOKE_NUM = 10;
 
@@ -39,17 +38,7 @@ public class DataUtils {
             WEIGHT_IPS.add(new WeightIp("B",3));
             WEIGHT_IPS.add(new WeightIp("C",5));
         }
-        {
-            /**
-             *初始化SAME_WEIGHT_IPS
-             */
-            SAME_WEIGHT_IPS.add(new WeightIp("A",5));
-            SAME_WEIGHT_IPS.add(new WeightIp("B",5));
-            SAME_WEIGHT_IPS.add(new WeightIp("C",5));
-            SAME_WEIGHT_IPS.add(new WeightIp("D",5));
-            SAME_WEIGHT_IPS.add(new WeightIp("E",5));
 
-        }
     }
 
     public static class WeightIp {
