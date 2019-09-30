@@ -51,9 +51,28 @@ public class DataUtils {
          */
         private int weight;
 
+        /**
+         * 虚拟权重,在轮询算法中的平滑算法中能使用的到
+         */
+        private int virtualWeight=0;
+
         public WeightIp(String ip, int weight) {
             this.ip = ip;
             this.weight = weight;
+        }
+
+        public WeightIp(String ip, int weight, int virtualWeight) {
+            this.ip = ip;
+            this.weight = weight;
+            this.virtualWeight = virtualWeight;
+        }
+
+        public int getVirtualWeight() {
+            return virtualWeight;
+        }
+
+        public void setVirtualWeight(int virtualWeight) {
+            this.virtualWeight = virtualWeight;
         }
 
         public String getIp() {
@@ -74,13 +93,9 @@ public class DataUtils {
     }
 
 
-    public static void main(String[] args) {
-        int i=10;
-        int b=10;
 
-        System.err.println(i^b);
 
-    }
+
 
 
 }

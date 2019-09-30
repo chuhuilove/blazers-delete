@@ -30,6 +30,7 @@
         </dependency>
 
 
+        <!--添加日志组件(logback) start-->
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId> logback-core </artifactId>
@@ -68,6 +69,7 @@
             <version>1.7.13</version>
         </dependency>
 
+        <!--添加日志组件(logback) end-->
 
 
     </dependencies>

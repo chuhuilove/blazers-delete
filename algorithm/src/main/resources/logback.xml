@@ -20,6 +20,7 @@
     <root level="INFO">
 
         <appender class="ch.qos.logback.core.rolling.RollingFileAppender">
+            <!--日志输出位置-->
             <file>sequence.log</file>
             <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
                 <FileNamePattern>/logs/chaosblade/chaosblade_cplus.log.%d{yyyy-MM-dd}</FileNamePattern>

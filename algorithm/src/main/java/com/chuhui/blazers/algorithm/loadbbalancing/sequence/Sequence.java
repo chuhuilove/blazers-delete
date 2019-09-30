@@ -1,20 +1,9 @@
 package com.chuhui.blazers.algorithm.loadbbalancing.sequence;
 
-import com.chuhui.blazers.commcustome.CustomerThreadFactory;
-
-import java.text.MessageFormat;
-import java.util.concurrent.ArrayBlockingQueue;
-import java.util.concurrent.ThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.atomic.AtomicInteger;
-import java.util.concurrent.atomic.AtomicIntegerFieldUpdater;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
-import java.util.stream.IntStream;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
+import static com.chuhui.blazers.algorithm.loadbbalancing.DataUtils.INVOKE_NUM;
 import static com.chuhui.blazers.algorithm.loadbbalancing.DataUtils.IP_LIST;
 
 /**
@@ -27,77 +16,33 @@ import static com.chuhui.blazers.algorithm.loadbbalancing.DataUtils.IP_LIST;
  * @Description:TODO
  */
 public class Sequence {
-    private static final Logger logger = LoggerFactory.getLogger(Sequence.class);
 
+    private static Integer indexPos = 0;
 
-    private Lock lock = new ReentrantLock();
-
-    private AtomicInteger index = new AtomicInteger(0);
-
-
-    private AtomicIntegerFieldUpdater<Sequence> filedUpdate = AtomicIntegerFieldUpdater.newUpdater(Sequence.class, "newIndex");
-
-
-    private volatile int newIndex = 0;
-
+    private static Lock lock = new ReentrantLock();
 
     public static void main(String[] args) {
 
 
-        ThreadPoolExecutor executor = new ThreadPoolExecutor(5, 10, 0L,
-                TimeUnit.SECONDS, new ArrayBlockingQueue<>(10), new CustomerThreadFactory("load balancing sequence-"));
-
-
-        final Sequence sequence = new Sequence();
-
-        for (int i = 0; i < 5; i++) {
-
-            executor.execute(() -> {
-                while (true) {
-                    IntStream.rangeClosed(1, 104).forEach(e -> logger.info(Thread.currentThread().getName()+"--->" + sequence.getServer()));
-                }
-            });
+        for (int i = 0; i < INVOKE_NUM; i++) {
+            System.err.println(getServer());
         }
-
-        executor.shutdown();
-        while (executor.isTerminating()) {
-
-        }
-
-        System.err.println("========================================");
-        System.err.println("========================================");
-
     }
 
 
-    String getServer() {
+    static String getServer() {
 
         lock.lock();
         try {
 
-            // 多个线程之间切换的时候,会出现问题
-
-//            int currentIndex = filedUpdate.get(this);
-//
-//            if (currentIndex == IP_LIST.size()) {
-//                filedUpdate.set(this, 0);
-//            }
-//
-//            String ip = IP_LIST.get(filedUpdate.getAndIncrement(this));
-//
-
-
-            int currentIndex = index.get();
-            if (currentIndex == IP_LIST.size()) {
-                index.set(0);
+            if (indexPos == IP_LIST.size()) {
+                indexPos = 0;
             }
-            String ip = IP_LIST.get(index.getAndIncrement());
 
+            String ip = IP_LIST.get(indexPos++);
             return ip;
         } finally {
             lock.unlock();
         }
-
     }
-
 }

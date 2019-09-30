@@ -54,7 +54,7 @@ public class WeightRandom {
     }
 
 
-    static int getWeightSum() {
+   public static int getWeightSum() {
         return WEIGHT_IPS.stream().mapToInt(e -> e.getWeight()).reduce(0, (a, b) -> a + b);
     }
 
@@ -63,7 +63,7 @@ public class WeightRandom {
      *
      * @return
      */
-    static boolean checkSame() {
+   public static boolean checkSame() {
         return WEIGHT_IPS.stream().mapToInt(e -> e.getWeight()).reduce(WEIGHT_IPS.get(0).getWeight(), (a, b) -> a ^ b) == 0;
     }
 
