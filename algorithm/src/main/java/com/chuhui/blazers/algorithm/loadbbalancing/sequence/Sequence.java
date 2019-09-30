@@ -2,15 +2,19 @@ package com.chuhui.blazers.algorithm.loadbbalancing.sequence;
 
 import com.chuhui.blazers.commcustome.CustomerThreadFactory;
 
+import java.text.MessageFormat;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicIntegerFieldUpdater;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 import java.util.stream.IntStream;
 
-import static com.chuhui.blazers.algorithm.loadbbalancing.DataUtils.INVOKE_NUM;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import static com.chuhui.blazers.algorithm.loadbbalancing.DataUtils.IP_LIST;
 
 /**
@@ -23,11 +27,16 @@ import static com.chuhui.blazers.algorithm.loadbbalancing.DataUtils.IP_LIST;
  * @Description:TODO
  */
 public class Sequence {
+    private static final Logger logger = LoggerFactory.getLogger(Sequence.class);
 
 
     private Lock lock = new ReentrantLock();
 
     private AtomicInteger index = new AtomicInteger(0);
+
+
+    private AtomicIntegerFieldUpdater<Sequence> filedUpdate = AtomicIntegerFieldUpdater.newUpdater(Sequence.class, "newIndex");
+
 
     private volatile int newIndex = 0;
 
@@ -44,9 +53,9 @@ public class Sequence {
         for (int i = 0; i < 5; i++) {
 
             executor.execute(() -> {
-
-                IntStream.rangeClosed(1, 111).forEach(e ->
-                        System.err.println(Thread.currentThread().getName() + "--->" + sequence.getServer()));
+                while (true) {
+                    IntStream.rangeClosed(1, 104).forEach(e -> logger.info(Thread.currentThread().getName()+"--->" + sequence.getServer()));
+                }
             });
         }
 
@@ -68,7 +77,18 @@ public class Sequence {
 
             // 多个线程之间切换的时候,会出现问题
 
-            if (index.get() == IP_LIST.size()) {
+//            int currentIndex = filedUpdate.get(this);
+//
+//            if (currentIndex == IP_LIST.size()) {
+//                filedUpdate.set(this, 0);
+//            }
+//
+//            String ip = IP_LIST.get(filedUpdate.getAndIncrement(this));
+//
+
+
+            int currentIndex = index.get();
+            if (currentIndex == IP_LIST.size()) {
                 index.set(0);
             }
             String ip = IP_LIST.get(index.getAndIncrement());
