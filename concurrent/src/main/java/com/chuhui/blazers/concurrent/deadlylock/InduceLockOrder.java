@@ -33,9 +33,10 @@ public class InduceLockOrder {
                               final DollarAmount amount) {
         class Helper {
             public void transfer() {
-                if (fromAcct.getBalance().compareTo(amount) < 0)
+                if (fromAcct.getBalance().compareTo(amount) < 0) {
+
                     throw new RuntimeException("账户余额不足,无法转账");
-                else {
+                } else {
                     fromAcct.debit(amount);
                     toAcct.credit(amount);
                 }
@@ -101,6 +102,7 @@ public class InduceLockOrder {
 
     /**
      * 线程安全 一些线程执行从fromAccount转到toAccount 1元,一些线程执行从toAccount转到fromAccount 1元.
+     *
      * @param induceLockOrder
      * @param fromAccount
      * @param toAccount
@@ -108,13 +110,13 @@ public class InduceLockOrder {
     static void threadSafety(InduceLockOrder induceLockOrder, Account fromAccount, Account toAccount) {
         final DollarAmount fromTo = new DollarAmount(1);
 
-        List<Thread> threads = IntStream.rangeClosed(1, Runtime.getRuntime().availableProcessors()<<2)
+        List<Thread> threads = IntStream.rangeClosed(1, Runtime.getRuntime().availableProcessors() << 2)
                 .mapToObj(e -> new Thread(() -> induceLockOrder.transferMoney(fromAccount, toAccount, fromTo)))
                 .collect(Collectors.toList());
 
         final DollarAmount toFrom = new DollarAmount(1);
 
-        List<Thread> toThreads = IntStream.rangeClosed(1, Runtime.getRuntime().availableProcessors()<<2)
+        List<Thread> toThreads = IntStream.rangeClosed(1, Runtime.getRuntime().availableProcessors() << 2)
                 .mapToObj(e -> new Thread(() -> induceLockOrder.transferMoney(toAccount, fromAccount, toFrom)))
                 .collect(Collectors.toList());
 

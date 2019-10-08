@@ -1,7 +1,5 @@
 package com.chuhui.blazers.concurrent.threadcommunicate;
 
-import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;

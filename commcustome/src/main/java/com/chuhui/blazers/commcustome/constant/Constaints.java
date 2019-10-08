@@ -33,4 +33,8 @@ public class Constaints {
         return LocalDateTime.now().format(format);
     }
 
+
+    public static final String CUSTOME_STR="cyzi";
+
+
 }

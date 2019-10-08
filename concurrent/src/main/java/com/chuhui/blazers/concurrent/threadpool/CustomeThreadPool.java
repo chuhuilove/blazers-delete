@@ -1,10 +1,8 @@
 package com.chuhui.blazers.concurrent.threadpool;
 
-import org.omg.PortableServer.THREAD_POLICY_ID;
-
-import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingDeque;
 
@@ -29,9 +27,9 @@ public class CustomeThreadPool {
 
     //2. 需要一个存放线程的集合
 
-    private List<Thread> works;
+    private Set<Thread> works;
 
-    //3. 需要一个工人来干活
+    //3. 需要一个码农来干活
     public static class Worker extends Thread {
 
         private CustomeThreadPool pool;
@@ -70,10 +68,15 @@ public class CustomeThreadPool {
 
     //4. 需要初始化仓库和线程集合
 
+    /**
+     * @param poolSize 线程池的大小
+     * @param taskSize 任务队列的大小
+     */
     public CustomeThreadPool(int poolSize, int taskSize) {
         this.blockingQueue = new LinkedBlockingDeque<>(taskSize);
-        works = Collections.synchronizedList(new ArrayList<>());
+        works = Collections.synchronizedSet(new HashSet<>());
 
+        // 创建码农
         for (int i = 0; i < poolSize; i++) {
             Worker worker = new Worker(this);
             worker.start();
@@ -99,10 +102,12 @@ public class CustomeThreadPool {
     //6. 需要向我们仓库放任务的方法,阻塞
 
     public void execute(Runnable task) {
-        try {
-            blockingQueue.put(task);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+        if (isWorking) {
+            try {
+                blockingQueue.put(task);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -125,4 +130,24 @@ public class CustomeThreadPool {
             }
         }
     }
+
+
+    public static void main(String[] args) {
+
+        CustomeThreadPool customeThreadPool = new CustomeThreadPool(10, 100);
+
+        for(int i=0;i<99;i++){
+
+            customeThreadPool.execute(()->{
+
+                for (int j = 0; j < 10000; j++) {
+                    System.err.println(Thread.currentThread().getName()+"----->"+j);
+                }
+            });
+        }
+
+        customeThreadPool.shutDown();
+        System.err.println("this is main");
+    }
+
 }
