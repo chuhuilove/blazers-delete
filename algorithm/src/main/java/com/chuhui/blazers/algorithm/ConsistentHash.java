@@ -21,16 +21,17 @@ public class ConsistentHash {
 
     private static SortedMap<Integer, String> virtualNodes = new TreeMap<>();
 
-    private static int VIRTUAL_NODE_COUNT = 160;
+    private static int VIRTUAL_NODE_COUNT = 200;
 
     static {
         List<String> ipList = DataUtils.IP_LIST;
 
         for (String ip : ipList) {
 
+            // 为每个真实节点添加200个虚拟节点
             for (int i = 0; i < VIRTUAL_NODE_COUNT; i++) {
 
-                int hash = getHash(ip + "cyzi" + i);
+                int hash = getHash(ip + "VIRTUAL_NODE" + i);
                 virtualNodes.put(hash, ip);
             }
         }
@@ -38,14 +39,20 @@ public class ConsistentHash {
     }
 
 
+    /**
+     * 获取字符串的hash值,从网上抄来的
+     * @param str
+     * @return
+     */
     static int getHash(String str) {
 
 
         final int p = 16777619;
         int hash = (int) 2166136261L;
 
-        for (int i = 0; i < str.length(); i++)
+        for (int i = 0; i < str.length(); i++){
             hash = (hash ^ str.charAt(i)) * p;
+        }
         hash += hash << 13;
         hash ^= hash >> 7;
         hash += hash << 3;
@@ -62,6 +69,7 @@ public class ConsistentHash {
     static String getServer(String client) {
 
         int hash = getHash(client);
+
         SortedMap<Integer, String> subMap = virtualNodes.tailMap(hash);
 
         Integer nodeIndex = subMap.firstKey();
@@ -76,13 +84,9 @@ public class ConsistentHash {
 
     public static void main(String[] args) {
 
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < VIRTUAL_NODE_COUNT; i++) {
 
             System.err.println(getServer("client" + i));
-            // 2019年10月1日14:01:55
-            // 无法集中注意力...
-
-            // 今天是10月1日,诸事皆不顺唉,
 
         }
 

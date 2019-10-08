@@ -1,5 +1,5 @@
 /**
- * 负载均衡:随机策略
+ * 负载均衡:轮询策略
  */
-package com.chuhui.blazers.algorithm.loadbbalancing.random;
+package com.chuhui.blazers.algorithm.loadbbalancing.sequence;
 
