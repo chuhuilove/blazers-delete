@@ -6,14 +6,15 @@ import java.util.stream.IntStream;
 /**
  * Created by Administrator on 2019/5/10 0010.
  */
-public class Solution {
+public class SolutionSort {
 
 
     /**
      * 349 两个数组的交集
-     * 失败了??????
-     * 2019年10月8日23:13:24
-     * 还是没有整明白题意?????
+     * <p>
+     * 2019年10月9日10:10:18
+     * 昨天提交了两次,都错了..今天一看,提交到350了
+     *
      * @param nums1 数组1
      * @param nums2 数组2
      * @return 数组1和数组2相同的元素
@@ -47,6 +48,17 @@ public class Solution {
 
         return res;
 
+    }
+
+    /**
+     * 350 两个数组的交集
+     * @param nums1 数组1
+     * @param nums2 数组2
+     * @return 数组1和数组2相同的元素
+     */
+    public static int[] intersect350(int[] nums1, int[] nums2) {
+
+        return null;
     }
 
 }

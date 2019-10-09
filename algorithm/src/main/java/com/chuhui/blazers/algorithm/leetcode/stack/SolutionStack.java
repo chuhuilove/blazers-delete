@@ -7,7 +7,7 @@ import java.util.Stack;
 /**
  * Created by Administrator on 2019/5/10 0010.
  */
-public class Solution {
+public class SolutionStack {
 
 
     /**

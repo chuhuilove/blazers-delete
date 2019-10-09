@@ -2,7 +2,7 @@ package com.chuhui.blazers.algorithm.leetcode.sort;
 
 import java.util.Arrays;
 
-import static com.chuhui.blazers.algorithm.leetcode.sort.Solution.intersection;
+import static com.chuhui.blazers.algorithm.leetcode.sort.SolutionSort.intersection;
 
 /**
  * BootstrapSort

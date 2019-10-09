@@ -7,7 +7,7 @@ package com.chuhui.blazers.algorithm.leetcode.string;
  * @Date: 2019/10/8 0008
  * @Description:TODO
  */
-public class Solution {
+public class SolutionString {
 
 
     /**

@@ -1,7 +1,7 @@
 package com.chuhui.blazers.algorithm.leetcode.stack;
 
-import static com.chuhui.blazers.algorithm.leetcode.stack.Solution.isValid;
-import static com.chuhui.blazers.algorithm.leetcode.stack.Solution.MyStack;
+import static com.chuhui.blazers.algorithm.leetcode.stack.SolutionStack.isValid;
+import static com.chuhui.blazers.algorithm.leetcode.stack.SolutionStack.MyStack;
 
 /**
  * SolutionClass

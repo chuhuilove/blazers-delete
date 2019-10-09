@@ -15,41 +15,31 @@ public class SolutionHash {
 
     /**
      * 1 两数之和
-     * @param nums 给定数组
+     *
+     * 我的解题:
+     * https://leetcode-cn.com/problems/two-sum/solution/li-yong-hashmapcun-chu-he-chai-by-chuhuilove/
+     *
+     * @param nums   给定数组
      * @param target 目标值
      * @return 返回数组
      */
-    public int[] twoSum(int[] nums, int target) {
+    static int[] twoSum(int[] nums, int target) {
 
-        int [] res=new int[2];
+        // 差,下标
+        Map<Integer, Integer> map = new HashMap<>(16);
 
-        // 差,原数字
-        Map<Integer,Integer> map=new HashMap<>();
+        for (int i = 0; i < nums.length; i++) {
 
+            int difference = target - nums[i];
 
-        for(int num:nums){
-
-            
-
-
-
-
-
-
-
-
+            if (map.containsKey(nums[i])) {
+                return new int[]{map.get(nums[i]), i};
+            } else {
+                map.put(difference, i);
+            }
         }
 
-
-
-
-
-        return res;
-
-
-
-
-
+        return null;
     }
 
 }
