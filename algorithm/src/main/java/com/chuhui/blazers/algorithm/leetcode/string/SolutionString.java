@@ -60,4 +60,25 @@ public class SolutionString {
         return builder.reverse().toString();
     }
 
+
+    /**
+     * 43  字符串相乘
+     *
+     * @param num1 非负整数字符串1
+     * @param num2 非负整数字符串2
+     * @return 两个字符串相乘的结果
+     */
+    public String multiply(String num1, String num2) {
+
+        final String zero="0";
+
+        if(zero.equals(num1)||zero.equals(num2)){
+            return zero;
+        }
+
+
+
+
+          return null;
+    }
 }

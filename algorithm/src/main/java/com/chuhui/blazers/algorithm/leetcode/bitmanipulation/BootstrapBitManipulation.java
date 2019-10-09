@@ -1,8 +1,8 @@
 package com.chuhui.blazers.algorithm.leetcode.bitmanipulation;
 
 
-import static com.chuhui.blazers.algorithm.leetcode.bitmanipulation.Solution.singleNumber136;
-import static com.chuhui.blazers.algorithm.leetcode.bitmanipulation.Solution.singleNumber137;
+import static com.chuhui.blazers.algorithm.leetcode.bitmanipulation.SolutionBitManipulation.singleNumber136;
+import static com.chuhui.blazers.algorithm.leetcode.bitmanipulation.SolutionBitManipulation.singleNumber137;
 
 /**
  * SolutionClass
