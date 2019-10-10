@@ -26,6 +26,7 @@
         <module>dynamic-proxy</module>
         <module>custom-spring</module>
         <module>copyfile</module>
+        <module>spring-source</module>
     </modules>
 
     <properties>
@@ -37,6 +38,7 @@
         <cglib.version>3.2.10</cglib.version>
         <druid.version>1.1.16</druid.version>
         <google-guava.version>27.1-jre</google-guava.version>
+        <spring-version>5.1.10.cyzi</spring-version>
 
     </properties>
 
