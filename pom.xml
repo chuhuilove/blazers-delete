@@ -26,7 +26,6 @@
         <module>dynamic-proxy</module>
         <module>custom-spring</module>
         <module>copyfile</module>
-        <module>spring-source</module>
     </modules>
 
     <properties>
@@ -50,14 +49,12 @@
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>${junit.version}</version>
-            <scope>test</scope>
         </dependency>
 
         <dependency>
             <groupId>org.hamcrest</groupId>
             <artifactId>hamcrest-core</artifactId>
             <version>${hamcrest-core.version}</version>
-            <scope>test</scope>
         </dependency>
 
 
