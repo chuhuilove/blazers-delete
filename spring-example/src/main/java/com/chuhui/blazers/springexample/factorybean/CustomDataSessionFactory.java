@@ -32,9 +32,17 @@ public class CustomDataSessionFactory {
         this.url = url;
         this.password = password;
         this.user = user;
+    }
+
+    public CustomDataSessionFactory(String url, String password, String user,List otherProperty) {
+        this.url = url;
+        this.password = password;
+        this.user = user;
+        this.otherProperty=otherProperty;
 
         // 其他属性初始化
     }
+
 
     public String getSesssion() {
         return url+password+user;
