@@ -41,6 +41,7 @@
         <spring-version>5.1.10.cyzi</spring-version>
         <mybatis-version>3.5.3-SNAPSHOT.cyzi</mybatis-version>
         <mybatis-spring.version>2.0.3-SNAPSHOT.cyzi</mybatis-spring.version>
+        <javax-servlet.version>4.0.1.cyzi</javax-servlet.version>
 
     </properties>
 
