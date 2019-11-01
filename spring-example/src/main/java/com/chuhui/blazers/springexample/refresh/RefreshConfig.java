@@ -1,18 +1,19 @@
-package com.chuhui.blazers.springexample.webmvc.config;
+package com.chuhui.blazers.springexample.refresh;
 
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * AppConfig
+ * RefreshConfig
  *
  * @author: cyzi
- * @Date: 2019/10/15 0015
+ * @Date: 2019/11/1 0001
  * @Description:TODO
  */
 @Configuration
-@ComponentScan("com.chuhui.blazers.springexample.webmvc")
-public class AppConfig {
+@ComponentScan("com.chuhui.blazers.springexample.refresh")
+public class RefreshConfig {
+
 
 
 }
