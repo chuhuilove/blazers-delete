@@ -1,0 +1,57 @@
+<DsnGroup>
+
+    <DsnInfo>
+        <ClusterAlias>cyzi115</ClusterAlias>
+        <DsnName>atd</DsnName>
+        <ManagerIp>1.1.1.1</ManagerIp>
+        <ManagerPort>6041</ManagerPort>
+        <AgentIp>1.1.1.1</AgentIp>
+        <AgentPort>11255</AgentPort>
+        <ManagerUser>cyzi</ManagerUser>
+        <ManagerPwd>cyzi</ManagerPwd>
+
+        <!--备管理节点-->
+        <OtherManagerIp>1.1.1.1</OtherManagerIp>
+        <OtherManagerPort>6041</OtherManagerPort>
+        <OtherAgentIp>1.1.1.1</OtherAgentIp>
+        <OtherAgentPort>11257</OtherAgentPort>
+        <OtherManagerUser>cyzi</OtherManagerUser>
+        <OtherManagerPwd>cyzi</OtherManagerPwd>
+        <Timing>5000</Timing>
+    </DsnInfo>
+
+    <!--DsnInfo标签下,可以配置双节点-->
+    <DsnInfo>
+        <!--全局默认刷新时间-->
+        <Timing>5000</Timing>
+        <!--ClusterAlias必须是唯一的,必须配置-->
+        <ClusterAlias>cyzi206</ClusterAlias>
+        <!--DsnName必须是唯一的,必须配置-->
+        <DsnName>atd</DsnName>
+
+        <!-- 主管理节点 -->
+        <ManagerIp>1.1.1.1</ManagerIp>
+        <!-- 主管理节点通信端口 -->
+        <ManagerPort>6040</ManagerPort>
+        <!-- 主管理节点java端ip -->
+        <AgentIp>1.1.1.1</AgentIp>
+        <!-- 主管理节点java端口 -->
+        <AgentPort>11255</AgentPort>
+
+        <!--操作系统的用户名和密码-->
+        <ManagerUser>cyzi</ManagerUser>
+        <ManagerPwd>cyzi</ManagerPwd>
+
+        <!--备管理节点,配置和主管理节点一致-->
+        <OtherManagerIp>1.1.1.1</OtherManagerIp>
+        <OtherManagerPort>6040</OtherManagerPort>
+        <OtherAgentIp>1.1.1.1</OtherAgentIp>
+        <OtherAgentPort>11257</OtherAgentPort>
+        <OtherManagerUser>cyzi</OtherManagerUser>
+        <OtherManagerPwd>cyzi</OtherManagerPwd>
+    </DsnInfo>
+
+</DsnGroup>
+
+
+

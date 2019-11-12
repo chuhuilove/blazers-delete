@@ -138,14 +138,14 @@ public class Dom4JBasicParser {
 
     public static void main(String[] args) {
 
-        Dom4JBasicParser dom4JBasicParser = new Dom4JBasicParser();
+        Dom4JBasicParser dom4jBasicParser = new Dom4JBasicParser();
 
-        Element rootElement = dom4JBasicParser.getRootElement();
+        Element rootElement = dom4jBasicParser.getRootElement();
 
-        dom4JBasicParser.printRootElementAttribute(rootElement);
+        dom4jBasicParser.printRootElementAttribute(rootElement);
 
-        dom4JBasicParser.pringMapperNode(rootElement);
-        dom4JBasicParser.prrintSettingNode(rootElement);
+        dom4jBasicParser.pringMapperNode(rootElement);
+        dom4jBasicParser.prrintSettingNode(rootElement);
 
     }
 }
