@@ -50,57 +50,68 @@ public class SearchUrl {
         String line2;
 
 
-//        Files.lines(FileSystems.getDefault().getPath("url1.txt"))
-//                .parallel()
-//                .map(e->{
-//
-//                })
-//
-
-//        BufferedReader bufferedReader = Files.newBufferedReader(FileSystems.getDefault().getPath("url.txt"));
-
-
-
-
-
-
-        while ((line1 = bufferedReader1.readLine()) != null && (line2 = bufferedReader2.readLine()) != null) {
-            writeToFile(sizeFile, line1);
-            writeToFile(sizeFile, line2);
-        }
+//        while ((line1 = bufferedReader1.readLine()) != null && (line2 = bufferedReader2.readLine()) != null) {
+//            writeToFile(sizeFile, line1);
+//            writeToFile(sizeFile, line2);
+//        }
         System.err.println("hash分流完成:" + returnCurrentTimeFormated(commonlyUserDateTimeFormat));
 
         final Map<Integer, BufferedReader> readFile = new HashMap<>(sizeFile.size());
 
 
-        sizeFile.forEach((k, v) -> {
-            try {
-                v.close();
-                readFile.put(k, Files.newBufferedReader(FileSystems.getDefault().getPath(k + "")));
+        for (int i = -30; i <= 30; i++) {
+            readFile.put(i, Files.newBufferedReader(FileSystems.getDefault().getPath(i + "")));
+        }
 
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        });
+//
+//        sizeFile.forEach((k, v) -> {
+//            try {
+//                v.close();
+//                readFile.put(k, Files.newBufferedReader(FileSystems.getDefault().getPath(k + "")));
+//
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//        });
 
 
-        readFile.forEach((key, value) -> {
-            Set<String> str = new HashSet<>();
-            try {
-                String line = value.readLine();
-                while (!StringUtils.isEmpty(line)) {
-                    if (str.contains(line)) {
-                        System.err.println(line);
-                    } else {
-                        str.add(line);
-                    }
-                    line = value.readLine();
+        for (Map.Entry<Integer, BufferedReader> entry : readFile.entrySet()) {
+            BufferedReader reader = entry.getValue();
+
+
+            System.err.println("key:"+entry.getKey());
+
+            Set<String> strs = new HashSet<>();
+
+            String line = reader.readLine();
+            while (!StringUtils.isEmpty(line)) {
+                if (strs.contains(line)) {
+                    System.err.println(line);
+                } else {
+                    strs.add(line);
                 }
-
-            } catch (IOException e) {
-                e.printStackTrace();
+                line = reader.readLine();
             }
-        });
+            strs.clear();
+        }
+//
+//        readFile.forEach((key, value) -> {
+//            Set<String> str = new HashSet<>();
+//            try {
+//                String line = value.readLine();
+//                while (!StringUtils.isEmpty(line)) {
+//                    if (str.contains(line)) {
+//                        System.err.println(line);
+//                    } else {
+//                        str.add(line);
+//                    }
+//                    line = value.readLine();
+//                }
+//
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//        });
 
 
         System.err.println("end:" + returnCurrentTimeFormated(commonlyUserDateTimeFormat));
