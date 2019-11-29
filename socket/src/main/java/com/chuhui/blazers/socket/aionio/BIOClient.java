@@ -31,6 +31,11 @@ public class BIOClient {
         sendBigDataPackage(socket);
     }
 
+    /**
+     * 客户端和服务端一问一答的模式下,不会出现粘包与拆包的情况示例
+     * @param socket
+     * @throws IOException
+     */
     static void sendBigDataPackage(Socket socket) throws IOException {
 
 
@@ -66,6 +71,10 @@ public class BIOClient {
             }
         }
     }
+
+
+
+
 
     /**
      * 可以正常的和服务端的handlerData函数进行交互

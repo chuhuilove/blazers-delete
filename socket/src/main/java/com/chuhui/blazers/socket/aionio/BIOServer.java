@@ -57,6 +57,12 @@ public class BIOServer {
     }
 
 
+    /**
+     * 客户端与服务端一问一答的情况下,不会出现粘包与拆包
+     * 其实,模型还可以继续改造...
+     * @param socket
+     * @throws IOException
+     */
     static void handlerDataWithSticky(Socket socket) throws IOException {
 
         while (true) {
@@ -75,7 +81,6 @@ public class BIOServer {
 
                 bufferedOutputStream.write(responseStr.getBytes());
                 bufferedOutputStream.flush();
-
             }
         }
     }
