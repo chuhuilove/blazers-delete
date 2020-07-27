@@ -1,6 +1,6 @@
 main:
-  sourcePath: C:\Users\Administrator\.m2\repository\org\springframework # idea 运行install后产生spring-framework pom的路径(请自定更改)
-  targetPath: G:\mvnrepos\org\springframework # 本地存放spring-framework的maven仓库路径(请自行更改)
+  sourcePath: /Users/yunchu/.m2/repository/org/springframework # idea 运行install后产生spring-framework pom的路径(请自定更改)
+  targetPath: /Users/yunchu/opensoftware/MavenRespository/org/springframework # 本地存放spring-framework的maven仓库路径(请自行更改)
   version: 5.1.10.cyzi # spring-framework的版本
   deleteSource: true # 是否删除sourcePath下产生的spring-aop,spring-beans等文件夹
   deleteSourcePath: true # 是否将gradle在用户目录下产生的文件夹删除,以某一个文件夹为根目录,逐层删除

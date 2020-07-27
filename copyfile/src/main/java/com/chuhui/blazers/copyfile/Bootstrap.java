@@ -6,6 +6,8 @@ import org.yaml.snakeyaml.Yaml;
 import java.io.File;
 import java.io.FilenameFilter;
 import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 /**
  * Bootstrap
@@ -77,7 +79,7 @@ public class Bootstrap {
                     copyFile(sourceChildFile, deleteDirectory);
                 } else {
                     // 如果版本一致的目录不存在
-                    File targetDirectory = new File(targetFile.getAbsolutePath() + "\\" + config.getMain().getVersion());
+                    File targetDirectory = new File(targetFile.getAbsolutePath() + File.separatorChar + config.getMain().getVersion());
                     if (!targetDirectory.exists()) {
                         targetDirectory.mkdir();
                     }
@@ -85,7 +87,7 @@ public class Bootstrap {
                 }
             } else {
                 // spring-aop这种级别的文件夹不存在
-                String createPath = config.getMain().getTargetPath() + "\\" + sourceChildFile.getName() + "\\" + config.getMain().getVersion();
+                String createPath = config.getMain().getTargetPath() + File.separatorChar + sourceChildFile.getName() + File.separatorChar + config.getMain().getVersion();
                 File file = new File(createPath);
                 if (!file.exists()) {
                     file.mkdirs();
@@ -174,9 +176,9 @@ public class Bootstrap {
 
                         for (File file1 : files1) {
 
-                            String[] split = file1.getAbsolutePath().split("\\\\");
+                            String[] split = file1.getAbsolutePath().split(File.separatorChar+"");
                             String fileName = split[split.length - 1];
-                            file1.renameTo(new File(targetAbsolutePath + "\\" + fileName));
+                            file1.renameTo(new File(targetAbsolutePath + File.separatorChar+ fileName));
 
                         }
                     }
